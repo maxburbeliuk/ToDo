@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { NOTFOUND_ROUTES } from './notFoundRoutes'
+import { NOTFOUND_ROUTES } from './servicesRoutes'
 const NotFoundRoutes = () => {
   return (
     <Routes>
