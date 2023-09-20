@@ -1,5 +1,5 @@
 const AUTH_PATHS = {
-  LOGIN: '/login'
+  LOGIN: 'login'
 }
 
 export default AUTH_PATHS
