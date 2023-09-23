@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import { APP_ROUTES } from './appRoutes'
+import APP_ROUTES from './appRoutes'
 
 const AppNavigator = () => {
   return (

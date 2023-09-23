@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import { AUTH_ROUTES } from './authRoutes'
+import AUTH_ROUTES from './authRoutes'
 
 const AuthNavigator = () => {
   return (
