@@ -1,7 +1,7 @@
 import { useDisclosure } from '@mantine/hooks'
 import { AppShell, Burger, Group, Skeleton } from '@mantine/core'
 
-const AppShellWrapper = ({ children }) => {
+const AppShellElements = ({ children }) => {
   const [opened, { toggle }] = useDisclosure()
 
   return (
@@ -37,4 +37,4 @@ const AppShellWrapper = ({ children }) => {
   )
 }
 
-export default AppShellWrapper
+export default AppShellElements

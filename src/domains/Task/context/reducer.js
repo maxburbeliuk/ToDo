@@ -1,5 +1,4 @@
 import { TASK_CONTEXT_ACTIONS } from './__constants__'
-
 const reducer = (state, action) => {
   switch (action.type) {
     case TASK_CONTEXT_ACTIONS.CREATE_TASK: {
@@ -19,7 +18,7 @@ const reducer = (state, action) => {
       }
     }
     default: {
-      throw new Error(`Unhandled action type: ${action.type}`)
+      throw new Error(`Invalid action type: ${action.type}`)
     }
   }
 }

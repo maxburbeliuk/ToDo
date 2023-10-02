@@ -1,3 +1,1 @@
-import ServiceRoutes from './ServicesNavigator'
-
-export default ServiceRoutes
+export { default as ServicesNavigator } from './ServicesNavigator'
