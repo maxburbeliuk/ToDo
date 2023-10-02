@@ -12,6 +12,15 @@ const TaskSimpleView = (props) => {
   const [checked, setChecked] = useState(false)
 
   const handleDone = (event) => setChecked(event.currentTarget.checked)
+
+  const handleEditTask = () => {
+    taskDispatch({
+      type: TASK_CONTEXT_ACTIONS.EDIT_TASK,
+      payload: {
+        task: { text, description }
+      }
+    })
+  }
   const handleDeleteTask = () => {
     taskDispatch({
       type: TASK_CONTEXT_ACTIONS.DELETE_TASK,
@@ -41,7 +50,11 @@ const TaskSimpleView = (props) => {
           label={checked ? 'Mark done' : 'Mark todo'}
         />
         <Group gap="md">
-          <ActionIcon variant="filled" aria-label="edit">
+          <ActionIcon
+            variant="filled"
+            aria-label="edit"
+            onClick={handleEditTask}
+          >
             <IconEdit size={18} />
           </ActionIcon>
           <ActionIcon

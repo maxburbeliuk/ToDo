@@ -5,7 +5,6 @@ import { TASK_CONTEXT_ACTIONS } from '~/domains/Task/context/__constants__'
 
 const TaskSimpleForm = () => {
   const taskDispatch = useTaskDispatchContext()
-
   const form = useForm({
     initialValues: {
       text: '',
