@@ -6,7 +6,7 @@ import { AppShell } from '~/components'
 const App = () => {
   return (
     <BrowserRouter>
-      <MantineProvider defaultColorScheme="dark">
+      <MantineProvider>
         <AppShell>
           <Routes>
             <Route path="/*" element={<AppNavigator />} />
@@ -19,3 +19,4 @@ const App = () => {
   )
 }
 export default App
+// defaultColorScheme="dark"

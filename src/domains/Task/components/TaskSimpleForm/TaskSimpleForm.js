@@ -1,33 +1,42 @@
-import { TextInput, Button, Textarea, Flex, Space } from '@mantine/core'
+import {
+  TextInput,
+  Button,
+  Textarea,
+  Flex,
+  Space,
+  CloseButton,
+  VisuallyHidden
+} from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { useTaskDispatchContext } from '~/domains/Task/context'
-import { TASK_CONTEXT_ACTIONS } from '~/domains/Task/context/__constants__'
-
-const TaskSimpleForm = () => {
-  const taskDispatch = useTaskDispatchContext()
+import { useEffect, useState } from 'react'
+const TaskSimpleForm = (props) => {
+  const { onSubmit, initialValues, onCancel } = props
   const form = useForm({
     initialValues: {
       text: '',
       description: ''
+    },
+    validate: {
+      text: (value) =>
+        value.length < 1 ? 'Please write your task name ' : null,
+      description: (value) =>
+        value.length < 1 ? 'Please write your description' : null
     }
   })
-
-  const handleTaskAdd = (values) => {
-    const { text, description } = values
-    const id = new Date()
-
-    taskDispatch({
-      type: TASK_CONTEXT_ACTIONS.CREATE_TASK,
-      payload: {
-        task: { text, description, id: id.toISOString() }
-      }
-    })
-
+  const handleFormSubmit = (values) => {
+    onSubmit(values)
     form.reset()
   }
-
+  useEffect(() => {
+    if (initialValues) {
+      form.setValues({
+        text: initialValues.text,
+        description: initialValues.description
+      })
+    }
+  }, [initialValues])
   return (
-    <form onSubmit={form.onSubmit(handleTaskAdd)}>
+    <form onSubmit={form.onSubmit(handleFormSubmit)}>
       <TextInput
         withAsterisk
         label="Task text"
@@ -39,13 +48,19 @@ const TaskSimpleForm = () => {
         placeholder="Task description"
         {...form.getInputProps('description')}
       />
-
       <Space h="md" />
-      <Flex gap="md" justify="flex-end">
+      <Flex
+        mih={50}
+        gap="md"
+        justify="flex-end"
+        align="center"
+        direction="row"
+        wrap="wrap"
+      >
         <Button type="submit">Submit</Button>
+        {onCancel ? <Button onClick={onCancel}>Cancel</Button> : null}
       </Flex>
     </form>
   )
 }
-
 export default TaskSimpleForm

@@ -23,8 +23,8 @@ const reducer = (state, action) => {
       const tasks = state.tasks.map((item) =>
         item.id === task.id
           ? {
-              ...item,
-              isEditing: !item.isEditing
+              ...task,
+              isEdited: true
             }
           : item
       )
