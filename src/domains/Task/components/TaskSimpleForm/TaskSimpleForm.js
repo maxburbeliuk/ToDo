@@ -1,40 +1,11 @@
-import {
-  TextInput,
-  Button,
-  Textarea,
-  Flex,
-  Space,
-  CloseButton,
-  VisuallyHidden
-} from '@mantine/core'
-import { useForm } from '@mantine/form'
-import { useEffect, useState } from 'react'
-const TaskSimpleForm = (props) => {
-  const { onSubmit, initialValues, onCancel } = props
-  const form = useForm({
-    initialValues: {
-      text: '',
-      description: ''
-    },
-    validate: {
-      text: (value) =>
-        value.length < 1 ? 'Please write your task name ' : null,
-      description: (value) =>
-        value.length < 1 ? 'Please write your description' : null
-    }
-  })
+import { TextInput, Button, Textarea, Flex, Space } from '@mantine/core'
+import { useFormInitialValues } from '~/domains/Task/hooks/useFormIntialValues'
+const TaskSimpleForm = ({ onCancel, onSubmit }) => {
+  const { form } = useFormInitialValues({ onCancel, onSubmit })
   const handleFormSubmit = (values) => {
     onSubmit(values)
     form.reset()
   }
-  useEffect(() => {
-    if (initialValues) {
-      form.setValues({
-        text: initialValues.text,
-        description: initialValues.description
-      })
-    }
-  }, [initialValues])
   return (
     <form onSubmit={form.onSubmit(handleFormSubmit)}>
       <TextInput
@@ -54,11 +25,16 @@ const TaskSimpleForm = (props) => {
         gap="md"
         justify="flex-end"
         align="center"
+        заюхзак
         direction="row"
         wrap="wrap"
       >
         <Button type="submit">Submit</Button>
-        {onCancel ? <Button onClick={onCancel}>Cancel</Button> : null}
+        {!!onCancel ? (
+          <Button onClick={onCancel} variant="light" color="rgba(255, 0, 0, 1)">
+            Cancel
+          </Button>
+        ) : null}
       </Flex>
     </form>
   )

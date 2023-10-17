@@ -1,56 +1,33 @@
-import {
-  Badge,
-  Card,
-  Checkbox,
-  Group,
-  Text,
-  ActionIcon,
-  Button
-} from '@mantine/core'
+import { Badge, Card, Checkbox, Group, Text, ActionIcon } from '@mantine/core'
 import { useState } from 'react'
 import { IconEdit, IconTrashFilled } from '@tabler/icons-react'
-import { useTaskDispatchContext } from '~/domains/Task/context'
-import { TASK_CONTEXT_ACTIONS } from '~/domains/Task/context/__constants__'
 import TaskSimpleForm from '../TaskSimpleForm'
+import { useTaskActions } from '~/domains/Task/hooks/useTaskActions'
 
 const TaskSimpleView = (props) => {
   const { text, description, id } = props
 
-  const taskDispatch = useTaskDispatchContext()
-
   const [checked, setChecked] = useState(false)
   const [edit, setEdit] = useState(false)
-
+  const toggleEdit = () => setEdit(!edit)
   const handleDone = (event) => setChecked(event.currentTarget.checked)
 
-  const toggleEdit = () => setEdit(!edit)
+  const taskActions = useTaskActions()
 
-  const handleEditTask = (editedTask) => {
-    taskDispatch({
-      type: TASK_CONTEXT_ACTIONS.EDIT_TASK,
-      payload: {
-        task: { ...editedTask, id }
-      }
-    })
+  const computedStatus = checked ? 'Done' : 'ToDo'
+  const handleFormSubmit = (editedTask) => {
+    taskActions.handleEditTask({ editedTask, id })
     toggleEdit()
   }
 
-  const handleDeleteTask = () => {
-    taskDispatch({
-      type: TASK_CONTEXT_ACTIONS.DELETE_TASK,
-      payload: {
-        task: { id }
-      }
-    })
-  }
-
-  const computedStatus = checked ? 'Done' : 'Todo'
+  const ide = window.crypto.randomUUID()
+  console.log(ide)
 
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
       {edit ? (
         <TaskSimpleForm
-          onSubmit={handleEditTask}
+          onSubmit={handleFormSubmit}
           initialValues={{ text, description }}
           onCancel={toggleEdit}
         />
@@ -84,7 +61,7 @@ const TaskSimpleView = (props) => {
                 variant="filled"
                 aria-label="delete"
                 color="red"
-                onClick={handleDeleteTask}
+                onClick={() => taskActions.handleDeleteTask({ id })}
               >
                 <IconTrashFilled size={18} />
               </ActionIcon>
@@ -95,5 +72,4 @@ const TaskSimpleView = (props) => {
     </Card>
   )
 }
-
 export default TaskSimpleView
