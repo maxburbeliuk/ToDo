@@ -15,8 +15,8 @@ const TaskSimpleView = (props) => {
   const { handleEditTask, handleDeleteTask } = useTaskActions()
 
   const computedStatus = checked ? 'Done' : 'ToDo'
-  const handleFormSubmit = (editedTask) => {
-    handleEditTask({ editedTask, id })
+  const handleFormSubmit = (values) => {
+    handleEditTask({ ...values, id })
     toggleEdit()
   }
 
@@ -58,7 +58,7 @@ const TaskSimpleView = (props) => {
                 variant="filled"
                 aria-label="delete"
                 color="red"
-                onClick={() => handleDeleteTask({ id })}
+                onClick={() => handleDeleteTask(id)}
               >
                 <IconTrashFilled size={18} />
               </ActionIcon>

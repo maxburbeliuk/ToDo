@@ -7,19 +7,14 @@ export function useFormInitialValues(initialValues = {}) {
       text: '',
       description: ''
     },
-    transformValues: (values) => ({
-      fullName: `${values.text} ${values.description}`
+    transformValues: ({ text, description }) => ({
+      text: text?.trim(),
+      description: description?.trim()
     }),
     validate: {
       text: hasLength({ min: 1, max: 100 }, 'Task text must be filled'),
       description: isNotEmpty('Enter your description')
     }
-  })
-
-  form.getTransformedValues()
-  form.getTransformedValues({
-    text: ''.trim,
-    description: ''.trim
   })
 
   useEffect(() => {
