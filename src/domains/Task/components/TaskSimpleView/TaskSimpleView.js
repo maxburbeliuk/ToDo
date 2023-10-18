@@ -12,16 +12,13 @@ const TaskSimpleView = (props) => {
   const toggleEdit = () => setEdit(!edit)
   const handleDone = (event) => setChecked(event.currentTarget.checked)
 
-  const taskActions = useTaskActions()
+  const { handleEditTask, handleDeleteTask } = useTaskActions()
 
   const computedStatus = checked ? 'Done' : 'ToDo'
   const handleFormSubmit = (editedTask) => {
-    taskActions.handleEditTask({ editedTask, id })
+    handleEditTask({ editedTask, id })
     toggleEdit()
   }
-
-  const ide = window.crypto.randomUUID()
-  console.log(ide)
 
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -61,7 +58,7 @@ const TaskSimpleView = (props) => {
                 variant="filled"
                 aria-label="delete"
                 color="red"
-                onClick={() => taskActions.handleDeleteTask({ id })}
+                onClick={() => handleDeleteTask({ id })}
               >
                 <IconTrashFilled size={18} />
               </ActionIcon>
