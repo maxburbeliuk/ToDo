@@ -6,17 +6,16 @@ export function useTaskActions() {
   const taskDispatch = useContext(TaskDispatchContext)
 
   const handleEditTask = (props) => {
-    const { editedTask, id } = props
+    const { text, description, id } = props
     taskDispatch({
       type: TASK_CONTEXT_ACTIONS.EDIT_TASK,
       payload: {
-        task: { ...editedTask, id }
+        task: { text, description, id }
       }
     })
   }
 
-  const handleDeleteTask = (props) => {
-    const { id } = props
+  const handleDeleteTask = (id) => {
     taskDispatch({
       type: TASK_CONTEXT_ACTIONS.DELETE_TASK,
       payload: {
@@ -25,7 +24,7 @@ export function useTaskActions() {
     })
   }
 
-  const createTask = ({ text, description }) => {
+  const handleCreateTask = ({ text, description }) => {
     taskDispatch({
       type: TASK_CONTEXT_ACTIONS.CREATE_TASK,
       payload: {
@@ -34,7 +33,7 @@ export function useTaskActions() {
     })
   }
   return {
-    createTask,
+    handleCreateTask,
     handleEditTask,
     handleDeleteTask
   }
