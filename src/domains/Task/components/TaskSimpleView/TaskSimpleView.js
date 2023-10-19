@@ -1,7 +1,7 @@
 import { Badge, Card, Checkbox, Group, Text, ActionIcon } from '@mantine/core'
 import { useState } from 'react'
 import { IconEdit, IconTrashFilled } from '@tabler/icons-react'
-import TaskSimpleForm from '../TaskSimpleForm'
+import TaskSimpleForm from '~/domains/Task/components/TaskSimpleForm'
 import { useTaskActions } from '~/domains/Task/hooks/useTaskActions'
 
 const TaskSimpleView = (props) => {
@@ -15,8 +15,8 @@ const TaskSimpleView = (props) => {
   const { handleEditTask, handleDeleteTask } = useTaskActions()
 
   const computedStatus = checked ? 'Done' : 'ToDo'
-  const handleFormSubmit = (editedTask) => {
-    handleEditTask({ editedTask, id })
+  const handleFormSubmit = (taskData) => {
+    handleEditTask({ ...taskData, id })
     toggleEdit()
   }
 
@@ -32,7 +32,7 @@ const TaskSimpleView = (props) => {
         <>
           <Group justify="space-between" mt="md" mb="xs">
             <Text fw={500}>{text}</Text>
-            <Badge color="pink" variant="light">
+            <Badge color={'var(--mantine-color-pink-5)'} variant="light">
               {computedStatus}
             </Badge>
           </Group>
@@ -57,8 +57,8 @@ const TaskSimpleView = (props) => {
               <ActionIcon
                 variant="filled"
                 aria-label="delete"
-                color="red"
-                onClick={() => handleDeleteTask({ id })}
+                color={'var(--mantine-color-red-8)'}
+                onClick={() => handleDeleteTask(id)}
               >
                 <IconTrashFilled size={18} />
               </ActionIcon>

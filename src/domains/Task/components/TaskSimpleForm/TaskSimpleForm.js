@@ -26,13 +26,16 @@ const TaskSimpleForm = (props) => {
         gap="md"
         justify="flex-end"
         align="center"
-        заюхзак
         direction="row"
         wrap="wrap"
       >
         <Button type="submit">Submit</Button>
         {!!onCancel ? (
-          <Button onClick={onCancel} variant="light" color="rgba(255, 0, 0, 1)">
+          <Button
+            onClick={onCancel}
+            variant="light"
+            color={'var(--mantine-color-red-8)'}
+          >
             Cancel
           </Button>
         ) : null}
