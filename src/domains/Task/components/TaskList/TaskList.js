@@ -5,7 +5,6 @@ import { useTaskContext } from '~/domains/Task/context'
 const TaskList = () => {
   const { tasks } = useTaskContext()
 
-  console.log('tasks', tasks)
   return (
     <SimpleGrid cols={4}>
       {tasks.map((item) => (

@@ -4,8 +4,7 @@ import { Navigate } from 'react-router-dom'
 
 const { TASKS_ALL, TASKS_SHOW } = APP_PATHS
 const { NOT_FOUND } = SERVICES_PATHS
-
-const APP_ROUTES = [
+export const APP_ROUTES = [
   { key: TASKS_ALL, path: TASKS_ALL, element: <TaskAll /> },
   { key: TASKS_SHOW, path: TASKS_SHOW, element: <TaskShow /> },
   {
@@ -14,4 +13,5 @@ const APP_ROUTES = [
     element: <Navigate to={`services${NOT_FOUND}`} />
   }
 ]
+
 export default APP_ROUTES

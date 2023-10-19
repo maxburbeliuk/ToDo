@@ -1,5 +1,4 @@
 import { TASK_CONTEXT_ACTIONS } from './__constants__'
-
 const reducer = (state, action) => {
   switch (action.type) {
     case TASK_CONTEXT_ACTIONS.CREATE_TASK: {
@@ -18,8 +17,25 @@ const reducer = (state, action) => {
         tasks: tasks
       }
     }
+    case TASK_CONTEXT_ACTIONS.EDIT_TASK: {
+      const task = action.payload.task
+
+      const tasks = state.tasks.map((item) =>
+        item.id === task.id
+          ? {
+              ...task,
+              isEdited: true
+            }
+          : item
+      )
+      console.log(tasks)
+      return {
+        ...state,
+        tasks: tasks
+      }
+    }
     default: {
-      throw new Error(`Unhandled action type: ${action.type}`)
+      throw new Error(`Invalid action type: ${action.type}`)
     }
   }
 }

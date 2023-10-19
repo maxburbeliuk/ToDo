@@ -5,7 +5,6 @@ import { Navigate } from 'react-router-dom'
 
 const { LOGIN } = AUTH_PATHS
 const { NOT_FOUND } = SERVICES_PATHS
-
 const AUTH_ROUTES = [
   { key: LOGIN, path: LOGIN, element: <Login /> },
   {
