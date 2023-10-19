@@ -8,8 +8,8 @@ export function useFormInitialValues(initialValues = {}) {
       description: ''
     },
     transformValues: ({ text, description }) => ({
-      text: text.trim(),
-      description: description.trim()
+      text: text?.trim(),
+      description: description?.trim()
     }),
     validate: {
       text: hasLength({ min: 1, max: 100 }, 'Task text must be filled'),

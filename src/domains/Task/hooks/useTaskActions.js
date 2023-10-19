@@ -5,8 +5,8 @@ import * as TASK_CONTEXT_ACTIONS from '~/domains/Task/context/__constants__/task
 export function useTaskActions() {
   const taskDispatch = useContext(TaskDispatchContext)
 
-  const handleEditTask = (props) => {
-    const { text, description, id } = props
+  const handleEditTask = (taskData) => {
+    const { text, description, id } = taskData
     taskDispatch({
       type: TASK_CONTEXT_ACTIONS.EDIT_TASK,
       payload: {

@@ -17,9 +17,7 @@ const TaskSimpleView = (props) => {
   const computedStatus = checked ? 'Done' : 'ToDo'
   const handleFormSubmit = (taskData) => {
     handleEditTask({ ...taskData, id })
-    toggleEdit()
   }
-
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
       {edit ? (
