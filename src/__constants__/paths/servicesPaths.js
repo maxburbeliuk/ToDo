@@ -1,0 +1,5 @@
+const SERVICES_PATHS = {
+  NOT_FOUND: '/404',
+  INTERNAL_SERVER_ERROR: '/505'
+}
+export default SERVICES_PATHS

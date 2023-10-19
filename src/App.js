@@ -1,16 +1,19 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import AppNavigator from '~/navigators/AppNavigator'
-import AuthNavigator from '~/navigators/AuthNavigator'
 import { MantineProvider } from '@mantine/core'
+import { AppNavigator, AuthNavigator, ServicesNavigator } from '~/navigators'
+import { AppShell } from '~/components'
 
 const App = () => {
   return (
     <BrowserRouter>
       <MantineProvider>
-        <Routes>
-          <Route path="/*" element={<AppNavigator />} />
-          <Route path="auth/*" element={<AuthNavigator />} />
-        </Routes>
+        <AppShell>
+          <Routes>
+            <Route path="/*" element={<AppNavigator />} />
+            <Route path="auth/*" element={<AuthNavigator />} />
+            <Route path="services/*" element={<ServicesNavigator />} />
+          </Routes>
+        </AppShell>
       </MantineProvider>
     </BrowserRouter>
   )

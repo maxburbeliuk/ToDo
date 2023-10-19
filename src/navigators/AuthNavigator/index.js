@@ -1,3 +1,1 @@
-import AuthNavigator from './AuthNavigator'
-
-export default AuthNavigator
+export { default as AuthNavigator } from './AuthNavigator'
