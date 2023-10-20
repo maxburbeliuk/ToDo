@@ -34,6 +34,24 @@ const reducer = (state, action) => {
         tasks: tasks
       }
     }
+    case TASK_CONTEXT_ACTIONS.TO_DO: {
+      const task = action.payload.task
+
+      const tasks = state.tasks.map((item) =>
+        item.id === task.id
+          ? {
+              ...item,
+              done: false
+            }
+          : item
+      )
+
+      return {
+        ...state,
+        tasks: tasks
+      }
+    }
+
     default: {
       throw new Error(`Invalid action type: ${action.type}`)
     }

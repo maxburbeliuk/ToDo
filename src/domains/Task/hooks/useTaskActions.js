@@ -32,7 +32,19 @@ export function useTaskActions() {
       }
     })
   }
+  const handleDone = (event) => {
+    const { id } = event
+    const newStatus = !event.currentTarget.checked
+    taskDispatch({
+      type: TASK_CONTEXT_ACTIONS.TO_DO,
+      payload: {
+        task: { id, done: newStatus }
+      }
+    })
+  }
+
   return {
+    handleDone,
     handleCreateTask,
     handleEditTask,
     handleDeleteTask

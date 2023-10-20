@@ -5,19 +5,18 @@ import TaskSimpleForm from '~/domains/Task/components/TaskSimpleForm'
 import { useTaskActions } from '~/domains/Task/hooks/useTaskActions'
 
 const TaskSimpleView = (props) => {
-  const { text, description, id } = props
-
-  const [checked, setChecked] = useState(false)
+  const { text, description, id, status } = props
   const [edit, setEdit] = useState(false)
   const toggleEdit = () => setEdit(!edit)
-  const handleDone = (event) => setChecked(event.currentTarget.checked)
 
-  const { handleEditTask, handleDeleteTask } = useTaskActions()
+  const { handleEditTask, handleDeleteTask, handleDone } = useTaskActions()
 
   const computedStatus = checked ? 'Done' : 'ToDo'
   const handleFormSubmit = (taskData) => {
     handleEditTask({ ...taskData, id })
+    toggleEdit()
   }
+
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
       {edit ? (
