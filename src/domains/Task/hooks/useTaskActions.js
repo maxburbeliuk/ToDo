@@ -32,7 +32,16 @@ export function useTaskActions() {
       }
     })
   }
+  const handleDone = (taskId, currentStatus) => {
+    taskDispatch({
+      type: TASK_CONTEXT_ACTIONS.CHANGE_DONE,
+      payload: {
+        task: { id: taskId, done: !currentStatus }
+      }
+    })
+  }
   return {
+    handleDone,
     handleCreateTask,
     handleEditTask,
     handleDeleteTask
