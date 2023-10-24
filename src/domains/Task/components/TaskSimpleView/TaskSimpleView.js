@@ -5,18 +5,18 @@ import TaskSimpleForm from '~/domains/Task/components/TaskSimpleForm'
 import { useTaskActions } from '~/domains/Task/hooks/useTaskActions'
 
 const TaskSimpleView = (props) => {
-  const { text, description, id, status } = props
+  const { text, description, id, done } = props
   const [edit, setEdit] = useState(false)
   const toggleEdit = () => setEdit(!edit)
 
   const { handleEditTask, handleDeleteTask, handleDone } = useTaskActions()
 
-  const computedStatus = checked ? 'Done' : 'ToDo'
+  const computedStatus = done ? 'Done' : 'ToDo'
+
   const handleFormSubmit = (taskData) => {
     handleEditTask({ ...taskData, id })
     toggleEdit()
   }
-
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
       {edit ? (
@@ -33,15 +33,14 @@ const TaskSimpleView = (props) => {
               {computedStatus}
             </Badge>
           </Group>
-
           <Text size="sm" c="dimmed">
             {description}
           </Text>
           <Group gap="md" justify="space-between" mt="md">
             <Checkbox
-              checked={checked}
-              onChange={handleDone}
-              label={checked ? 'Mark done' : 'Mark todo'}
+              checked={done}
+              onChange={() => handleDone(id, done)}
+              label={done ? 'Mark done' : 'Mark todo'}
             />
             <Group gap="md">
               <ActionIcon
@@ -66,4 +65,5 @@ const TaskSimpleView = (props) => {
     </Card>
   )
 }
+
 export default TaskSimpleView

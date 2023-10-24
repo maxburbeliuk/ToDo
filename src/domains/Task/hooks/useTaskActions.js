@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { TaskDispatchContext } from '~/domains/Task/context'
 import * as TASK_CONTEXT_ACTIONS from '~/domains/Task/context/__constants__/taskActions'
+import { CHANGE_DONE } from '~/domains/Task/context/__constants__/taskActions'
 
 export function useTaskActions() {
   const taskDispatch = useContext(TaskDispatchContext)
@@ -32,17 +33,14 @@ export function useTaskActions() {
       }
     })
   }
-  const handleDone = (event) => {
-    const { id } = event
-    const newStatus = !event.currentTarget.checked
+  const handleDone = (taskId, currentStatus) => {
     taskDispatch({
-      type: TASK_CONTEXT_ACTIONS.TO_DO,
+      type: TASK_CONTEXT_ACTIONS.CHANGE_DONE,
       payload: {
-        task: { id, done: newStatus }
+        task: { id: taskId, done: !currentStatus }
       }
     })
   }
-
   return {
     handleDone,
     handleCreateTask,
