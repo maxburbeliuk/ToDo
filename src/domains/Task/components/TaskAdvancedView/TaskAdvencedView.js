@@ -4,6 +4,7 @@ import { useTaskActions } from '~/domains/Task/hooks/useTaskActions'
 
 const TaskAdvancedView = () => {
   const { handleCreateTask } = useTaskActions()
+
   return (
     <div>
       <Flex justify="center" flex={1}>
