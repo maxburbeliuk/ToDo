@@ -1,20 +1,32 @@
-import { TaskList, TaskSimpleForm } from '~/domains/Task'
-import { Box, Center, Flex, Space } from '@mantine/core'
+import React, { useState } from 'react'
+import { TaskList, TaskSimpleForm, TaskSimpleFilter } from '~/domains/Task'
+import { Box, Flex, Space } from '@mantine/core'
+import { useTaskActions } from '~/domains/Task/hooks/useTaskActions'
+
 const TaskAdvancedView = () => {
+  const { handleCreateTask } = useTaskActions()
+  const [activeFilter, setActiveFilter] = useState('all')
+
+  const handleFilterChange = (filter) => {
+    setActiveFilter(filter)
+  }
+
   return (
-    <Center>
-      <div>
-        <Flex justify="center" flex={1}>
-          <Box w={'50%'}>
-            <TaskSimpleForm />
-          </Box>
-        </Flex>
-        <Space h="md" />
-        <Box>
-          <TaskList />
+    <div>
+      <Flex justify="center" flex={1}>
+        <Box w={'1000%'}>
+          <TaskSimpleForm onSubmit={handleCreateTask} />
+          <TaskSimpleFilter
+            activeFilter={activeFilter}
+            onFilterChange={handleFilterChange}
+          />
         </Box>
-      </div>
-    </Center>
+      </Flex>
+      <Space h="md" />
+      <Box>
+        <TaskList activeFilter={activeFilter} />
+      </Box>
+    </div>
   )
 }
 
