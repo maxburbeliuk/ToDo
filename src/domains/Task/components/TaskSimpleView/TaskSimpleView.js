@@ -7,19 +7,12 @@ import { useTaskActions } from '~/domains/Task/hooks/useTaskActions'
 const TaskSimpleView = (props) => {
   const { text, description, id, done } = props
   const [edit, setEdit] = useState(false)
-  const [items, setItems] = useState(Data)
   const toggleEdit = () => setEdit(!edit)
 
   const { handleEditTask, handleDeleteTask, handleDone } = useTaskActions()
 
   const computedStatus = done ? 'Done' : 'ToDo'
 
-  const filterItems = (category) => {
-    const newItems = filterStatus.filter(
-      (newval) => newval.category === category
-    )
-    setItems = newItems
-  }
   const handleFormSubmit = (taskData) => {
     handleEditTask({ ...taskData, id })
     toggleEdit()
