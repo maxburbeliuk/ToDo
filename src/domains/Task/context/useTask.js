@@ -7,6 +7,5 @@ import {
 
 const useTaskContext = () => useContext(TaskContext)
 const useTaskDispatchContext = () => useContext(TaskDispatchContext)
-const useTaskFilter = () => useContext(TaskFilterContext)
 
-export { useTaskContext, useTaskDispatchContext, useTaskFilter }
+export { useTaskContext, useTaskDispatchContext }

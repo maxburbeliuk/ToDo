@@ -1,12 +1,12 @@
 import { Tabs } from '@mantine/core'
-import filterStatus from '~/domains/Task/components/__constans__'
+import FILTER_TABS from '~/domains/Task/components/__constans__'
 import { toTitleCase } from '~/helpers'
 const TaskSimpleFilter = () => {
-  const FilterStatus = Object.entries(filterStatus)
+  const filterStatus = Object.entries(FILTER_TABS)
   return (
     <Tabs>
       <Tabs.List justify="flex-end">
-        {FilterStatus.map(([key, value]) => (
+        {filterStatus.map(([key, value]) => (
           <Tabs.Tab fw={500} key={key} value={key}>
             {toTitleCase(value)}
           </Tabs.Tab>

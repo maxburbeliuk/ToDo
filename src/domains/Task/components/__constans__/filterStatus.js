@@ -1,7 +1,7 @@
-const filterStatus = {
+const FILTER_TABS = {
   ALL: ' ALL',
   TO_DO: 'TO_DO',
   DONE: 'DONE'
 }
 
-export default filterStatus
+export default FILTER_TABS

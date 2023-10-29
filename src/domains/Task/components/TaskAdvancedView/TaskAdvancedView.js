@@ -14,7 +14,7 @@ const TaskAdvancedView = () => {
   return (
     <div>
       <Flex justify="center" flex={1}>
-        <Box w={'1000%'}>
+        <Box w={'100%'}>
           <TaskSimpleForm onSubmit={handleCreateTask} />
           <TaskSimpleFilter
             activeFilter={activeFilter}
@@ -23,9 +23,7 @@ const TaskAdvancedView = () => {
         </Box>
       </Flex>
       <Space h="md" />
-      <Box>
-        <TaskList activeFilter={activeFilter} />
-      </Box>
+      <TaskList activeFilter={activeFilter} />
     </div>
   )
 }

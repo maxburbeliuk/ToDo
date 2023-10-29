@@ -1,13 +1,8 @@
-function toTitleCase(str) {
-  const titleCase = str
+const toTitleCase = (str) =>
+  str
     .toLowerCase()
     .split('_')
-    .map((word) => {
-      return word.charAt(0).toUpperCase() + word.slice(1)
-    })
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ')
-
-  return titleCase
-}
 
 export default toTitleCase
