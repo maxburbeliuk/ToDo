@@ -1,8 +1,13 @@
 import { TASK_CONTEXT_ACTIONS } from './__constants__'
+
 const reducer = (state, action) => {
   switch (action.type) {
     case TASK_CONTEXT_ACTIONS.CREATE_TASK: {
-      const newTask = { ...action.payload.task, done: false, isEdited: false }
+      const newTask = {
+        ...action.payload.task,
+        done: false,
+        isEdited: false
+      }
 
       return {
         ...state,
@@ -51,6 +56,15 @@ const reducer = (state, action) => {
       return {
         ...state,
         tasks: tasks
+      }
+    }
+
+    case TASK_CONTEXT_ACTIONS.SET_FILTER: {
+      const filter = action.payload.filter
+
+      return {
+        ...state,
+        filter
       }
     }
 

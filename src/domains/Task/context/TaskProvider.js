@@ -1,10 +1,14 @@
 import { useReducer } from 'react'
 import { TaskContext, TaskDispatchContext } from './TaskContext'
 import taskReducer from './reducer'
+import FILTER_TABS from '~/domains/Task/components/__constans__'
 const TaskProvider = (props) => {
   const { children } = props
 
-  const [state, dispatch] = useReducer(taskReducer, { tasks: [] })
+  const [state, dispatch] = useReducer(taskReducer, {
+    tasks: [],
+    filter: FILTER_TABS.ALL
+  })
 
   return (
     <TaskDispatchContext.Provider value={dispatch}>

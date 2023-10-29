@@ -1,5 +1,5 @@
 const FILTER_TABS = {
-  ALL: ' ALL',
+  ALL: 'ALL',
   TO_DO: 'TO_DO',
   DONE: 'DONE'
 }

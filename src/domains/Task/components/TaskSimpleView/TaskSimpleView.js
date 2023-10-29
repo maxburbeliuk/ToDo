@@ -7,23 +7,18 @@ import { useTaskActions } from '~/domains/Task/hooks/useTaskActions'
 const TaskSimpleView = (props) => {
   const { text, description, id, done } = props
   const [edit, setEdit] = useState(false)
-  const [items, setItems] = useState(Data)
   const toggleEdit = () => setEdit(!edit)
 
   const { handleEditTask, handleDeleteTask, handleDone } = useTaskActions()
 
   const computedStatus = done ? 'Done' : 'ToDo'
+  const computedCheckBoxLabel = done ? 'Mark todo' : 'Mark done'
 
-  const filterItems = (category) => {
-    const newItems = filterStatus.filter(
-      (newval) => newval.category === category
-    )
-    setItems = newItems
-  }
   const handleFormSubmit = (taskData) => {
     handleEditTask({ ...taskData, id })
     toggleEdit()
   }
+
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
       {edit ? (
@@ -47,7 +42,7 @@ const TaskSimpleView = (props) => {
             <Checkbox
               checked={done}
               onChange={() => handleDone(id, done)}
-              label={done ? 'Mark done' : 'Mark todo'}
+              label={computedCheckBoxLabel}
             />
             <Group gap="md">
               <ActionIcon

@@ -1,2 +1,2 @@
-import filterStatus from './filterStatus'
-export default filterStatus
+import filterTabs from './filterTabs'
+export default filterTabs
