@@ -53,6 +53,9 @@ const reducer = (state, action) => {
         tasks: tasks
       }
     }
+    case TASK_CONTEXT_ACTIONS.CHANGE_FILTER {
+
+    }
 
     default: {
       throw new Error(`Invalid action type: ${action.type}`)
