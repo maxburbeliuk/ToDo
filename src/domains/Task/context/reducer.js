@@ -1,20 +1,23 @@
 import { TASK_CONTEXT_ACTIONS } from './__constants__'
+import { CHANGE_FILTER } from '~/domains/Task/context/__constants__/taskActions'
+
 const reducer = (state, action) => {
   switch (action.type) {
     case TASK_CONTEXT_ACTIONS.CREATE_TASK: {
-      const newTask = { ...action.payload.task, done: false, isEdited: false }
+      const newTask = {
+        ...action.payload.task,
+        done: false,
+        isEdited: false
+      }
 
       return {
         ...state,
         tasks: [...state.tasks, newTask]
       }
     }
-
     case TASK_CONTEXT_ACTIONS.DELETE_TASK: {
       const task = action.payload.task
-
       const tasks = state.tasks.filter((item) => item.id !== task.id)
-
       return {
         ...state,
         tasks: tasks
@@ -22,7 +25,6 @@ const reducer = (state, action) => {
     }
     case TASK_CONTEXT_ACTIONS.EDIT_TASK: {
       const task = action.payload.task
-
       const tasks = state.tasks.map((item) =>
         item.id === task.id
           ? {
@@ -38,7 +40,6 @@ const reducer = (state, action) => {
     }
     case TASK_CONTEXT_ACTIONS.CHANGE_DONE: {
       const { id, done } = action.payload.task
-
       const tasks = state.tasks.map((item) =>
         item.id === id
           ? {
@@ -47,14 +48,19 @@ const reducer = (state, action) => {
             }
           : item
       )
-
       return {
         ...state,
         tasks: tasks
       }
     }
-    case TASK_CONTEXT_ACTIONS.CHANGE_FILTER {
 
+    case TASK_CONTEXT_ACTIONS.CHANGE_FILTER: {
+      const filter = action.payload.filter
+
+      return {
+        ...state,
+        filter
+      }
     }
 
     default: {
@@ -62,5 +68,4 @@ const reducer = (state, action) => {
     }
   }
 }
-
 export default reducer

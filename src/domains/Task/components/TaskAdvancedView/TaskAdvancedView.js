@@ -1,21 +1,28 @@
-import { TaskList, TaskSimpleForm } from '~/domains/Task'
-import { Box, Flex, Space } from '@mantine/core'
+import React, { useState } from 'react'
+import {
+  TaskList,
+  TaskSimpleForm,
+  TaskSimpleFilter,
+  TaskSimpleMenu
+} from '~/domains/Task'
+import { Box, Space, Divider, Group } from '@mantine/core'
 import { useTaskActions } from '~/domains/Task/hooks/useTaskActions'
 
 const TaskAdvancedView = () => {
   const { handleCreateTask } = useTaskActions()
+  const [activeFilter] = useState('all')
 
   return (
     <div>
-      <Flex justify="center" flex={1}>
-        <Box w={'1000%'}>
-          <TaskSimpleForm onSubmit={handleCreateTask} />
-        </Box>
-      </Flex>
-      <Space h="md" />
-      <Box>
-        <TaskList />
-      </Box>
+      <TaskSimpleForm onSubmit={handleCreateTask} />
+      <Space h="lg" />
+      <Group justify="right" gap="sm">
+        <TaskSimpleFilter />
+        <Divider orientation="vertical" />
+        <TaskSimpleMenu />
+      </Group>
+      <Space h="lg" />
+      <TaskList activeFilter={activeFilter} />
     </div>
   )
 }

@@ -1,0 +1,5 @@
+const MENU_OPTIONS = {
+  BY_GROWTH: 'BY_GROWTH',
+  BY_DECLINE: 'BY_DECLINE'
+}
+export default MENU_OPTIONS
