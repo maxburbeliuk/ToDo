@@ -1,5 +1,8 @@
-import { Menu, ActionIcon } from '@mantine/core'
-import { MENU_OPTIONS } from '~/domains/Task/components/__constants__'
+import { Menu, ActionIcon, Checkbox, Flex } from '@mantine/core'
+import {
+  MENU_OPTIONS_SORT_BY,
+  MENU_OPTIONS_SORT_TYPE
+} from '~/domains/Task/components/__constants__'
 import { toTitleCase } from '~/helpers'
 import { IconSortDescendingLetters } from '@tabler/icons-react'
 
@@ -15,17 +18,17 @@ const TaskSimpleMenu = () => {
       <Menu.Dropdown>
         <Menu.Label>
           Sort by
-          {Object.entries(MENU_OPTIONS).map(([key, value]) => (
+          {Object.entries(MENU_OPTIONS_SORT_BY).map(([key, value]) => (
             <Menu.Item fw={500} key={key} value={key}>
-              {toTitleCase(value)}
+              <Checkbox labelPosition="right" label={toTitleCase(value)} />
             </Menu.Item>
           ))}
         </Menu.Label>
         <Menu.Label>
           Sort type
-          {Object.entries(MENU_OPTIONS).map(([key, value]) => (
+          {Object.entries(MENU_OPTIONS_SORT_TYPE).map(([key, value]) => (
             <Menu.Item fw={500} key={key} value={key}>
-              {toTitleCase(value)}
+              <Checkbox labelPosition="right" label={toTitleCase(value)} />
             </Menu.Item>
           ))}
         </Menu.Label>
