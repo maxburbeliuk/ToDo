@@ -7,8 +7,8 @@ const reducer = (state, action) => {
         ...action.payload.task,
         done: false,
         isEdited: false,
-        _create: new Date().toISOString(),
-        _update: new Date().toISOString()
+        _updatedAt: new Date().toISOString(),
+        _createdAt: new Date().toISOString()
       }
 
       return {
@@ -30,7 +30,8 @@ const reducer = (state, action) => {
         item.id === task.id
           ? {
               ...task,
-              isEdited: true
+              isEdited: true,
+              _updatedAt: new Date().toISOString()
             }
           : item
       )
@@ -61,33 +62,6 @@ const reducer = (state, action) => {
       return {
         ...state,
         filter
-      }
-    }
-    // case TASK_CONTEXT_ACTIONS.UPDATE_TASK: {
-    //   const updatedTask = action.payload.task
-    //   const tasks = state.tasks.map((item) =>
-    //     item.id === updatedTask.id ? updatedTask : item
-    //   )
-    //   return {
-    //     ...state,
-    //     tasks
-    //   }
-    // }
-
-    case TASK_CONTEXT_ACTIONS.UPDATE_TASK: {
-      const updatedAt = {
-        ...action.payload.task,
-        _updatedAt: new Date().toISOString(),
-        _createdAt: new Date().toISOString()
-      }
-
-      const tasks = state.tasks.map((item) =>
-        item.id === updatedAt.id ? updatedAt : item
-      )
-
-      return {
-        ...state,
-        tasks
       }
     }
 

@@ -5,7 +5,7 @@ import {
   TaskSimpleFilter,
   TaskSimpleMenu
 } from '~/domains/Task'
-import { Box, Space, Divider, Group } from '@mantine/core'
+import { Space, Divider, Group } from '@mantine/core'
 import { useTaskActions } from '~/domains/Task/hooks/useTaskActions'
 
 const TaskAdvancedView = () => {
