@@ -2,7 +2,7 @@ import { Menu, ActionIcon, Checkbox } from '@mantine/core'
 import {
   MENU_OPTIONS_SORT_BY_FIELD,
   MENU_OPTIONS_SORT_TYPE
-} from '~/domains/Task/components/__constants__'
+} from 'src/domains/Task/__constants__'
 import { toTitleCase } from '~/helpers'
 import { IconSortDescendingLetters } from '@tabler/icons-react'
 import { useSortMenuActions } from '~/domains/Task/hooks'

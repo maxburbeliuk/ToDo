@@ -1,12 +1,12 @@
 import { useReducer } from 'react'
 import { TaskContext, TaskDispatchContext } from './TaskContext'
 import taskReducer from './reducer'
-import { FILTER_TABS } from '~/domains/Task/components/__constants__'
+import { FILTER_TABS } from 'src/domains/Task/__constants__'
 import { transformSortMenuData } from '~/domains/Task/helpers'
 import {
   MENU_OPTIONS_SORT_BY_FIELD,
   MENU_OPTIONS_SORT_TYPE
-} from '~/domains/Task/components/__constants__'
+} from 'src/domains/Task/__constants__'
 
 const TaskProvider = (props) => {
   const { children } = props

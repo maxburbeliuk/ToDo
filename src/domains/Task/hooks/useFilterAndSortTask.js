@@ -1,10 +1,10 @@
 import { useTaskContext } from '~/domains/Task/context'
-import { FILTER_TABS } from '~/domains/Task/components/__constants__'
+import { FILTER_TABS } from 'src/domains/Task/__constants__'
 import { useMemo } from 'react'
 import {
   MENU_OPTIONS_SORT_BY_FIELD,
   MENU_OPTIONS_SORT_TYPE
-} from '~/domains/Task/components/__constants__'
+} from 'src/domains/Task/__constants__'
 const FILTER_TASKS_BY_DONE = {
   [FILTER_TABS.ALL]: (tasks) => tasks,
   [FILTER_TABS.DONE]: (tasks) => tasks.filter((task) => !!task?.done),

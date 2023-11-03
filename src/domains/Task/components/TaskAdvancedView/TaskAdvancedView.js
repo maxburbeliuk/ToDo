@@ -3,26 +3,36 @@ import {
   TaskList,
   TaskSimpleForm,
   TaskSimpleFilter,
-  TaskSimpleMenu
+  TaskSimpleMenu,
+  TaskSearch
 } from '~/domains/Task'
-import { Space, Divider, Group } from '@mantine/core'
-import { useTaskActions } from '~/domains/Task/hooks'
+import { Space, Divider, Group, Box, Grid, Flex } from '@mantine/core'
+import { useSearchTask, useTaskActions } from '~/domains/Task/hooks'
 
 const TaskAdvancedView = () => {
   const { handleCreateTask } = useTaskActions()
-  const [activeFilter] = useState('all')
+
+  const { tasksWithSearchedValue, setSearchedValue } = useSearchTask()
 
   return (
     <div>
       <TaskSimpleForm onSubmit={handleCreateTask} />
       <Space h="lg" />
-      <Group justify="right" gap="sm">
-        <TaskSimpleFilter />
-        <Divider orientation="vertical" />
-        <TaskSimpleMenu />
-      </Group>
+      <Grid align="center">
+        <Grid.Col span={'auto'}>
+          <TaskSearch onChange={setSearchedValue} />
+        </Grid.Col>
+        <Grid.Col span="content">
+          <Group justify="right" gap="sm">
+            <TaskSimpleFilter />
+            <Divider orientation="vertical" />
+            <TaskSimpleMenu />
+          </Group>
+        </Grid.Col>
+      </Grid>
+
       <Space h="lg" />
-      <TaskList activeFilter={activeFilter} />
+      <TaskList computedTasks={tasksWithSearchedValue} />
     </div>
   )
 }
