@@ -1,4 +1,9 @@
 import { TASK_CONTEXT_ACTIONS } from './__constants__'
+import { useState } from 'react'
+import {
+  MENU_OPTIONS_SORT_BY,
+  MENU_OPTIONS_SORT_TYPE
+} from '~/domains/Task/components/__constants__'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -65,6 +70,25 @@ const reducer = (state, action) => {
       }
     }
 
+    // {
+    //   ...Object.keys(MENU_OPTIONS_SORT_BY).reduce(
+    //     (acc, key) => ({ ...acc, [key]: false }),
+    //     {}
+    //   ),
+    //   [MENU_OPTIONS_SORT_BY.CREATE]: true
+    // }
+    case TASK_CONTEXT_ACTIONS.SORT_TASK: {
+      const sortBy = action.payload.task
+      const sortTask = {
+        ...Object.keys(MENU_OPTIONS_SORT_TYPE).reduce(
+          (acc, key) => ({ ...acc, [key]: false }),
+          {}
+        ),
+        [MENU_OPTIONS_SORT_TYPE.ASC]: true
+      }
+      return { sortBy, sortTask }
+      console.log(TASK_CONTEXT_ACTIONS.SORT_TASK)
+    }
     default: {
       throw new Error(`Invalid action type: ${action.type}`)
     }

@@ -30,8 +30,3 @@ const TaskSimpleFilter = () => {
   )
 }
 export default TaskSimpleFilter
-// const tabs = Object.entries(FILTER_TABS).map(([key, label]) => (
-//   <Tabs.Tab fw={500} key={key} value={label}>
-//     {toTitleCase(label)}
-//   </Tabs.Tab>
-// ))

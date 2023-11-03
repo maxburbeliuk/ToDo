@@ -3,11 +3,12 @@ import { TaskContext, TaskDispatchContext } from './TaskContext'
 import taskReducer from './reducer'
 import { FILTER_TABS } from '~/domains/Task/components/__constants__'
 const TaskProvider = (props) => {
-  const { children } = props
+  const { children, defaultValue } = props
 
   const [state, dispatch] = useReducer(taskReducer, {
     tasks: [],
-    filter: FILTER_TABS.ALL
+    filter: FILTER_TABS.ALL,
+    create: defaultValue
   })
 
   return (

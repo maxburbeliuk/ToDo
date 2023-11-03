@@ -8,21 +8,8 @@ import { IconSortDescendingLetters } from '@tabler/icons-react'
 import { useState } from 'react'
 
 const TaskSimpleMenu = () => {
-  const [sortBy, setSortBy] = useState({
-    ...Object.keys(MENU_OPTIONS_SORT_BY).reduce(
-      (acc, key) => ({ ...acc, [key]: false }),
-      {}
-    ),
-    [MENU_OPTIONS_SORT_BY.CREATE]: true
-  })
-  const [sortType, setSortType] = useState({
-    ...Object.keys(MENU_OPTIONS_SORT_TYPE).reduce(
-      (acc, key) => ({ ...acc, [key]: false }),
-      {}
-    ),
-    [MENU_OPTIONS_SORT_TYPE.ASC]: true
-  })
-
+  const [sortBy, setSortBy] = useState()
+  const [sortType, setSortType] = useState()
   const onChangeSortBy = (selectedSortBy) => {
     setSortBy((prev) => {
       const transformed = Object.keys(prev).reduce(
