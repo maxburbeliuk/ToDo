@@ -2,7 +2,7 @@ import { Badge, Card, Checkbox, Group, Text, ActionIcon } from '@mantine/core'
 import { useState } from 'react'
 import { IconEdit, IconTrashFilled } from '@tabler/icons-react'
 import TaskSimpleForm from '~/domains/Task/components/TaskSimpleForm'
-import { useTaskActions } from '~/domains/Task/hooks/useTaskActions'
+import { useTaskActions } from '~/domains/Task/hooks'
 const TaskSimpleView = (props) => {
   const { text, description, id, done } = props
   const [edit, setEdit] = useState(false)

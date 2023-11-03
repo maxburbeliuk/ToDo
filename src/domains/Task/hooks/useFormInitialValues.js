@@ -1,7 +1,7 @@
 import { useForm, isNotEmpty, hasLength } from '@mantine/form'
 import { useEffect } from 'react'
 
-export function useFormInitialValues(initialValues = {}) {
+export default function useFormInitialValues(initialValues = {}) {
   const form = useForm({
     initialValues: {
       text: '',
@@ -26,5 +26,6 @@ export function useFormInitialValues(initialValues = {}) {
       })
     }
   }, [initialValues])
+
   return { form }
 }

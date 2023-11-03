@@ -1,9 +1,9 @@
 import { TASK_CONTEXT_ACTIONS } from './__constants__'
-import { useState } from 'react'
 import {
-  MENU_OPTIONS_SORT_BY,
+  MENU_OPTIONS_SORT_BY_FIELD,
   MENU_OPTIONS_SORT_TYPE
 } from '~/domains/Task/components/__constants__'
+import { transformSortMenuData } from '~/domains/Task/helpers'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -70,24 +70,28 @@ const reducer = (state, action) => {
       }
     }
 
-    // {
-    //   ...Object.keys(MENU_OPTIONS_SORT_BY).reduce(
-    //     (acc, key) => ({ ...acc, [key]: false }),
-    //     {}
-    //   ),
-    //   [MENU_OPTIONS_SORT_BY.CREATE]: true
-    // }
-    case TASK_CONTEXT_ACTIONS.SORT_TASK: {
-      const sortBy = action.payload.task
-      const sortTask = {
-        ...Object.keys(MENU_OPTIONS_SORT_TYPE).reduce(
-          (acc, key) => ({ ...acc, [key]: false }),
-          {}
-        ),
-        [MENU_OPTIONS_SORT_TYPE.ASC]: true
+    case TASK_CONTEXT_ACTIONS.SORT_TASK_BY_TYPE: {
+      const sortByType = action.payload.sortByType
+
+      return {
+        ...state,
+        menuOptionsSortByType: transformSortMenuData(
+          MENU_OPTIONS_SORT_TYPE,
+          sortByType
+        )
       }
-      return { sortBy, sortTask }
-      console.log(TASK_CONTEXT_ACTIONS.SORT_TASK)
+    }
+
+    case TASK_CONTEXT_ACTIONS.SORT_TASK_BY_FIELD: {
+      const sortByField = action.payload.sortByField
+
+      return {
+        ...state,
+        menuOptionsSortByField: transformSortMenuData(
+          MENU_OPTIONS_SORT_BY_FIELD,
+          sortByField
+        )
+      }
     }
     default: {
       throw new Error(`Invalid action type: ${action.type}`)

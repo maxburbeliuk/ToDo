@@ -1,33 +1,17 @@
 import { Menu, ActionIcon, Checkbox } from '@mantine/core'
 import {
-  MENU_OPTIONS_SORT_BY,
+  MENU_OPTIONS_SORT_BY_FIELD,
   MENU_OPTIONS_SORT_TYPE
 } from '~/domains/Task/components/__constants__'
 import { toTitleCase } from '~/helpers'
 import { IconSortDescendingLetters } from '@tabler/icons-react'
-import { useState } from 'react'
+import { useSortMenuActions } from '~/domains/Task/hooks'
+import { useTaskContext } from '~/domains/Task/context'
 
 const TaskSimpleMenu = () => {
-  const [sortBy, setSortBy] = useState()
-  const [sortType, setSortType] = useState()
-  const onChangeSortBy = (selectedSortBy) => {
-    setSortBy((prev) => {
-      const transformed = Object.keys(prev).reduce(
-        (acc, key) => ({ ...acc, [key]: false }),
-        {}
-      )
-      return { ...transformed, [selectedSortBy]: true }
-    })
-  }
-  const onChangeSortType = (selectedType) => {
-    setSortType((prev) => {
-      const transformed = Object.keys(prev).reduce(
-        (acc, key) => ({ ...acc, [key]: false }),
-        {}
-      )
-      return { ...transformed, [selectedType]: true }
-    })
-  }
+  const { menuOptionsSortByField, menuOptionsSortByType } = useTaskContext()
+  const { onChangeSortByField, onChangeSortType } = useSortMenuActions()
+
   return (
     <Menu width={200} shadow="md">
       <Menu.Target>
@@ -38,18 +22,18 @@ const TaskSimpleMenu = () => {
 
       <Menu.Dropdown>
         <Menu.Label>Sort by</Menu.Label>
-        {Object.entries(MENU_OPTIONS_SORT_BY).map(([key, value]) => (
+        {Object.entries(MENU_OPTIONS_SORT_BY_FIELD).map(([key, value]) => (
           <Menu.Item
             fw={500}
             key={key}
             value={key}
             closeMenuOnClick={false}
-            onClick={() => onChangeSortBy(key)}
+            onClick={() => onChangeSortByField(key)}
           >
             <Checkbox
               labelPosition="right"
               label={toTitleCase(value)}
-              checked={sortBy[key]}
+              checked={menuOptionsSortByField?.[key]}
             />
           </Menu.Item>
         ))}
@@ -66,7 +50,7 @@ const TaskSimpleMenu = () => {
             <Checkbox
               labelPosition="right"
               label={toTitleCase(value)}
-              checked={sortType[key]}
+              checked={menuOptionsSortByType?.[key]}
             />
           </Menu.Item>
         ))}

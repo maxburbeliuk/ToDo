@@ -3,4 +3,6 @@ export const DELETE_TASK = 'DELETE_TASK'
 export const EDIT_TASK = 'EDIT_TASK'
 export const CHANGE_DONE = 'CHANGE_DONE'
 export const CHANGE_FILTER = 'CHANGE_FILTER'
-export const SORT_TASK = 'SORT_TASK'
+export const SORT_TASK_BY_FIELD = 'SORT_TASK_BY_FIELD'
+
+export const SORT_TASK_BY_TYPE = 'SORT_TASK_BY_TYPE'

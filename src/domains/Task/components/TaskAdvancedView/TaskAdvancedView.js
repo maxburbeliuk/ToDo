@@ -6,7 +6,7 @@ import {
   TaskSimpleMenu
 } from '~/domains/Task'
 import { Space, Divider, Group } from '@mantine/core'
-import { useTaskActions } from '~/domains/Task/hooks/useTaskActions'
+import { useTaskActions } from '~/domains/Task/hooks'
 
 const TaskAdvancedView = () => {
   const { handleCreateTask } = useTaskActions()
