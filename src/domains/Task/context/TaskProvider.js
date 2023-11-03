@@ -21,7 +21,9 @@ const TaskProvider = (props) => {
     menuOptionsSortByType: transformSortMenuData(
       MENU_OPTIONS_SORT_TYPE,
       MENU_OPTIONS_SORT_TYPE.ASC
-    )
+    ),
+    sortByField: MENU_OPTIONS_SORT_BY_FIELD.CREATE,
+    sortByType: MENU_OPTIONS_SORT_TYPE.ASC
   })
 
   return (

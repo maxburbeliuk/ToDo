@@ -34,6 +34,7 @@ const reducer = (state, action) => {
       const tasks = state.tasks.map((item) =>
         item.id === task.id
           ? {
+              ...item,
               ...task,
               isEdited: true,
               _updatedAt: new Date().toISOString()
@@ -75,6 +76,7 @@ const reducer = (state, action) => {
 
       return {
         ...state,
+        sortByType,
         menuOptionsSortByType: transformSortMenuData(
           MENU_OPTIONS_SORT_TYPE,
           sortByType
@@ -87,6 +89,7 @@ const reducer = (state, action) => {
 
       return {
         ...state,
+        sortByField,
         menuOptionsSortByField: transformSortMenuData(
           MENU_OPTIONS_SORT_BY_FIELD,
           sortByField

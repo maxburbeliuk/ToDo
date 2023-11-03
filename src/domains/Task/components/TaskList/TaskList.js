@@ -1,20 +1,13 @@
 import { TaskSimpleView } from '~/domains/Task'
 import { SimpleGrid } from '@mantine/core'
-import { useTaskContext } from '~/domains/Task/context'
-import { FILTER_TABS } from '~/domains/Task/components/__constants__'
+import { useFilterAndSortTask } from '~/domains/Task/hooks'
 
 const TaskList = () => {
-  const { tasks, filter } = useTaskContext()
-
-  const FILTER_TASKS_BY_DONE = {
-    [FILTER_TABS.ALL]: tasks,
-    [FILTER_TABS.DONE]: tasks.filter((task) => !!task?.done),
-    [FILTER_TABS.TO_DO]: tasks.filter((task) => !task?.done)
-  }
+  const { computedTasks } = useFilterAndSortTask()
 
   return (
     <SimpleGrid cols={4}>
-      {FILTER_TASKS_BY_DONE?.[filter]?.map((item) => (
+      {computedTasks?.map((item) => (
         <TaskSimpleView {...item} />
       ))}
     </SimpleGrid>
