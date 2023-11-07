@@ -1,2 +1,2 @@
-import TaskAdvancedView from './TaskAdvencedView'
+import TaskAdvancedView from './TaskAdvancedView'
 export default TaskAdvancedView

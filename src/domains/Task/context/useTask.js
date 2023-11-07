@@ -1,5 +1,9 @@
 import { useContext } from 'react'
-import { TaskContext, TaskDispatchContext } from './TaskContext'
+import {
+  TaskContext,
+  TaskDispatchContext,
+  TaskFilterContext
+} from './TaskContext'
 
 const useTaskContext = () => useContext(TaskContext)
 const useTaskDispatchContext = () => useContext(TaskDispatchContext)
