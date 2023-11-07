@@ -2,21 +2,22 @@ import { Badge, Card, Checkbox, Group, Text, ActionIcon } from '@mantine/core'
 import { useState } from 'react'
 import { IconEdit, IconTrashFilled } from '@tabler/icons-react'
 import TaskSimpleForm from '~/domains/Task/components/TaskSimpleForm'
-import { useTaskActions } from '~/domains/Task/hooks/useTaskActions'
-
+import { useTaskActions } from '~/domains/Task/hooks'
 const TaskSimpleView = (props) => {
   const { text, description, id, done } = props
   const [edit, setEdit] = useState(false)
-
   const toggleEdit = () => setEdit(!edit)
 
   const { handleEditTask, handleDeleteTask, handleDone } = useTaskActions()
 
   const computedStatus = done ? 'Done' : 'ToDo'
+  const computedCheckBoxLabel = done ? 'Mark done' : 'Mark todo'
+
   const handleFormSubmit = (taskData) => {
     handleEditTask({ ...taskData, id })
     toggleEdit()
   }
+
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
       {edit ? (
@@ -40,7 +41,7 @@ const TaskSimpleView = (props) => {
             <Checkbox
               checked={done}
               onChange={() => handleDone(id, done)}
-              label={done ? 'Mark done' : 'Mark todo'}
+              label={computedCheckBoxLabel}
             />
             <Group gap="md">
               <ActionIcon
@@ -65,5 +66,4 @@ const TaskSimpleView = (props) => {
     </Card>
   )
 }
-
 export default TaskSimpleView

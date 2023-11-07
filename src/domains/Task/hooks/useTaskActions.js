@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { TaskDispatchContext } from '~/domains/Task/context'
 import * as TASK_CONTEXT_ACTIONS from '~/domains/Task/context/__constants__/taskActions'
 
-export function useTaskActions() {
+export default function useTaskActions() {
   const taskDispatch = useContext(TaskDispatchContext)
 
   const handleEditTask = (taskData) => {

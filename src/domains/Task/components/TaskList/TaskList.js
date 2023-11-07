@@ -1,17 +1,16 @@
 import { TaskSimpleView } from '~/domains/Task'
 import { SimpleGrid } from '@mantine/core'
-import { useTaskContext } from '~/domains/Task/context'
+import { useFilterAndSortTask } from '~/domains/Task/hooks'
 
 const TaskList = () => {
-  const { tasks } = useTaskContext()
+  const { computedTasks } = useFilterAndSortTask()
 
   return (
     <SimpleGrid cols={4}>
-      {tasks.map((item) => (
+      {computedTasks?.map((item) => (
         <TaskSimpleView {...item} />
       ))}
     </SimpleGrid>
   )
 }
-
 export default TaskList
