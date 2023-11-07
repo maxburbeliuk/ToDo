@@ -11,7 +11,7 @@ const TaskSimpleView = (props) => {
   const { handleEditTask, handleDeleteTask, handleDone } = useTaskActions()
 
   const computedStatus = done ? 'Done' : 'ToDo'
-  const computedCheckBoxLabel = done ? 'Mark done' : 'Mark todo'
+  const computedCheckBoxLabel = done ? 'Mark todo' : 'Mark done'
 
   const handleFormSubmit = (taskData) => {
     handleEditTask({ ...taskData, id })

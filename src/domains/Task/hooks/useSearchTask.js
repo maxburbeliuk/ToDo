@@ -3,7 +3,6 @@ import { useFilterAndSortTask } from '~/domains/Task/hooks/index'
 
 const useSearchTask = () => {
   const [searchedValue, setSearchedValue] = useState('')
-
   const { computedTasks } = useFilterAndSortTask()
 
   const tasksWithSearchedValue = useMemo(() => {

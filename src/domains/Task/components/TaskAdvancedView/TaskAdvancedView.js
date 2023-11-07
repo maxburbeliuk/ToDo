@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import {
   TaskList,
   TaskSimpleForm,
@@ -6,7 +5,7 @@ import {
   TaskSimpleMenu,
   TaskSearch
 } from '~/domains/Task'
-import { Space, Divider, Group, Box, Grid, Flex } from '@mantine/core'
+import { Space, Divider, Group, Grid } from '@mantine/core'
 import { useSearchTask, useTaskActions } from '~/domains/Task/hooks'
 
 const TaskAdvancedView = () => {
