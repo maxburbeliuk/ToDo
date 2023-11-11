@@ -8,7 +8,11 @@ const AppShellElements = ({ children }) => {
     <AppShell
       header={{ height: 60 }}
       footer={{ height: 60 }}
-      navbar={{ width: 300, breakpoint: 'sm', collapsed: { mobile: !opened } }}
+      navbar={{
+        width: 300,
+        breakpoint: 'sm',
+        collapsed: { mobile: !opened }
+      }}
       aside={{
         width: 300,
         breakpoint: 'md',
