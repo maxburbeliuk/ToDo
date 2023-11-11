@@ -1,29 +1,35 @@
 import { useReducer } from 'react'
 import { TaskContext, TaskDispatchContext } from './TaskContext'
 import taskReducer from './reducer'
-import { FILTER_TABS } from '~/domains/Task/components/__constants__'
+import { FILTER_TABS } from 'src/domains/Task/__constants__'
 import { transformSortMenuData } from '~/domains/Task/helpers'
 import {
   MENU_OPTIONS_SORT_BY_FIELD,
   MENU_OPTIONS_SORT_TYPE
-} from '~/domains/Task/components/__constants__'
+} from 'src/domains/Task/__constants__'
+import { useSearchParams } from 'react-router-dom'
 
 const TaskProvider = (props) => {
   const { children } = props
+  const [searchParams] = useSearchParams({
+    filter: FILTER_TABS.ALL,
+    sortByField: MENU_OPTIONS_SORT_BY_FIELD.CREATE,
+    sortByType: MENU_OPTIONS_SORT_TYPE.ASC
+  })
 
   const [state, dispatch] = useReducer(taskReducer, {
     tasks: [],
-    filter: FILTER_TABS.ALL,
+    filter: searchParams.get('filter'),
     menuOptionsSortByField: transformSortMenuData(
       MENU_OPTIONS_SORT_BY_FIELD,
-      MENU_OPTIONS_SORT_BY_FIELD.CREATE
+      searchParams.get('sortByField')
     ),
     menuOptionsSortByType: transformSortMenuData(
       MENU_OPTIONS_SORT_TYPE,
-      MENU_OPTIONS_SORT_TYPE.ASC
+      searchParams.get('sortByType')
     ),
-    sortByField: MENU_OPTIONS_SORT_BY_FIELD.CREATE,
-    sortByType: MENU_OPTIONS_SORT_TYPE.ASC
+    sortByField: searchParams.get('sortByField'),
+    sortByType: searchParams.get('sortByType')
   })
 
   return (

@@ -1,9 +1,8 @@
 import { TaskSimpleView } from '~/domains/Task'
 import { SimpleGrid } from '@mantine/core'
-import { useFilterAndSortTask } from '~/domains/Task/hooks'
 
-const TaskList = () => {
-  const { computedTasks } = useFilterAndSortTask()
+const TaskList = (props) => {
+  const { computedTasks } = props
 
   return (
     <SimpleGrid cols={4}>
