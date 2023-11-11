@@ -1,12 +1,21 @@
-import { Badge, Card, Checkbox, Group, Text, ActionIcon } from '@mantine/core'
-import { useState } from 'react'
+import {
+  Badge,
+  Card,
+  Checkbox,
+  Group,
+  Text,
+  ActionIcon,
+  Modal
+} from '@mantine/core'
 import { IconEdit, IconTrashFilled } from '@tabler/icons-react'
 import TaskSimpleForm from '~/domains/Task/components/TaskSimpleForm'
 import { useTaskActions } from '~/domains/Task/hooks'
+import { useDisclosure } from '@mantine/hooks'
+
 const TaskSimpleView = (props) => {
   const { text, description, id, done } = props
-  const [edit, setEdit] = useState(false)
-  const toggleEdit = () => setEdit(!edit)
+
+  const [opened, { open, close }] = useDisclosure(false)
 
   const { handleEditTask, handleDeleteTask, handleDone } = useTaskActions()
 
@@ -15,54 +24,47 @@ const TaskSimpleView = (props) => {
 
   const handleFormSubmit = (taskData) => {
     handleEditTask({ ...taskData, id })
-    toggleEdit()
+    close()
   }
 
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
-      {edit ? (
+      <Modal opened={opened} onClose={close} title="Edit task" centered>
         <TaskSimpleForm
           onSubmit={handleFormSubmit}
           initialValues={{ text, description }}
-          onCancel={toggleEdit}
         />
-      ) : (
-        <>
-          <Group justify="space-between" mt="md" mb="xs">
-            <Text fw={500}>{text}</Text>
-            <Badge color={'var(--mantine-color-pink-5)'} variant="light">
-              {computedStatus}
-            </Badge>
-          </Group>
-          <Text size="sm" c="dimmed">
-            {description}
-          </Text>
-          <Group gap="md" justify="space-between" mt="md">
-            <Checkbox
-              checked={done}
-              onChange={() => handleDone(id, done)}
-              label={computedCheckBoxLabel}
-            />
-            <Group gap="md">
-              <ActionIcon
-                variant="filled"
-                aria-label="edit"
-                onClick={toggleEdit}
-              >
-                <IconEdit size={18} />
-              </ActionIcon>
-              <ActionIcon
-                variant="filled"
-                aria-label="delete"
-                color={'var(--mantine-color-red-8)'}
-                onClick={() => handleDeleteTask(id)}
-              >
-                <IconTrashFilled size={18} />
-              </ActionIcon>
-            </Group>
-          </Group>
-        </>
-      )}
+      </Modal>
+
+      <Group justify="space-between" mt="md" mb="xs">
+        <Text fw={500}>{text}</Text>
+        <Badge color={'var(--mantine-color-pink-5)'} variant="light">
+          {computedStatus}
+        </Badge>
+      </Group>
+      <Text size="sm" c="dimmed">
+        {description}
+      </Text>
+      <Group gap="md" justify="space-between" mt="md">
+        <Checkbox
+          checked={done}
+          onChange={() => handleDone(id, done)}
+          label={computedCheckBoxLabel}
+        />
+        <Group gap="md">
+          <ActionIcon variant="filled" aria-label="edit" onClick={open}>
+            <IconEdit size={18} />
+          </ActionIcon>
+          <ActionIcon
+            variant="filled"
+            aria-label="delete"
+            color={'var(--mantine-color-red-8)'}
+            onClick={() => handleDeleteTask(id)}
+          >
+            <IconTrashFilled size={18} />
+          </ActionIcon>
+        </Group>
+      </Group>
     </Card>
   )
 }
