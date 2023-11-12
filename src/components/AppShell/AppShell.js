@@ -1,18 +1,9 @@
 import { useDisclosure } from '@mantine/hooks'
 import { AppShell, Burger, Group, Skeleton } from '@mantine/core'
-import Cookies from '~/components/Cookies'
-import { useState, useEffect } from 'react'
+import { GDPR } from '~/components'
 
 const AppShellElements = ({ children }) => {
   const [opened, { toggle }] = useDisclosure()
-  const [showCookies, setShowCookies] = useState(false)
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowCookies(true)
-    }, 3000)
-    return () => clearTimeout(timer)
-  }, [])
 
   return (
     <AppShell
@@ -47,7 +38,6 @@ const AppShellElements = ({ children }) => {
       <AppShell.Main>{children}</AppShell.Main>
       <AppShell.Aside p="md">Aside</AppShell.Aside>
       <AppShell.Footer p="md">Footer</AppShell.Footer>
-      {showCookies && <Cookies />}
     </AppShell>
   )
 }

@@ -4,6 +4,7 @@ import { AppNavigator, AuthNavigator, ServicesNavigator } from '~/navigators'
 import { AppShell } from '~/components'
 import { Notifications } from '@mantine/notifications'
 import { ModalsProvider } from '@mantine/modals'
+import { GDPR } from '~/components'
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <MantineProvider>
         <ModalsProvider>
           <Notifications />
+          <GDPR />
           <AppShell>
             <Routes>
               <Route path="/*" element={<AppNavigator />} />

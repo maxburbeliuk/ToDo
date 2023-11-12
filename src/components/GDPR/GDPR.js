@@ -1,34 +1,29 @@
-import { Button, Paper, Text, Group, CloseButton, Affix } from '@mantine/core'
-import { useDisclosure, useLocalStorage } from '@mantine/hooks'
+import { Button, Paper, Text, Group, CloseButton } from '@mantine/core'
+import { useState } from 'react'
 
-const Cookies = () => {
-  const [_, setCookies] = useLocalStorage({
-    key: 'accept',
-    defaultValue: 'false'
-  })
+const GDPR = () => {
+  const isAcceptedGDPR = !!JSON.parse(window?.localStorage?.getItem('gdpr'))
+
+  const [accepted, setAccepted] = useState(isAcceptedGDPR)
 
   const handleAccept = () => {
-    console.log('Cookies accepted')
-    setCookies('true')
+    localStorage.setItem('gdpr', JSON.stringify(true))
+    setAccepted(true)
   }
 
   const handleDecline = () => {
-    console.log('Cookies declined')
-    setCookies('false')
+    localStorage.setItem('gdpr', JSON.stringify(false))
+    setAccepted(true)
   }
 
-  const handleClose = () => {
-    console.log('Cookies closed')
-    setCookies('null')
-  }
-
-  return (
-    <Affix
+  return accepted ? null : (
+    <div
       style={{
-        bottom: 20,
-        right: 20,
-        maxWidth: 500,
-        width: '100%'
+        position: 'absolute',
+        width: 500,
+        zIndex: 1000,
+        bottom: 30,
+        right: 40
       }}
     >
       <Paper withBorder p="lg" radius="md" shadow="md">
@@ -36,7 +31,7 @@ const Cookies = () => {
           <Text fz="md" fw={500}>
             Allow cookies
           </Text>
-          <CloseButton onClick={handleClose} mr={-9} mt={-9} />
+          <CloseButton onClick={handleDecline} mr={-9} mt={-9} />
         </Group>
         <Text c="dimmed" fz="xs">
           So the deal is, we want to spy on you. We would like to know what did
@@ -59,8 +54,8 @@ const Cookies = () => {
           </Button>
         </Group>
       </Paper>
-    </Affix>
+    </div>
   )
 }
 
-export default Cookies
+export default GDPR
