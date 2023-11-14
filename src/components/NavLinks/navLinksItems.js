@@ -1,5 +1,6 @@
 import { IconSettings, IconList, IconHome } from '@tabler/icons-react'
-const data = [
+
+const NAV_LINKS_ITEMS = [
   {
     icon: <IconHome size="1rem" stroke={1.5} />,
     label: 'Dashboard'
@@ -10,4 +11,4 @@ const data = [
   },
   { icon: <IconSettings size="1rem" stroke={1.5} />, label: 'Settings' }
 ]
-export default data
+export default NAV_LINKS_ITEMS
