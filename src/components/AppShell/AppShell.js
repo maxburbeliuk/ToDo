@@ -1,5 +1,6 @@
 import { useDisclosure } from '@mantine/hooks'
 import { AppShell, Burger, Group, Skeleton } from '@mantine/core'
+import { GDPR } from '~/components'
 
 const AppShellElements = ({ children }) => {
   const [opened, { toggle }] = useDisclosure()
