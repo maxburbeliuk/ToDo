@@ -1,6 +1,7 @@
 import { useDisclosure } from '@mantine/hooks'
 import { AppShell, Burger, Group, Skeleton } from '@mantine/core'
 import { GDPR } from '~/components'
+import NavLinks from '../NavLinks'
 
 const AppShellElements = ({ children }) => {
   const [opened, { toggle }] = useDisclosure()
@@ -28,12 +29,7 @@ const AppShellElements = ({ children }) => {
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p="md">
-        Navbar
-        {Array(15)
-          .fill(0)
-          .map((_, index) => (
-            <Skeleton key={index} h={28} mt="sm" animate={false} />
-          ))}
+        <NavLinks />
       </AppShell.Navbar>
       <AppShell.Main>{children}</AppShell.Main>
       <AppShell.Aside p="md">Aside</AppShell.Aside>
