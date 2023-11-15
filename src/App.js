@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { MantineProvider } from '@mantine/core'
 import { AppNavigator, AuthNavigator, ServicesNavigator } from '~/navigators'
-import { AppShell } from '~/components'
+import { AppShell, NavLinks } from '~/components'
 import { Notifications } from '@mantine/notifications'
 import { ModalsProvider } from '@mantine/modals'
 import { GDPR } from '~/components'
@@ -9,7 +9,7 @@ import { GDPR } from '~/components'
 const App = () => {
   return (
     <BrowserRouter>
-      <MantineProvider>
+      <MantineProvider defaultColorScheme="dark">
         <ModalsProvider>
           <Notifications />
           <GDPR />

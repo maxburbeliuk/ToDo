@@ -1,4 +1,4 @@
-import { Button, Paper, Text, Group, CloseButton } from '@mantine/core'
+import { Button, Paper, Text, Group, CloseButton, Affix } from '@mantine/core'
 import { useState } from 'react'
 
 const GDPR = () => {
@@ -17,7 +17,7 @@ const GDPR = () => {
   }
 
   return accepted ? null : (
-    <div
+    <Affix
       style={{
         position: 'absolute',
         width: 500,
@@ -54,7 +54,7 @@ const GDPR = () => {
           </Button>
         </Group>
       </Paper>
-    </div>
+    </Affix>
   )
 }
 
