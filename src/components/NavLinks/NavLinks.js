@@ -1,52 +1,19 @@
-import { Center, NavLink } from '@mantine/core'
+import { NavLink } from '@mantine/core'
 import { useState } from 'react'
 import NAV_LINKS_ITEMS from './navLinksItems'
 import cx from 'clsx'
-import { rem } from '@mantine/core'
 import { useListState } from '@mantine/hooks'
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
-import { IconGripVertical } from '@tabler/icons-react'
 import classes from './DndListHandle.module.css'
+import computedIcon from '~/components/ComputedIcon'
+import Indicator from '~/components/Indicator'
 
 const NavLinks = () => {
-  const [active, setActive] = useState(0)
+  const [active, setActive] = useState(NAV_LINKS_ITEMS[0].label)
 
   const [isShown, setIsShown] = useState(false)
 
   const [state, handlers] = useListState(NAV_LINKS_ITEMS)
-
-  const computedIcon = (icon) => {
-    if (isShown) {
-      return (
-        <Center>
-          <Center
-            style={{
-              marginRight: '6px'
-            }}
-          >
-            <IconGripVertical
-              style={{
-                width: rem(18),
-                height: rem(18)
-              }}
-              stroke={0.5}
-            />
-          </Center>
-          {icon}
-        </Center>
-      )
-    }
-
-    return (
-      <Center
-        style={{
-          marginLeft: '24px'
-        }}
-      >
-        {icon}
-      </Center>
-    )
-  }
   const items = state.map((item, index) => (
     <Draggable key={item.label} index={index} draggableId={item.label}>
       {(provided, snapshot) => (
@@ -63,12 +30,15 @@ const NavLinks = () => {
             onMouseMove={() => setIsShown(true)}
             onMouseLeave={() => setIsShown(false)}
           >
+            {item.label === active ? <Indicator /> : null}
             <NavLink
               key={item.label}
-              active={index === active}
+              active={item.label === active}
               label={item.label}
-              leftSection={computedIcon(item.icon)}
-              onClick={() => setActive(index)}
+              leftSection={computedIcon(item.icon, isShown)}
+              onClick={() => {
+                if (!snapshot.isDragging) setActive(item.label)
+              }}
               variant="subtle"
             />
           </div>
