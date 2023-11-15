@@ -9,7 +9,7 @@ import { IconGripVertical } from '@tabler/icons-react'
 import classes from './DndListHandle.module.css'
 
 const NavLinks = () => {
-  const [active, setActive] = useState(0)
+  const [active, setActive] = useState(NAV_LINKS_ITEMS[0].label)
 
   const [isShown, setIsShown] = useState(false)
 
@@ -54,9 +54,24 @@ const NavLinks = () => {
           className={cx(classes.item, {
             [classes.itemDragging]: snapshot.isDragging
           })}
+          style={{ position: 'relative' }}
           ref={provided.innerRef}
           {...provided.draggableProps}
         >
+          {item.label === active ? (
+            <div
+              style={{
+                position: 'absolute',
+                left: 0,
+                width: '6px',
+                height: '36px',
+                borderTopRightRadius: '4px',
+                borderBottomRightRadius: '4px',
+                background: 'var(--mantine-color-blue-5)'
+              }}
+            />
+          ) : null}
+
           <div
             {...provided.dragHandleProps}
             className={classes.dragHandle}
@@ -65,10 +80,12 @@ const NavLinks = () => {
           >
             <NavLink
               key={item.label}
-              active={index === active}
+              active={item.label === active}
               label={item.label}
               leftSection={computedIcon(item.icon)}
-              onClick={() => setActive(index)}
+              onClick={() => {
+                if (!snapshot.isDragging) setActive(item.label)
+              }}
               variant="subtle"
             />
           </div>
