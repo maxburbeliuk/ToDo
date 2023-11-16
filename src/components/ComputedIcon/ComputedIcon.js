@@ -1,36 +1,19 @@
-import { Center, rem } from '@mantine/core'
+import { Center } from '@mantine/core'
 import { IconGripVertical } from '@tabler/icons-react'
+import './Styles.css'
 
-const computedIcon = (icon, isShown) => {
+const ComputedIcon = (icon, isShown) => {
   if (isShown) {
     return (
-      <Center>
-        <Center
-          style={{
-            marginRight: '6px'
-          }}
-        >
-          <IconGripVertical
-            style={{
-              width: rem(18),
-              height: rem(18)
-            }}
-            stroke={0.5}
-          />
+      <Center className="iconContainer">
+        <Center className="iconMarginRight">
+          <IconGripVertical className="iconSize" stroke={0.5} />
         </Center>
         {icon}
       </Center>
     )
   }
 
-  return (
-    <Center
-      style={{
-        marginLeft: '24px'
-      }}
-    >
-      {icon}
-    </Center>
-  )
+  return <Center className="iconMarginLeft">{icon}</Center>
 }
-export default computedIcon
+export default ComputedIcon

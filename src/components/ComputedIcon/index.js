@@ -1,3 +1,3 @@
-import computedIcon from './ComputedIcon'
+import ComputedIcon from './ComputedIcon'
 
-export default computedIcon
+export default ComputedIcon
