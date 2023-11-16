@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-const IndicatorStyled = styled.div`
+
+const SelectedNavLinksIndicatorStyled = styled.div`
   position: absolute;
   left: 0;
   width: 6px;
@@ -8,4 +9,4 @@ const IndicatorStyled = styled.div`
   border-bottom-right-radius: 10px;
   background: var(--mantine-color-blue-5);
 `
-export default IndicatorStyled
+export default SelectedNavLinksIndicatorStyled

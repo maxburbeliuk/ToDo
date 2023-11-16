@@ -1,14 +1,15 @@
 import { NavLink } from '@mantine/core'
 import { useState } from 'react'
-import NAV_LINKS_ITEMS from './navLinksItems'
-import cx from 'clsx'
 import { useListState } from '@mantine/hooks'
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
-import classes from './DndListHandle.module.css'
-import ComputedIcon from '~/components/ComputedIcon'
-import IndicatorStyled from '~/components/Indicator/IndicatorStyled'
+import {
+  DragIcon,
+  SelectedNavLinksIndicator,
+  DragItemWrapper
+} from '~/components/MainMenu/components'
+import { NAV_LINKS_ITEMS } from '~/components/MainMenu/__constants__'
 
-const NavLinks = () => {
+const MainMenu = () => {
   const [active, setActive] = useState(NAV_LINKS_ITEMS[0].label)
 
   const [isShown, setIsShown] = useState(false)
@@ -17,32 +18,28 @@ const NavLinks = () => {
   const items = state.map((item, index) => (
     <Draggable key={item.label} index={index} draggableId={item.label}>
       {(provided, snapshot) => (
-        <div
-          className={cx(classes.item, {
-            [classes.itemDragging]: snapshot.isDragging
-          })}
+        <DragItemWrapper
           ref={provided.innerRef}
+          {...provided.dragHandleProps}
           {...provided.draggableProps}
+          isDragging={snapshot.isDragging}
+          onMouseMove={() => setIsShown(true)}
+          onMouseLeave={() => setIsShown(false)}
         >
-          <div
-            {...provided.dragHandleProps}
-            className={classes.dragHandle}
-            onMouseMove={() => setIsShown(true)}
-            onMouseLeave={() => setIsShown(false)}
-          >
-            {item.label === active ? <IndicatorStyled /> : null}
-            <NavLink
-              key={item.label}
-              active={item.label === active}
-              label={item.label}
-              leftSection={ComputedIcon(item.icon, isShown)}
-              onClick={() => {
-                if (!snapshot.isDragging) setActive(item.label)
-              }}
-              variant="subtle"
-            />
-          </div>
-        </div>
+          {item.label === active && !snapshot.isDragging ? (
+            <SelectedNavLinksIndicator />
+          ) : null}
+          <NavLink
+            key={item.label}
+            active={item.label === active}
+            label={item.label}
+            leftSection={<DragIcon isShown={isShown}>{item.icon}</DragIcon>}
+            onClick={() => {
+              if (!snapshot.isDragging) setActive(item.label)
+            }}
+            variant="subtle"
+          />
+        </DragItemWrapper>
       )}
     </Draggable>
   ))
@@ -63,4 +60,4 @@ const NavLinks = () => {
     </DragDropContext>
   )
 }
-export default NavLinks
+export default MainMenu
