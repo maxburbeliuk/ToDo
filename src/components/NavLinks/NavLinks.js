@@ -5,7 +5,7 @@ import cx from 'clsx'
 import { useListState } from '@mantine/hooks'
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
 import classes from './DndListHandle.module.css'
-import ComputedIcon from '~/components/ComputedIcon'
+import computedIcon from '~/components/ComputedIcon'
 import Indicator from '~/components/Indicator'
 
 const NavLinks = () => {
@@ -21,7 +21,6 @@ const NavLinks = () => {
           className={cx(classes.item, {
             [classes.itemDragging]: snapshot.isDragging
           })}
-          style={{ position: 'relative' }}
           ref={provided.innerRef}
           {...provided.draggableProps}
         >
@@ -36,7 +35,7 @@ const NavLinks = () => {
               key={item.label}
               active={item.label === active}
               label={item.label}
-              leftSection={ComputedIcon(item.icon, isShown)}
+              leftSection={computedIcon(item.icon, isShown)}
               onClick={() => {
                 if (!snapshot.isDragging) setActive(item.label)
               }}
@@ -47,7 +46,6 @@ const NavLinks = () => {
       )}
     </Draggable>
   ))
-
   return (
     <DragDropContext
       onDragEnd={({ destination, source }) =>
