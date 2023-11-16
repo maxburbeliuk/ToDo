@@ -5,8 +5,8 @@ import cx from 'clsx'
 import { useListState } from '@mantine/hooks'
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
 import classes from './DndListHandle.module.css'
-import computedIcon from '~/components/ComputedIcon'
-import Indicator from '~/components/Indicator'
+import ComputedIcon from '~/components/ComputedIcon'
+import IndicatorStyled from '~/components/Indicator/IndicatorStyled'
 
 const NavLinks = () => {
   const [active, setActive] = useState(NAV_LINKS_ITEMS[0].label)
@@ -30,12 +30,12 @@ const NavLinks = () => {
             onMouseMove={() => setIsShown(true)}
             onMouseLeave={() => setIsShown(false)}
           >
-            {item.label === active ? <Indicator /> : null}
+            {item.label === active ? <IndicatorStyled /> : null}
             <NavLink
               key={item.label}
               active={item.label === active}
               label={item.label}
-              leftSection={computedIcon(item.icon, isShown)}
+              leftSection={ComputedIcon(item.icon, isShown)}
               onClick={() => {
                 if (!snapshot.isDragging) setActive(item.label)
               }}
