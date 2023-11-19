@@ -7,17 +7,13 @@ import { ModalsProvider } from '@mantine/modals'
 import { GDPR } from '~/components'
 import React from 'react'
 import ErrorBoundary from '~/contexts'
-
-const Dasa = () => {
-  throw new Error('dasa')
-}
-
 const App = () => {
   return (
-    <ErrorBoundary>
-      <Dasa />
-      <BrowserRouter>
-        <MantineProvider defaultColorScheme="dark">
+    <BrowserRouter>
+      <MantineProvider defaultColorScheme="dark">
+        <ErrorBoundary
+          errorHandler={(error, errorInfo) => <p>{error.message}</p>}
+        >
           <ModalsProvider>
             <Notifications />
             <GDPR />
@@ -29,9 +25,9 @@ const App = () => {
               </Routes>
             </AppShell>
           </ModalsProvider>
-        </MantineProvider>
-      </BrowserRouter>
-    </ErrorBoundary>
+        </ErrorBoundary>
+      </MantineProvider>
+    </BrowserRouter>
   )
 }
 export default App

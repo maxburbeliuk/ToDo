@@ -7,11 +7,20 @@ import {
 } from '~/domains/Task'
 import { Space, Divider, Group, Grid } from '@mantine/core'
 import { useSearchTask, useTaskActions } from '~/domains/Task/hooks'
+import { useState } from 'react'
 
 const TaskAdvancedView = () => {
   const { handleCreateTask } = useTaskActions()
 
   const { tasksWithSearchedValue, setSearchedValue } = useSearchTask()
+
+  const ButtonWithError = () => {
+    const [hasError, setHasError] = useState(false)
+    if (hasError) {
+      throw Error('Oops, It is error')
+    }
+    return <button onClick={() => setHasError(true)}>Error</button>
+  }
 
   return (
     <div>
@@ -20,6 +29,7 @@ const TaskAdvancedView = () => {
       <Grid align="center">
         <Grid.Col span={'auto'}>
           <TaskSearch onChange={setSearchedValue} />
+          <ButtonWithError />
         </Grid.Col>
         <Grid.Col span="content">
           <Group justify="right" gap="sm">
