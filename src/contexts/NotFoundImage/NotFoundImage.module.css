@@ -1,7 +1,22 @@
+.body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
 
 .root {
     padding-top: 80px;
     padding-bottom: 80px;
+}
+
+.centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .title {
@@ -12,12 +27,10 @@
 }
 
 @media (max-width: 768px) {
-
     .title {
         font-size: 32px;
     }
 }
-
 
 .control {
     @media (max-width: 768px) {
@@ -29,27 +42,4 @@
     @media (min-width: 48em) {
         display: none;
     }
-}
-
-.desktopImage {
-    @media (max-width: 47.99em) {
-        display: none;
-    }
-}
-
-.iconContainer {
-    display: flex;
-}
-
-.iconMarginRight {
-    margin-right: 6px;
-}
-
-.iconMarginLeft {
-    margin-left: 24px;
-}
-
-.iconSize {
-    width: 1.125rem;
-    height: 1.125rem;
 }
