@@ -26,7 +26,6 @@ const TaskAdvancedView = () => {
             <TaskSimpleFilter />
             <Divider orientation="vertical" />
             <TaskSimpleMenu />
-            <ButtonWithError />
           </Group>
         </Grid.Col>
       </Grid>
