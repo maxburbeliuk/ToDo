@@ -6,15 +6,17 @@ import {
 } from './ErrorComponentFallback.styled'
 import { useNavigate } from 'react-router-dom'
 import { APP_PATHS } from '~/__constants__'
+import { useMediaQuery } from '@mantine/hooks'
 const ILLUSTRATION_ERROR = '/assets/Error-boundary-fallback-image.svg'
 const ErrorComponentFallback = ({ onGoBack }) => {
+  const isMobile = useMediaQuery('(max-width: 768px)')
   const navigate = useNavigate()
   const redirectToTasks = () => {
     navigate(APP_PATHS.TASKS_ALL)
     onGoBack()
   }
   return (
-    <StyledContainer>
+    <StyledContainer className={isMobile ? 'mx-12' : undefined}>
       <SimpleGrid spacing={{ base: 40, sm: 80 }} cols={{ base: 1, sm: 2 }}>
         <StyledMobileImage src={ILLUSTRATION_ERROR} />
         <div>

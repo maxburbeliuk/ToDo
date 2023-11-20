@@ -2,8 +2,12 @@ import styled from 'styled-components'
 import { Button, Container, Image } from '@mantine/core'
 
 const StyledContainer = styled(Container)`
-  padding-top: 300px;
-  padding-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex: 1;
 `
 
 const StyledButton = styled(Button)`
