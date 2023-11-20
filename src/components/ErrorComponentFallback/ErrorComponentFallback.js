@@ -1,6 +1,5 @@
 import React from 'react'
 import { SimpleGrid, Text } from '@mantine/core'
-import image from '../ErrorBoundary/image.svg'
 import {
   StyledContainer,
   StyledTitle,
@@ -9,6 +8,7 @@ import {
 } from './ErrorComponentFallback.styled'
 import { useNavigate } from 'react-router-dom'
 import { APP_PATHS } from '~/__constants__'
+const ILLUSTRATION_Error = '/assets/Error-boundary-fallback-image.svg'
 const ErrorComponentFallback = ({ onGoBack }) => {
   const navigate = useNavigate()
   const redirectToTasks = () => {
@@ -18,7 +18,7 @@ const ErrorComponentFallback = ({ onGoBack }) => {
   return (
     <StyledContainer>
       <SimpleGrid spacing={{ base: 40, sm: 80 }} cols={{ base: 1, sm: 2 }}>
-        <StyledMobileImage src={image} />
+        <StyledMobileImage src={ILLUSTRATION_Error} />
         <div>
           <StyledTitle>Something is not right...</StyledTitle>
           <Text c="dimmed" size="lg">
