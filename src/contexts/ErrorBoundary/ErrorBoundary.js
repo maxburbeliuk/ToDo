@@ -1,18 +1,20 @@
 import React from 'react'
-import NotFoundImage from '../NotFoundImage'
+import ErrorComponentFallback from '../ErrorComponentFallback'
+
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props)
     this.state = { hasError: false }
   }
-
   static getDerivedStateFromError(error) {
     return { hasError: true }
   }
-
+  resetState = () => {
+    this.setState({ hasError: false })
+  }
   render() {
     if (this.state.hasError) {
-      return <NotFoundImage />
+      return <ErrorComponentFallback onGoBack={this.resetState} />
     }
 
     return this.props.children

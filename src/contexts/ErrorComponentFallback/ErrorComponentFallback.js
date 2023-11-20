@@ -6,18 +6,15 @@ import {
   StyledTitle,
   StyledButton,
   StyledMobileImage
-} from './ErrorComponentFallbackStyled'
-import { useLocation, useNavigate } from 'react-router-dom'
+} from './ErrorComponentFallback.styled'
+import { useNavigate } from 'react-router-dom'
 import { APP_PATHS } from '~/__constants__'
-
-const ErrorComponentFallback = () => {
+const ErrorComponentFallback = ({ onGoBack }) => {
   const navigate = useNavigate()
-  const location = useLocation()
-  console.log(location)
   const redirectToTasks = () => {
     navigate(APP_PATHS.TASKS_ALL)
+    onGoBack()
   }
-
   return (
     <StyledContainer>
       <SimpleGrid spacing={{ base: 40, sm: 80 }} cols={{ base: 1, sm: 2 }}>
@@ -42,5 +39,4 @@ const ErrorComponentFallback = () => {
     </StyledContainer>
   )
 }
-
 export default ErrorComponentFallback

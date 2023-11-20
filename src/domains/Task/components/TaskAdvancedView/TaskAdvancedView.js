@@ -14,14 +14,6 @@ const TaskAdvancedView = () => {
 
   const { tasksWithSearchedValue, setSearchedValue } = useSearchTask()
 
-  const ButtonWithError = () => {
-    const [hasError, setHasError] = useState(false)
-    if (hasError) {
-      throw Error('Oops, It is error')
-    }
-    return <button onClick={() => setHasError(true)}>Error</button>
-  }
-
   return (
     <div>
       <TaskSimpleForm onSubmit={handleCreateTask} />
@@ -29,7 +21,6 @@ const TaskAdvancedView = () => {
       <Grid align="center">
         <Grid.Col span={'auto'}>
           <TaskSearch onChange={setSearchedValue} />
-          <ButtonWithError />
         </Grid.Col>
         <Grid.Col span="content">
           <Group justify="right" gap="sm">
