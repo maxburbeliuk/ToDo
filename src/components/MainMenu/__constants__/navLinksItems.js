@@ -1,4 +1,4 @@
-import { IconSettings, IconList, IconHome } from '@tabler/icons-react'
+import { IconHome, IconList, IconSettings } from '@tabler/icons-react'
 
 const NAV_LINKS_ITEMS = [
   {

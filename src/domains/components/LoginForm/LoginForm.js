@@ -30,8 +30,6 @@ const LoginForm = () => {
   })
 
   const onLogin = (values) => {
-    console.log(values)
-
     navigate(APP_PATHS.TASKS_ALL)
   }
 
