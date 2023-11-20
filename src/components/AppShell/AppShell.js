@@ -1,7 +1,6 @@
 import { useDisclosure } from '@mantine/hooks'
-import { AppShell, Burger, Group, Skeleton } from '@mantine/core'
-import { GDPR } from '~/components'
-import NavLinks from '../NavLinks'
+import { AppShell, Burger, Group } from '@mantine/core'
+import { MainMenu } from '~/components'
 
 const AppShellElements = ({ children }) => {
   const [opened, { toggle }] = useDisclosure()
@@ -29,7 +28,7 @@ const AppShellElements = ({ children }) => {
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p="md">
-        <NavLinks />
+        <MainMenu />
       </AppShell.Navbar>
       <AppShell.Main>{children}</AppShell.Main>
       <AppShell.Aside p="md">Aside</AppShell.Aside>

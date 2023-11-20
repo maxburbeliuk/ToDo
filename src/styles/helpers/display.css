@@ -1,0 +1,100 @@
+/* ===================== Display ===================== */
+.flex {
+  display: flex;
+}
+.block {
+  display: block;
+}
+.inline-flex {
+  display: inline-flex;
+}
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.sticky {
+  position: sticky;
+}
+.fixed {
+  position: fixed;
+}
+.none{
+  display:none;
+}
+
+/* ===================== Flex position ===================== */
+.flex-1 {
+  flex: 1;
+}
+.flex-row {
+  flex-direction: row;
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+.flex-auto {
+  flex: auto;
+}
+/* ===================== Justify Content =================== */
+.justify-start {
+  justify-content: flex-start;
+}
+.justify-end {
+  justify-content: flex-end;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-around {
+  justify-content: space-around;
+}
+/* ===================== Justify Items ===================== */
+.justify-items-start {
+  justify-items: flex-start;
+}
+.justify-items-end {
+  justify-items: flex-end;
+}
+.justify-items-center {
+  justify-items: center;
+}
+.justify-items-stretch {
+  justify-items: stretch;
+}
+/* ===================== Align Items ===================== */
+
+.align-start {
+  align-items: flex-start;
+}
+.align-end {
+  align-items: flex-end;
+}
+.align-center	{
+  align-items: center;
+}
+.align-baseline {
+  align-items: baseline;
+}
+
+.full-width {
+  width: 100%;
+}
+.full-height {
+  height: 100%;
+}
+
+/* ===================== Overflows ===================== */
+.overflowY-auto {
+  overflow-y: auto;
+}
