@@ -1,14 +1,12 @@
-import React from 'react'
-import { SimpleGrid, Text } from '@mantine/core'
+import { SimpleGrid, Text, Title } from '@mantine/core'
 import {
   StyledContainer,
-  StyledTitle,
   StyledButton,
   StyledMobileImage
 } from './ErrorComponentFallback.styled'
 import { useNavigate } from 'react-router-dom'
 import { APP_PATHS } from '~/__constants__'
-const ILLUSTRATION_Error = '/assets/Error-boundary-fallback-image.svg'
+const ILLUSTRATION_ERROR = '/assets/Error-boundary-fallback-image.svg'
 const ErrorComponentFallback = ({ onGoBack }) => {
   const navigate = useNavigate()
   const redirectToTasks = () => {
@@ -18,9 +16,9 @@ const ErrorComponentFallback = ({ onGoBack }) => {
   return (
     <StyledContainer>
       <SimpleGrid spacing={{ base: 40, sm: 80 }} cols={{ base: 1, sm: 2 }}>
-        <StyledMobileImage src={ILLUSTRATION_Error} />
+        <StyledMobileImage src={ILLUSTRATION_ERROR} />
         <div>
-          <StyledTitle>Something is not right...</StyledTitle>
+          <Title className="mb-12">Something is not right...</Title>
           <Text c="dimmed" size="lg">
             Page you are trying to open does not exist. You may have mistyped
             the address, or the page has been moved to another URL. If you think
