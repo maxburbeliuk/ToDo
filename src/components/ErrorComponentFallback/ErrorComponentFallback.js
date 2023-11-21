@@ -1,9 +1,5 @@
-import { SimpleGrid, Text, Title } from '@mantine/core'
-import {
-  StyledContainer,
-  StyledButton,
-  StyledMobileImage
-} from './ErrorComponentFallback.styled'
+import { Image, SimpleGrid, Text, Title } from '@mantine/core'
+import { StyledContainer, StyledButton } from './ErrorComponentFallback.styled'
 import { useNavigate } from 'react-router-dom'
 import { APP_PATHS } from '~/__constants__'
 import { useMediaQuery } from '@mantine/hooks'
@@ -18,7 +14,7 @@ const ErrorComponentFallback = ({ onGoBack }) => {
   return (
     <StyledContainer className={isMobile ? 'mx-12' : undefined}>
       <SimpleGrid spacing={{ base: 40, sm: 80 }} cols={{ base: 1, sm: 2 }}>
-        <StyledMobileImage src={ILLUSTRATION_ERROR} />
+        <Image src={ILLUSTRATION_ERROR} />
         <div>
           <Title className="mb-12">Something is not right...</Title>
           <Text c="dimmed" size="lg">

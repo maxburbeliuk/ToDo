@@ -12,6 +12,7 @@ class ErrorBoundary extends React.Component {
     this.setState({ hasError: false })
   }
   render() {
+    console.log(this.state.hasError)
     if (this.state.hasError) {
       return <ErrorComponentFallback onGoBack={this.resetState} />
     }

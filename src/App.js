@@ -7,13 +7,12 @@ import { ModalsProvider } from '@mantine/modals'
 import { GDPR } from '~/components'
 import React from 'react'
 import ErrorBoundary from '~/contexts'
+
 const App = () => {
   return (
     <BrowserRouter>
       <MantineProvider defaultColorScheme="dark">
-        <ErrorBoundary
-          errorHandler={(error, errorInfo) => <p>{error.message}</p>}
-        >
+        <ErrorBoundary>
           <ModalsProvider>
             <Notifications />
             <GDPR />
