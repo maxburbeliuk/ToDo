@@ -13,13 +13,6 @@ const TaskAdvancedView = () => {
   const { handleCreateTask } = useTaskActions()
 
   const { tasksWithSearchedValue, setSearchedValue } = useSearchTask()
-  const ButtonWithError = () => {
-    const [hasError, setHasError] = useState(false)
-    if (hasError) {
-      throw Error('Error')
-    }
-    return <button onClick={() => setHasError(true)}>Error</button>
-  }
   return (
     <div>
       <TaskSimpleForm onSubmit={handleCreateTask} />
