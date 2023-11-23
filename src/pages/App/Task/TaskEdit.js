@@ -1,5 +1,5 @@
 import TaskSimpleForm from '~/domains/Task/components/TaskSimpleForm'
-import { useDisclosure, useMediaQuery } from '@mantine/hooks'
+import { useDisclosure } from '@mantine/hooks'
 import { useTaskActions } from '~/domains/Task/hooks'
 
 const TaskEdit = (props) => {
