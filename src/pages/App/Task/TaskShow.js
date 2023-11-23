@@ -3,30 +3,26 @@ import { IconEdit, IconTrashFilled } from '@tabler/icons-react'
 import { modals } from '@mantine/modals'
 import { useTaskActions } from '~/domains/Task/hooks'
 import { useParams } from 'react-router-dom'
-import { useMemo } from 'react'
+import { useTaskContext } from '~/domains/Task/context'
 
-const TaskShow = (props) => {
-  const { done, id, text, description } = props
+const TaskShow = () => {
   const { taskId } = useParams()
+
+  const { tasks } = useTaskContext()
+
+  const { text, description, done } =
+    tasks?.find((task) => task?.id === taskId) || {}
 
   const { handleDeleteTask, handleDone } = useTaskActions()
 
   const computedStatus = done ? 'Done' : 'ToDo'
   const computedCheckBoxLabel = done ? 'Mark todo' : 'Mark done'
-  console.log({ text, description })
-
-  const currentTask = useMemo(() => {
-    return {
-      text,
-      description
-    }
-  }, [text, description])
 
   const openDeleteModal = () =>
     modals.openConfirmModal({
       title: 'Delete your task',
       centered: true,
-      children: <Text size="sm">{currentTask.text}</Text>,
+      children: <Text size="sm">{text}</Text>,
       labels: { confirm: 'Delete task', cancel: "No don't delete it" },
       confirmProps: { color: 'red' },
       onConfirm: () => handleDeleteTask(taskId)
@@ -41,12 +37,12 @@ const TaskShow = (props) => {
           </Badge>
         </Group>
         <Text size="sm" c="dimmed">
-          {currentTask.description}
+          {description}
         </Text>
         <Group gap="md" justify="space-between" mt="md">
           <Checkbox
             checked={done}
-            onChange={() => handleDone(id, done)}
+            onChange={() => handleDone(taskId, done)}
             label={computedCheckBoxLabel}
           />
           <Group gap="md">
