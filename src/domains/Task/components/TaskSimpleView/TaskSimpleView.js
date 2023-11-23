@@ -4,12 +4,14 @@ import { modals } from '@mantine/modals'
 import { useTaskActions } from '~/domains/Task/hooks'
 
 import { APP_PATHS } from '~/__constants__'
-import { generatePath, useNavigate } from 'react-router-dom'
+import { generatePath, useLocation, useNavigate } from 'react-router-dom'
 
 const TaskSimpleView = (props) => {
   const { text, description, id, done } = props
 
   const { handleDeleteTask, handleDone } = useTaskActions()
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const computedStatus = done ? 'Done' : 'ToDo'
   const computedCheckBoxLabel = done ? 'Mark todo' : 'Mark done'
@@ -23,10 +25,16 @@ const TaskSimpleView = (props) => {
       ),
       labels: { confirm: 'Delete task', cancel: "No don't delete it" },
       confirmProps: { color: 'red' },
-      onConfirm: () => handleDeleteTask(id)
+      onConfirm: () => {
+        handleDeleteTask(id)
+
+        // If route not task all, after delete make redirect to task all
+        if (location?.pathname !== APP_PATHS.TASKS_ALL) {
+          navigate(APP_PATHS.TASKS_ALL)
+        }
+      }
     })
 
-  const navigate = useNavigate()
   const onEditTask = () => {
     const pathParams = {
       taskId: id
