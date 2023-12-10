@@ -8,7 +8,7 @@ import {
   MENU_OPTIONS_SORT_TYPE
 } from 'src/domains/Task/__constants__'
 import { useSearchParams } from 'react-router-dom'
-import useGetTasks from '../hooks/get/useGetTasks'
+import { useGetTasks } from '../services/get'
 import { Loader } from '@mantine/core'
 import * as TASK_CONTEXT_ACTIONS from '~/domains/Task/context/__constants__/taskActions'
 
