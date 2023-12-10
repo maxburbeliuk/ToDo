@@ -96,6 +96,13 @@ const reducer = (state, action) => {
         )
       }
     }
+
+    case TASK_CONTEXT_ACTIONS.SET_TASKS: {
+      return {
+        ...state,
+        tasks: action.payload.tasks
+      }
+    }
     default: {
       throw new Error(`Invalid action type: ${action.type}`)
     }
