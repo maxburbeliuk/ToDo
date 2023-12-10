@@ -1,32 +1,20 @@
-import {
-  Badge,
-  Card,
-  Checkbox,
-  Group,
-  Text,
-  ActionIcon,
-  Modal
-} from '@mantine/core'
+import { Badge, Card, Checkbox, Group, Text, ActionIcon } from '@mantine/core'
 import { IconEdit, IconTrashFilled } from '@tabler/icons-react'
 import { modals } from '@mantine/modals'
-import TaskSimpleForm from '~/domains/Task/components/TaskSimpleForm'
 import { useTaskActions } from '~/domains/Task/hooks'
-import { useDisclosure, useMediaQuery } from '@mantine/hooks'
+
+import { APP_PATHS } from '~/__constants__'
+import { generatePath, useLocation, useNavigate } from 'react-router-dom'
 
 const TaskSimpleView = (props) => {
   const { text, description, id, done } = props
 
-  const [opened, { open, close }] = useDisclosure(false)
-  const isMobile = useMediaQuery('(max-width: 50em)')
-
-  const { handleEditTask, handleDeleteTask, handleDone } = useTaskActions()
+  const { handleDeleteTask, handleDone } = useTaskActions()
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const computedStatus = done ? 'Done' : 'ToDo'
   const computedCheckBoxLabel = done ? 'Mark todo' : 'Mark done'
-  const handleFormSubmit = (taskData) => {
-    handleEditTask({ ...taskData, id })
-    close()
-  }
 
   const openDeleteModal = () =>
     modals.openConfirmModal({
@@ -37,30 +25,41 @@ const TaskSimpleView = (props) => {
       ),
       labels: { confirm: 'Delete task', cancel: "No don't delete it" },
       confirmProps: { color: 'red' },
-      onConfirm: () => handleDeleteTask(id)
+      onConfirm: () => {
+        handleDeleteTask(id)
+
+        // If route not task all, after delete make redirect to task all
+        if (location?.pathname !== APP_PATHS.TASKS_ALL) {
+          navigate(APP_PATHS.TASKS_ALL)
+        }
+      }
     })
+
+  const onEditTask = () => {
+    const pathParams = {
+      taskId: id
+    }
+    const path = generatePath(APP_PATHS.TASK_EDIT, pathParams)
+    navigate(path)
+  }
+
+  const onShowTask = () => {
+    const pathParams = {
+      taskId: id
+    }
+    const path = generatePath(APP_PATHS.TASKS_SHOW, pathParams)
+    navigate(path)
+  }
 
   return (
     <>
-      <Modal
-        opened={opened}
-        onClose={close}
-        title="Edit task"
-        centered
-        fullScreen={isMobile}
-        transitionProps={{
-          transition: 'fade',
-          duration: 300,
-          timingFunction: 'linear'
-        }}
+      <Card
+        onDoubleClick={onShowTask}
+        shadow="sm"
+        padding="lg"
+        radius="md"
+        withBorder
       >
-        <TaskSimpleForm
-          onSubmit={handleFormSubmit}
-          initialValues={{ text, description }}
-        />
-      </Modal>
-
-      <Card shadow="sm" padding="lg" radius="md" withBorder>
         <Group justify="space-between" mt="md" mb="xs">
           <Text fw={500}>{text}</Text>
           <Badge color={'var(--mantine-color-pink-5)'} variant="light">
@@ -77,7 +76,7 @@ const TaskSimpleView = (props) => {
             label={computedCheckBoxLabel}
           />
           <Group gap="md">
-            <ActionIcon variant="filled" aria-label="edit" onClick={open}>
+            <ActionIcon variant="filled" aria-label="edit" onClick={onEditTask}>
               <IconEdit size={18} />
             </ActionIcon>
             <ActionIcon
