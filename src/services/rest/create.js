@@ -19,10 +19,10 @@ const create = async (endpoint, body = {}) => {
   if (!success) {
     notifications.show({
       color: 'red',
-      title: 'Oops! Task failed to create',
+      title: 'Oops! Failed to create',
       message: data.error
     })
-    return null
+    return { data: null, message: 'Something went wrong during create' }
   }
 
   return await data.json()

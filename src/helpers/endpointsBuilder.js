@@ -5,7 +5,7 @@ const endpointsBuilder = (endpoint, dataToReplace = {}) => {
   let builtEndpoint = endpoint
 
   Object.entries(dataToReplace).forEach(([key, value]) => {
-    builtEndpoint = builtEndpoint.replace(key, value)
+    builtEndpoint = builtEndpoint.replace(`:${key}`, value)
   })
 
   return DOMAIN_NAME + VERSION_OF_API + builtEndpoint

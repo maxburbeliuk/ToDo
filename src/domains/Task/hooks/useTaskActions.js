@@ -55,34 +55,26 @@ export default function useTaskActions() {
   }
 
   const handleCreateTask = async ({ text, description }) => {
-    try {
-      const endpoint = endpointsBuilder(ENDPOINTS.TASKS)
+    const endpoint = endpointsBuilder(ENDPOINTS.TASKS)
 
-      const { data: task, message } = await create(endpoint, {
-        text,
-        description
-      })
+    const { data: task, message } = await create(endpoint, {
+      text,
+      description
+    })
 
-      if (!task) return
+    if (!task) return
 
-      taskDispatch({
-        type: TASK_CONTEXT_ACTIONS.CREATE_TASK,
-        payload: {
-          task
-        }
-      })
-      notifications.show({
-        title: 'Notification',
-        message: message,
-        color: 'green'
-      })
-    } catch (error) {
-      notifications.show({
-        color: 'red',
-        title: 'Notification with custom styles',
-        message: error.message
-      })
-    }
+    taskDispatch({
+      type: TASK_CONTEXT_ACTIONS.CREATE_TASK,
+      payload: {
+        task
+      }
+    })
+    notifications.show({
+      title: 'Notification',
+      message: message,
+      color: 'green'
+    })
   }
 
   const handleDone = (taskId, currentStatus) => {
