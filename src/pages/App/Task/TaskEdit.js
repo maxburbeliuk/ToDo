@@ -10,12 +10,12 @@ const TaskEdit = () => {
 
   const { tasks } = useTaskContext()
 
-  const { text, description, id } =
-    tasks?.find((task) => task?.id === taskId) || {}
+  const { text, description, _id } =
+    tasks?.find((task) => task?._id === taskId) || {}
 
   const { handleEditTask } = useTaskActions()
   const handleFormSubmit = (taskData) => {
-    handleEditTask({ ...taskData, id })
+    handleEditTask({ ...taskData, _id })
 
     navigate(APP_PATHS.TASKS_ALL)
   }

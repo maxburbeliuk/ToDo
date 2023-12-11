@@ -7,7 +7,7 @@ const TaskShow = () => {
 
   const { tasks } = useTaskContext()
 
-  const task = tasks?.find((task) => task?.id === taskId) || {}
+  const task = tasks?.find((task) => task?._id === taskId) || {}
 
   return <TaskSimpleView {...task} />
 }

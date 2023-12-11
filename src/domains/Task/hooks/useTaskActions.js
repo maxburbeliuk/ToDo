@@ -10,11 +10,11 @@ export default function useTaskActions() {
   const { createTask } = useCreateTask()
   const handleEditTask = (taskData) => {
     try {
-      const { text, description, id } = taskData
+      const { text, description, _id } = taskData
       taskDispatch({
         type: TASK_CONTEXT_ACTIONS.EDIT_TASK,
         payload: {
-          task: { text, description, id }
+          task: { text, description, _id }
         }
       })
       notifications.show({
@@ -31,12 +31,12 @@ export default function useTaskActions() {
     }
   }
 
-  const handleDeleteTask = (id) => {
+  const handleDeleteTask = (_id) => {
     try {
       taskDispatch({
         type: TASK_CONTEXT_ACTIONS.DELETE_TASK,
         payload: {
-          task: { id }
+          task: { _id }
         }
       })
       notifications.show({
@@ -56,17 +56,12 @@ export default function useTaskActions() {
   const handleCreateTask = async ({ text, description }) => {
     try {
       const newTask = await createTask(text, description)
-      console.log(newTask)
-      if (!newTask) {
-        notifications.show()
-
-        return
-      }
+      if (!newTask) return
 
       taskDispatch({
         type: TASK_CONTEXT_ACTIONS.CREATE_TASK,
         payload: {
-          newTask
+          task: newTask
         }
       })
       notifications.show({
@@ -88,7 +83,7 @@ export default function useTaskActions() {
       taskDispatch({
         type: TASK_CONTEXT_ACTIONS.CHANGE_DONE,
         payload: {
-          task: { id: taskId, done: !currentStatus }
+          task: { _id: taskId, done: !currentStatus }
         }
       })
     } catch (error) {}

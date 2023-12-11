@@ -8,7 +8,7 @@ import { APP_PATHS } from '~/__constants__'
 import { generatePath, useLocation, useNavigate } from 'react-router-dom'
 
 const TaskSimpleView = (props) => {
-  const { text, description, id, done } = props
+  const { text, description, _id, done } = props
 
   const { handleDeleteTask, handleDone } = useTaskActions()
   const navigate = useNavigate()
@@ -29,7 +29,7 @@ const TaskSimpleView = (props) => {
       labels: { confirm: 'Delete task', cancel: "No don't delete it" },
       confirmProps: { color: 'red' },
       onConfirm: () => {
-        deleteTask(id)
+        deleteTask(_id)
 
         if (location?.pathname !== APP_PATHS.TASKS_ALL) {
           navigate(APP_PATHS.TASKS_ALL)
@@ -39,7 +39,7 @@ const TaskSimpleView = (props) => {
 
   const onEditTask = () => {
     const pathParams = {
-      taskId: id
+      taskId: _id
     }
     const path = generatePath(APP_PATHS.TASK_EDIT, pathParams)
     navigate(path)
@@ -47,7 +47,7 @@ const TaskSimpleView = (props) => {
 
   const onShowTask = () => {
     const pathParams = {
-      taskId: id
+      taskId: _id
     }
     const path = generatePath(APP_PATHS.TASKS_SHOW, pathParams)
     navigate(path)
@@ -74,7 +74,7 @@ const TaskSimpleView = (props) => {
         <Group gap="md" justify="space-between" mt="md">
           <Checkbox
             checked={done}
-            onChange={() => handleDone(id, done)}
+            onChange={() => handleDone(_id, done)}
             label={computedCheckBoxLabel}
           />
           <Group gap="md">
