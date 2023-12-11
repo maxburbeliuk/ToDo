@@ -6,6 +6,8 @@ import { useSearchParams } from 'react-router-dom'
 const useSortMenuActions = () => {
   const taskDispatch = useContext(TaskDispatchContext)
   const { sortByField, sortByType } = useTaskContext()
+
+  // eslint-disable-next-line no-unused-vars
   const [_, setSearchParams] = useSearchParams({ sortByField, sortByType })
 
   const onChangeSortByField = (selectedField) => {

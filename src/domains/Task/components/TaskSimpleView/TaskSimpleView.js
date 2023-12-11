@@ -2,7 +2,6 @@ import { Badge, Card, Checkbox, Group, Text, ActionIcon } from '@mantine/core'
 import { IconEdit, IconTrashFilled } from '@tabler/icons-react'
 import { modals } from '@mantine/modals'
 import { useTaskActions } from '~/domains/Task/hooks'
-import useDeleteTaskById from '~/domains/Task/services/delete'
 
 import { APP_PATHS } from '~/__constants__'
 import { generatePath, useLocation, useNavigate } from 'react-router-dom'
@@ -17,8 +16,6 @@ const TaskSimpleView = (props) => {
   const computedStatus = done ? 'Done' : 'ToDo'
   const computedCheckBoxLabel = done ? 'Mark todo' : 'Mark done'
 
-  const { deleteTask } = useDeleteTaskById()
-
   const openDeleteModal = () =>
     modals.openConfirmModal({
       title: 'Delete your task',
@@ -29,7 +26,7 @@ const TaskSimpleView = (props) => {
       labels: { confirm: 'Delete task', cancel: "No don't delete it" },
       confirmProps: { color: 'red' },
       onConfirm: () => {
-        deleteTask(_id)
+        handleDeleteTask(_id)
 
         if (location?.pathname !== APP_PATHS.TASKS_ALL) {
           navigate(APP_PATHS.TASKS_ALL)

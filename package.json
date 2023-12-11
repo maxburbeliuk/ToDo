@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "env-cmd": "10.1.0",
     "@hello-pangea/dnd": "^16.3.0",
     "@mantine/core": "^7.0.0",
     "@mantine/form": "^7.0.0",
@@ -21,8 +22,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
+    "start": "env-cmd -f .env.development craco start",
+    "build": "env-cmd -f .env.development craco build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

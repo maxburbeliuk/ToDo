@@ -21,7 +21,6 @@ async function safeAsync(promise, err) {
     const data = await promise
     return { data, success: true }
   } catch (e) {
-    console.log(e)
     return handleError(e, err)
   }
 }

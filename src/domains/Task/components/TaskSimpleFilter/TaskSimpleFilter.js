@@ -10,6 +10,7 @@ const TaskSimpleFilter = () => {
   const { filter } = useTaskContext()
   const taskDispatch = useContext(TaskDispatchContext)
 
+  // eslint-disable-next-line no-unused-vars
   const [_, setSearchParams] = useSearchParams({ filter })
   const handleChangeFilter = (key) => {
     taskDispatch({

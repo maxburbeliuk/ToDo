@@ -3,11 +3,12 @@ import { notifications } from '@mantine/notifications'
 import { TaskDispatchContext } from '~/domains/Task/context'
 import '@mantine/notifications/styles.css'
 import * as TASK_CONTEXT_ACTIONS from '~/domains/Task/context/__constants__/taskActions'
-import useCreateTask from '~/domains/Task/services/post'
+import endpointsBuilder from '../../../helpers/endpointsBuilder'
+import { ENDPOINTS } from '~/__constants__'
+import { create } from '~/services'
 
 export default function useTaskActions() {
   const taskDispatch = useContext(TaskDispatchContext)
-  const { createTask } = useCreateTask()
   const handleEditTask = (taskData) => {
     try {
       const { text, description, _id } = taskData
@@ -55,18 +56,24 @@ export default function useTaskActions() {
 
   const handleCreateTask = async ({ text, description }) => {
     try {
-      const newTask = await createTask(text, description)
-      if (!newTask) return
+      const endpoint = endpointsBuilder(ENDPOINTS.TASKS)
+
+      const { data: task, message } = await create(endpoint, {
+        text,
+        description
+      })
+
+      if (!task) return
 
       taskDispatch({
         type: TASK_CONTEXT_ACTIONS.CREATE_TASK,
         payload: {
-          task: newTask
+          task
         }
       })
       notifications.show({
         title: 'Notification',
-        message: 'Create task success 🤩',
+        message: message,
         color: 'green'
       })
     } catch (error) {
