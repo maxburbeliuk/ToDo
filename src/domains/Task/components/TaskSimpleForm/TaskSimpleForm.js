@@ -1,14 +1,10 @@
 import { TextInput, Button, Textarea, Flex, Space } from '@mantine/core'
 import { useFormInitialValues } from '~/domains/Task/hooks'
-import { useCreateTask } from '~/domains/Task/services/post'
-
 const TaskSimpleForm = (props) => {
   const { onCancel, onSubmit, initialValues } = props
   const { form } = useFormInitialValues(initialValues)
-  const { createTask } = useCreateTask()
 
-  const handleFormSubmit = async (values) => {
-    await createTask(values.text, values.description)
+  const handleFormSubmit = (values) => {
     onSubmit(values)
     form.reset()
   }

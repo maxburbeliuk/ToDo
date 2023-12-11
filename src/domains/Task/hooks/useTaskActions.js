@@ -3,10 +3,11 @@ import { notifications } from '@mantine/notifications'
 import { TaskDispatchContext } from '~/domains/Task/context'
 import '@mantine/notifications/styles.css'
 import * as TASK_CONTEXT_ACTIONS from '~/domains/Task/context/__constants__/taskActions'
+import useCreateTask from '~/domains/Task/services/post'
 
 export default function useTaskActions() {
   const taskDispatch = useContext(TaskDispatchContext)
-
+  const { createTask } = useCreateTask()
   const handleEditTask = (taskData) => {
     try {
       const { text, description, id } = taskData
@@ -52,12 +53,20 @@ export default function useTaskActions() {
     }
   }
 
-  const handleCreateTask = ({ text, description }) => {
+  const handleCreateTask = async ({ text, description }) => {
     try {
+      const newTask = await createTask(text, description)
+      console.log(newTask)
+      if (!newTask) {
+        notifications.show()
+
+        return
+      }
+
       taskDispatch({
         type: TASK_CONTEXT_ACTIONS.CREATE_TASK,
         payload: {
-          task: { text, description, id: crypto.randomUUID() }
+          newTask
         }
       })
       notifications.show({

@@ -11,7 +11,6 @@ import React, { useState } from 'react'
 
 const TaskAdvancedView = () => {
   const { handleCreateTask } = useTaskActions()
-
   const { tasksWithSearchedValue, setSearchedValue } = useSearchTask()
   return (
     <div>

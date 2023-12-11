@@ -1,1 +1,3 @@
-export { default as useCreateTask } from './useCreateTask'
+import useCreateTask from './useCreateTask'
+
+export default useCreateTask

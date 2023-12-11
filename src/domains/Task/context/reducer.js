@@ -8,17 +8,12 @@ import { transformSortMenuData } from '~/domains/Task/helpers'
 const reducer = (state, action) => {
   switch (action.type) {
     case TASK_CONTEXT_ACTIONS.CREATE_TASK: {
-      const newTask = {
-        ...action.payload.task,
-        done: false,
-        isEdited: false,
-        _updatedAt: new Date().toISOString(),
-        _createdAt: new Date().toISOString()
-      }
-
+      const task = action.payload.task
+      console.log(task)
       return {
+        task,
         ...state,
-        tasks: [...state.tasks, newTask]
+        tasks: [...state.tasks, task]
       }
     }
     case TASK_CONTEXT_ACTIONS.DELETE_TASK: {

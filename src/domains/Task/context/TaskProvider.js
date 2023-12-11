@@ -8,7 +8,6 @@ import {
   MENU_OPTIONS_SORT_TYPE
 } from 'src/domains/Task/__constants__'
 import { useSearchParams } from 'react-router-dom'
-import { useGetTasks } from '../services/get'
 import { Loader } from '@mantine/core'
 import * as TASK_CONTEXT_ACTIONS from '~/domains/Task/context/__constants__/taskActions'
 
@@ -35,23 +34,23 @@ const TaskProvider = (props) => {
     sortByField: searchParams.get('sortByField'),
     sortByType: searchParams.get('sortByType')
   })
+  // const [tasks, loading, error] = useGetTasks()
 
-  const [tasks, loading, error] = useGetTasks()
-
-  useEffect(() => {
-    const isDataFetched = (tasks && !loading) || error
-
-    if (isDataFetched) {
-      if (!error) {
-        dispatch({
-          type: TASK_CONTEXT_ACTIONS.SET_TASKS,
-          payload: {
-            tasks: tasks
-          }
-        })
-      }
-    }
-  }, [tasks, loading, error])
+  // useEffect(() => {
+  //   const isDataFetched = (tasks && !loading) || error
+  //
+  //   if (isDataFetched) {
+  //     if (!error) {
+  //       dispatch({
+  //         type: TASK_CONTEXT_ACTIONS.SET_TASKS,
+  //         payload: {
+  //           tasks: tasks
+  //         }
+  //       })
+  //     }
+  //   }
+  // }, [tasks, loading, error])
+  const loading = false
 
   return (
     <TaskDispatchContext.Provider value={dispatch}>
