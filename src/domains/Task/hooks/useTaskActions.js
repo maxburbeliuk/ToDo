@@ -5,53 +5,59 @@ import '@mantine/notifications/styles.css'
 import * as TASK_CONTEXT_ACTIONS from '~/domains/Task/context/__constants__/taskActions'
 import endpointsBuilder from '../../../helpers/endpointsBuilder'
 import { ENDPOINTS } from '~/__constants__'
-import { create } from '~/services'
+import { create, edit, remove } from '~/services'
 
 export default function useTaskActions() {
   const taskDispatch = useContext(TaskDispatchContext)
-  const handleEditTask = (taskData) => {
-    try {
-      const { text, description, _id } = taskData
-      taskDispatch({
-        type: TASK_CONTEXT_ACTIONS.EDIT_TASK,
-        payload: {
-          task: { text, description, _id }
-        }
-      })
-      notifications.show({
-        title: 'Notification',
-        message: 'Edit success 🤩',
-        color: 'green'
-      })
-    } catch (error) {
-      notifications.show({
-        color: 'red',
-        title: 'Notification with custom styles',
-        message: error.message
-      })
-    }
+  const handleEditTask = async (taskData) => {
+    const { text, description, _id } = taskData
+
+    const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID)
+
+    const { data: task, message } = await edit(endpoint, {
+      _id,
+      text,
+      description
+    })
+    // console.log({ text, description, _id })
+
+    if (!task) return
+
+    taskDispatch({
+      type: TASK_CONTEXT_ACTIONS.EDIT_TASK,
+      payload: {
+        task: { text, description, _id }
+      }
+    })
+    notifications.show({
+      title: 'Notification',
+      message: message,
+      color: 'green'
+    })
   }
 
-  const handleDeleteTask = (_id) => {
-    try {
-      taskDispatch({
-        type: TASK_CONTEXT_ACTIONS.DELETE_TASK,
-        payload: {
-          task: { _id }
-        }
-      })
-      notifications.show({
-        title: 'Notification',
-        message: 'Delete success 🤩',
-        color: 'green'
-      })
-    } catch (error) {
-      notifications.show({
-        color: 'red',
-        title: 'Notification with custom styles',
-        message: error.message
-      })
-    }
+  const handleDeleteTask = async (_id) => {
+    const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID)
+    console.log(endpoint)
+    const { data: task, message } =
+      (await remove(endpoint, {
+        _id
+      })) || {}
+    // console.log({ data: task })
+
+    if (!task) return
+
+    taskDispatch({
+      type: TASK_CONTEXT_ACTIONS.DELETE_TASK,
+      payload: {
+        task
+      }
+    })
+    notifications.show({
+      title: 'Notification',
+      message: message,
+      color: 'green'
+    })
   }
 
   const handleCreateTask = async ({ text, description }) => {
@@ -61,6 +67,7 @@ export default function useTaskActions() {
       text,
       description
     })
+    console.log({ data: task, message })
 
     if (!task) return
 

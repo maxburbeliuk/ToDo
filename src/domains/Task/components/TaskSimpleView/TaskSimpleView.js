@@ -2,7 +2,6 @@ import { Badge, Card, Checkbox, Group, Text, ActionIcon } from '@mantine/core'
 import { IconEdit, IconTrashFilled } from '@tabler/icons-react'
 import { modals } from '@mantine/modals'
 import { useTaskActions } from '~/domains/Task/hooks'
-
 import { APP_PATHS } from '~/__constants__'
 import { generatePath, useLocation, useNavigate } from 'react-router-dom'
 
