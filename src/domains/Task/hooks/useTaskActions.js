@@ -19,7 +19,6 @@ export default function useTaskActions() {
       text,
       description
     })
-    // console.log({ text, description, _id })
 
     if (!task) return
 
@@ -37,13 +36,9 @@ export default function useTaskActions() {
   }
 
   const handleDeleteTask = async (_id) => {
-    const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID)
-    console.log(endpoint)
-    const { data: task, message } =
-      (await remove(endpoint, {
-        _id
-      })) || {}
-    // console.log({ data: task })
+    const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID, { taskId: _id })
+
+    const { data: task, message } = await remove(endpoint)
 
     if (!task) return
 
