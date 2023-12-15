@@ -11,13 +11,10 @@ const edit = async (endpoint, body = {}) => {
     body: JSON.stringify(body)
   })
 
-  console.log(body)
-
   const { data, success } = await safe(
     snapshot,
     'Something went wrong during create'
   )
-  console.log(snapshot)
 
   if (!success) {
     notifications.show({
@@ -27,7 +24,19 @@ const edit = async (endpoint, body = {}) => {
     })
     return { data: null, message: 'Something went wrong during create' }
   }
-  return await body
+
+  const result = await data.json()
+
+  if (result.statusCode !== 200) {
+    notifications.show({
+      color: 'yellow',
+      title: 'Oops! Something went wrong',
+      message: result.message
+    })
+    return { data: result.data, message: result.message }
+  }
+
+  return result
 }
 
 export default edit

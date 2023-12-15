@@ -12,10 +12,9 @@ export default function useTaskActions() {
   const handleEditTask = async (taskData) => {
     const { text, description, _id } = taskData
 
-    const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID)
+    const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID, { taskId: _id })
 
     const { data: task, message } = await edit(endpoint, {
-      _id,
       text,
       description
     })
