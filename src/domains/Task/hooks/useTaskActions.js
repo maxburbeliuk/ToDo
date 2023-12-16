@@ -5,7 +5,7 @@ import '@mantine/notifications/styles.css'
 import * as TASK_CONTEXT_ACTIONS from '~/domains/Task/context/__constants__/taskActions'
 import endpointsBuilder from '../../../helpers/endpointsBuilder'
 import { ENDPOINTS } from '~/__constants__'
-import { create, edit, remove } from '~/services'
+import { create, edit, remove, get } from '~/services'
 
 export default function useTaskActions() {
   const taskDispatch = useContext(TaskDispatchContext)
@@ -34,11 +34,12 @@ export default function useTaskActions() {
     })
   }
 
-  const handleDeleteTask = async (_id) => {
+  const handleGetTask = async (_id) => {
     const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID, { taskId: _id })
 
-    const { data: task, message } = await remove(endpoint)
+    const { data: task, message } = await get(endpoint)
 
+    console.log(_id)
     if (!task) return
 
     taskDispatch({
@@ -47,6 +48,20 @@ export default function useTaskActions() {
         task
       }
     })
+    notifications.show({
+      title: 'Notification',
+      message: message,
+      color: 'green'
+    })
+  }
+
+  const handleDeleteTask = async (_id) => {
+    const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID, { taskId: _id })
+
+    const { data: task, message } = await remove(endpoint)
+
+    if (!task) return
+
     notifications.show({
       title: 'Notification',
       message: message,
@@ -93,6 +108,7 @@ export default function useTaskActions() {
     handleDone,
     handleCreateTask,
     handleEditTask,
-    handleDeleteTask
+    handleDeleteTask,
+    handleGetTask
   }
 }

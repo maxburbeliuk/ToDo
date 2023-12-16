@@ -1,15 +1,28 @@
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useTaskContext } from '~/domains/Task/context'
 import { TaskSimpleView } from '~/domains/Task'
+import { useTaskActions } from '~/domains/Task/hooks'
 
 const TaskShow = () => {
+  const { handleGetTask } = useTaskActions()
   const { taskId } = useParams()
+  const { task } = useTaskContext()
 
-  const { tasks } = useTaskContext()
+  console.log(taskId)
 
-  const task = tasks?.find((task) => task?._id === taskId) || {}
+  useEffect(() => {
+    handleGetTask(task)
+  }, [task])
 
   return <TaskSimpleView {...task} />
 }
 
 export default TaskShow
+
+//
+// useEffect(() => {
+//   if (task === null) {
+//     handleGetTask(taskId)
+//   }
+// }, [taskId])
