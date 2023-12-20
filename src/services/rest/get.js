@@ -21,11 +21,16 @@ const get = async (endpoint) => {
       title: 'Oops! Failed to create',
       message: data.error
     })
-    return { data: null, message: 'Something went wrong during create' }
+    return {
+      data: null,
+      error: 'Oops! Failed to fetch',
+      message: 'Something went wrong during create',
+      statueCode: 500
+    }
   }
 
   const result = await data.json()
-  console.log(result)
+
   if (result.statusCode !== 200) {
     notifications.show({
       color: 'yellow',

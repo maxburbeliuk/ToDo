@@ -6,9 +6,12 @@ import * as TASK_CONTEXT_ACTIONS from '~/domains/Task/context/__constants__/task
 import endpointsBuilder from '../../../helpers/endpointsBuilder'
 import { ENDPOINTS } from '~/__constants__'
 import { create, edit, remove, get } from '~/services'
+import { useGetTaskById } from '~/domains/Task/hooks/get'
 
 export default function useTaskActions() {
   const taskDispatch = useContext(TaskDispatchContext)
+  const [fetchTask] = useGetTaskById()
+
   const handleEditTask = async (taskData) => {
     const { text, description, _id } = taskData
 
@@ -37,22 +40,8 @@ export default function useTaskActions() {
   const handleGetTask = async (_id) => {
     const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID, { taskId: _id })
 
-    const { data: task, message } = await get(endpoint)
-
-    console.log(_id)
-    if (!task) return
-
-    taskDispatch({
-      type: TASK_CONTEXT_ACTIONS.DELETE_TASK,
-      payload: {
-        task
-      }
-    })
-    notifications.show({
-      title: 'Notification',
-      message: message,
-      color: 'green'
-    })
+    const task = await get(endpoint)
+    return task
   }
 
   const handleDeleteTask = async (_id) => {
@@ -93,15 +82,29 @@ export default function useTaskActions() {
     })
   }
 
-  const handleDone = (taskId, currentStatus) => {
-    try {
-      taskDispatch({
-        type: TASK_CONTEXT_ACTIONS.CHANGE_DONE,
-        payload: {
-          task: { _id: taskId, done: !currentStatus }
-        }
-      })
-    } catch (error) {}
+  const handleDone = async (taskId, currentStatus) => {
+    const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID, { taskId: taskId })
+
+    const { data: task, message } = await edit(endpoint, {
+      done: !currentStatus
+    })
+
+    if (!task) return
+
+    notifications.show({
+      title: 'Notification',
+      message: message,
+      color: 'green'
+    })
+
+    taskDispatch({
+      type: TASK_CONTEXT_ACTIONS.CHANGE_DONE,
+      payload: {
+        task: { _id: taskId, done: !currentStatus }
+      }
+    })
+
+    return fetchTask
   }
 
   return {

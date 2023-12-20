@@ -6,7 +6,7 @@ import { APP_PATHS } from '~/__constants__'
 import { generatePath, useLocation, useNavigate } from 'react-router-dom'
 
 const TaskSimpleView = (props) => {
-  const { text, description, _id, done } = props
+  const { text, description, _id, done, editCallback } = props
 
   const { handleDeleteTask, handleDone } = useTaskActions()
   const navigate = useNavigate()
@@ -32,6 +32,11 @@ const TaskSimpleView = (props) => {
         }
       }
     })
+
+  const onDone = async () => {
+    await handleDone(_id, done)
+    editCallback?.(!done)
+  }
 
   const onEditTask = () => {
     const pathParams = {
@@ -70,7 +75,7 @@ const TaskSimpleView = (props) => {
         <Group gap="md" justify="space-between" mt="md">
           <Checkbox
             checked={done}
-            onChange={() => handleDone(_id, done)}
+            onChange={onDone}
             label={computedCheckBoxLabel}
           />
           <Group gap="md">
