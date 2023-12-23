@@ -23,36 +23,21 @@ const reducer = (state, action) => {
         tasks: tasks
       }
     }
-    case TASK_CONTEXT_ACTIONS.EDIT_TASK: {
-      const task = action.payload.task
-      const tasks = state.tasks.map((item) =>
+
+    case TASK_CONTEXT_ACTIONS.EDIT_OR_CHANGE: {
+      const task = action.payload
+
+      const updatedTasks = state.tasks.map((item) =>
         item._id === task._id
           ? {
-              ...item,
-              ...task,
-              isEdited: true,
-              _updatedAt: new Date().toISOString()
+              ...task
             }
           : item
       )
+
       return {
         ...state,
-        tasks: tasks
-      }
-    }
-    case TASK_CONTEXT_ACTIONS.CHANGE_DONE: {
-      const { _id, done } = action.payload.task
-      const tasks = state.tasks.map((item) =>
-        item._id === _id
-          ? {
-              ...item,
-              done
-            }
-          : item
-      )
-      return {
-        ...state,
-        tasks: tasks
+        tasks: updatedTasks
       }
     }
 
@@ -64,7 +49,6 @@ const reducer = (state, action) => {
         filter
       }
     }
-
     case TASK_CONTEXT_ACTIONS.SORT_TASK_BY_TYPE: {
       const sortByType = action.payload.sortByType
 
