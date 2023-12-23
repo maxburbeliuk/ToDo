@@ -40,6 +40,7 @@ export default function useTaskActions() {
     const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID, { taskId: _id })
 
     const task = await get(endpoint)
+
     return task
   }
 
