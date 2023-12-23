@@ -8,22 +8,16 @@ import { transformSortMenuData } from '~/domains/Task/helpers'
 const reducer = (state, action) => {
   switch (action.type) {
     case TASK_CONTEXT_ACTIONS.CREATE_TASK: {
-      const newTask = {
-        ...action.payload.task,
-        done: false,
-        isEdited: false,
-        _updatedAt: new Date().toISOString(),
-        _createdAt: new Date().toISOString()
-      }
-
+      const task = action.payload.task
       return {
+        task,
         ...state,
-        tasks: [...state.tasks, newTask]
+        tasks: [...state.tasks, task]
       }
     }
     case TASK_CONTEXT_ACTIONS.DELETE_TASK: {
       const task = action.payload.task
-      const tasks = state.tasks.filter((item) => item.id !== task.id)
+      const tasks = state.tasks.filter((item) => item._id !== task._id)
       return {
         ...state,
         tasks: tasks
@@ -32,7 +26,7 @@ const reducer = (state, action) => {
     case TASK_CONTEXT_ACTIONS.EDIT_TASK: {
       const task = action.payload.task
       const tasks = state.tasks.map((item) =>
-        item.id === task.id
+        item._id === task._id
           ? {
               ...item,
               ...task,
@@ -47,9 +41,9 @@ const reducer = (state, action) => {
       }
     }
     case TASK_CONTEXT_ACTIONS.CHANGE_DONE: {
-      const { id, done } = action.payload.task
+      const { _id, done } = action.payload.task
       const tasks = state.tasks.map((item) =>
-        item.id === id
+        item._id === _id
           ? {
               ...item,
               done

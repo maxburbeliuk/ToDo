@@ -8,9 +8,9 @@ import {
   MENU_OPTIONS_SORT_TYPE
 } from 'src/domains/Task/__constants__'
 import { useSearchParams } from 'react-router-dom'
-import { useGetTasks } from '../services/get'
 import { Loader } from '@mantine/core'
 import * as TASK_CONTEXT_ACTIONS from '~/domains/Task/context/__constants__/taskActions'
+import { useGetTasks } from 'src/domains/Task/hooks'
 
 const TaskProvider = (props) => {
   const { children } = props
@@ -35,7 +35,6 @@ const TaskProvider = (props) => {
     sortByField: searchParams.get('sortByField'),
     sortByType: searchParams.get('sortByType')
   })
-
   const [tasks, loading, error] = useGetTasks()
 
   useEffect(() => {

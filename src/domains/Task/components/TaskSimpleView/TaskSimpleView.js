@@ -2,12 +2,11 @@ import { Badge, Card, Checkbox, Group, Text, ActionIcon } from '@mantine/core'
 import { IconEdit, IconTrashFilled } from '@tabler/icons-react'
 import { modals } from '@mantine/modals'
 import { useTaskActions } from '~/domains/Task/hooks'
-
 import { APP_PATHS } from '~/__constants__'
 import { generatePath, useLocation, useNavigate } from 'react-router-dom'
 
 const TaskSimpleView = (props) => {
-  const { text, description, id, done } = props
+  const { text, description, _id, done, editCallback } = props
 
   const { handleDeleteTask, handleDone } = useTaskActions()
   const navigate = useNavigate()
@@ -26,18 +25,22 @@ const TaskSimpleView = (props) => {
       labels: { confirm: 'Delete task', cancel: "No don't delete it" },
       confirmProps: { color: 'red' },
       onConfirm: () => {
-        handleDeleteTask(id)
+        handleDeleteTask(_id)
 
-        // If route not task all, after delete make redirect to task all
         if (location?.pathname !== APP_PATHS.TASKS_ALL) {
           navigate(APP_PATHS.TASKS_ALL)
         }
       }
     })
 
+  const onDone = async () => {
+    await handleDone(_id, done)
+    editCallback?.(!done)
+  }
+
   const onEditTask = () => {
     const pathParams = {
-      taskId: id
+      taskId: _id
     }
     const path = generatePath(APP_PATHS.TASK_EDIT, pathParams)
     navigate(path)
@@ -45,7 +48,7 @@ const TaskSimpleView = (props) => {
 
   const onShowTask = () => {
     const pathParams = {
-      taskId: id
+      taskId: _id
     }
     const path = generatePath(APP_PATHS.TASKS_SHOW, pathParams)
     navigate(path)
@@ -72,7 +75,7 @@ const TaskSimpleView = (props) => {
         <Group gap="md" justify="space-between" mt="md">
           <Checkbox
             checked={done}
-            onChange={() => handleDone(id, done)}
+            onChange={onDone}
             label={computedCheckBoxLabel}
           />
           <Group gap="md">
