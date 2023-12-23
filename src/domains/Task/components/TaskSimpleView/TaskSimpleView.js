@@ -8,7 +8,7 @@ import { generatePath, useLocation, useNavigate } from 'react-router-dom'
 const TaskSimpleView = (props) => {
   const { text, description, _id, done, editCallback } = props
 
-  const { handleDeleteTask, handleDone } = useTaskActions()
+  const { handleDeleteTask, handleEdit } = useTaskActions()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -34,7 +34,7 @@ const TaskSimpleView = (props) => {
     })
 
   const onDone = async () => {
-    await handleDone(_id, done)
+    await handleEdit({ _id, done })
     editCallback?.(!done)
   }
 

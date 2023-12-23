@@ -6,34 +6,33 @@ import * as TASK_CONTEXT_ACTIONS from '~/domains/Task/context/__constants__/task
 import endpointsBuilder from '../../../helpers/endpointsBuilder'
 import { ENDPOINTS } from '~/__constants__'
 import { create, edit, remove, get } from '~/services'
-import { useGetTaskById } from '~/domains/Task/hooks/get'
 
 export default function useTaskActions() {
   const taskDispatch = useContext(TaskDispatchContext)
-  const [fetchTask] = useGetTaskById()
 
-  const handleEditTask = async (taskData) => {
-    const { text, description, _id } = taskData
-
+  const handleEdit = async (taskData) => {
+    const { _id, text, description, done } = taskData
     const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID, { taskId: _id })
 
     const { data: task, message } = await edit(endpoint, {
+      done: !done,
       text,
       description
     })
 
     if (!task) return
 
-    taskDispatch({
-      type: TASK_CONTEXT_ACTIONS.EDIT_TASK,
-      payload: {
-        task: { text, description, _id }
-      }
-    })
     notifications.show({
       title: 'Notification',
       message: message,
       color: 'green'
+    })
+
+    taskDispatch({
+      type: TASK_CONTEXT_ACTIONS.EDIT_OR_CHANGE,
+      payload: {
+        task
+      }
     })
   }
 
@@ -41,6 +40,7 @@ export default function useTaskActions() {
     const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID, { taskId: _id })
 
     const task = await get(endpoint)
+
     return task
   }
 
@@ -65,7 +65,6 @@ export default function useTaskActions() {
       text,
       description
     })
-    console.log({ data: task, message })
 
     if (!task) return
 
@@ -82,35 +81,9 @@ export default function useTaskActions() {
     })
   }
 
-  const handleDone = async (taskId, currentStatus) => {
-    const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID, { taskId: taskId })
-
-    const { data: task, message } = await edit(endpoint, {
-      done: !currentStatus
-    })
-
-    if (!task) return
-
-    notifications.show({
-      title: 'Notification',
-      message: message,
-      color: 'green'
-    })
-
-    taskDispatch({
-      type: TASK_CONTEXT_ACTIONS.CHANGE_DONE,
-      payload: {
-        task: { _id: taskId, done: !currentStatus }
-      }
-    })
-
-    return fetchTask
-  }
-
   return {
-    handleDone,
+    handleEdit,
     handleCreateTask,
-    handleEditTask,
     handleDeleteTask,
     handleGetTask
   }
