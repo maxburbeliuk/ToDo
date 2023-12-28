@@ -13,9 +13,9 @@ const TaskEdit = () => {
   const { text, description, _id } =
     tasks?.find((task) => task?._id === taskId) || {}
 
-  const { handleEdit } = useTaskActions()
+  const { handleEditOrChange } = useTaskActions()
   const handleFormSubmit = (taskData) => {
-    handleEdit({ ...taskData, _id })
+    handleEditOrChange({ ...taskData, _id })
 
     navigate(APP_PATHS.TASKS_ALL)
   }

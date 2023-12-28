@@ -25,14 +25,10 @@ const reducer = (state, action) => {
     }
 
     case TASK_CONTEXT_ACTIONS.EDIT_OR_CHANGE: {
-      const task = action.payload
+      const task = action.payload.task
 
       const updatedTasks = state.tasks.map((item) =>
-        item._id === task._id
-          ? {
-              ...task
-            }
-          : item
+        item._id === task._id ? { ...task } : item
       )
 
       return {

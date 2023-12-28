@@ -10,7 +10,7 @@ import { create, edit, remove, get } from '~/services'
 export default function useTaskActions() {
   const taskDispatch = useContext(TaskDispatchContext)
 
-  const handleEdit = async (taskData) => {
+  const handleEditOrChange = async (taskData) => {
     const { _id, text, description, done } = taskData
     const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID, { taskId: _id })
 
@@ -82,7 +82,7 @@ export default function useTaskActions() {
   }
 
   return {
-    handleEdit,
+    handleEditOrChange,
     handleCreateTask,
     handleDeleteTask,
     handleGetTask

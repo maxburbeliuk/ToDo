@@ -1,14 +1,23 @@
-import { Badge, Card, Checkbox, Group, Text, ActionIcon } from '@mantine/core'
+import { Badge, Checkbox, Group, Text, ActionIcon } from '@mantine/core'
 import { IconEdit, IconTrashFilled } from '@tabler/icons-react'
 import { modals } from '@mantine/modals'
 import { useTaskActions } from '~/domains/Task/hooks'
 import { APP_PATHS } from '~/__constants__'
 import { generatePath, useLocation, useNavigate } from 'react-router-dom'
+import StyledCard from '~/domains/Task/components/TaskSimpleView/Card.styled'
 
 const TaskSimpleView = (props) => {
-  const { text, description, _id, done, editCallback } = props
+  const {
+    text,
+    description,
+    _id,
+    done,
+    editCallback,
+    handleClick,
+    isSelected
+  } = props
 
-  const { handleDeleteTask, handleEdit } = useTaskActions()
+  const { handleDeleteTask, handleEditOrChange } = useTaskActions()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -34,7 +43,7 @@ const TaskSimpleView = (props) => {
     })
 
   const onDone = async () => {
-    await handleEdit({ _id, done })
+    await handleEditOrChange({ _id, done })
     editCallback?.(!done)
   }
 
@@ -56,12 +65,12 @@ const TaskSimpleView = (props) => {
 
   return (
     <>
-      <Card
+      <StyledCard
+        shadow="lg"
+        padding="md"
+        isSelected={isSelected}
+        onClick={() => handleClick(_id)}
         onDoubleClick={onShowTask}
-        shadow="sm"
-        padding="lg"
-        radius="md"
-        withBorder
       >
         <Group justify="space-between" mt="md" mb="xs">
           <Text fw={500}>{text}</Text>
@@ -92,7 +101,7 @@ const TaskSimpleView = (props) => {
             </ActionIcon>
           </Group>
         </Group>
-      </Card>
+      </StyledCard>
     </>
   )
 }

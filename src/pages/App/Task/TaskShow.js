@@ -1,22 +1,15 @@
-import { Loader } from '@mantine/core'
 import { useParams } from 'react-router-dom'
 import { TaskSimpleView } from '~/domains/Task'
-import { useGetTaskById } from '~/domains/Task/hooks'
+import { useTaskContext } from '~/domains/Task/context'
 
 const TaskShow = () => {
   const { taskId } = useParams()
-  const [task, loading, error, fetchTask] = useGetTaskById(taskId)
+  const { tasks } = useTaskContext()
 
-  if (error) return error.message
-  if (loading) {
-    return <Loader color="blue" size={30} />
-  }
-  const handleUpdateDone = () => {
-    fetchTask(taskId)
-  }
+  const task = tasks.find((task) => task._id === taskId)
 
   return Object.keys(task || {}).length > 0 ? (
-    <TaskSimpleView {...task} editCallback={handleUpdateDone} />
+    <TaskSimpleView {...task} />
   ) : null
 }
 
