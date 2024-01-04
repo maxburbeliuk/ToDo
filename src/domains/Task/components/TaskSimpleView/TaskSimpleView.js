@@ -7,20 +7,11 @@ import { generatePath, useLocation, useNavigate } from 'react-router-dom'
 import StyledCard from '~/domains/Task/components/TaskSimpleView/Card.styled'
 
 const TaskSimpleView = (props) => {
-  const {
-    text,
-    description,
-    _id,
-    done,
-    editCallback,
-    handleClick,
-    isSelected
-  } = props
-
+  const { task, editCallback, handleClick, isSelected } = props
+  const { _id, text, description, done } = task
   const { handleDeleteTask, handleEditOrChange } = useTaskActions()
   const navigate = useNavigate()
   const location = useLocation()
-
   const computedStatus = done ? 'Done' : 'ToDo'
   const computedCheckBoxLabel = done ? 'Mark todo' : 'Mark done'
 
@@ -69,7 +60,7 @@ const TaskSimpleView = (props) => {
         shadow="lg"
         padding="md"
         isSelected={isSelected}
-        onClick={() => handleClick(_id)}
+        onClick={() => handleClick(task)}
         onDoubleClick={onShowTask}
       >
         <Group justify="space-between" mt="md" mb="xs">

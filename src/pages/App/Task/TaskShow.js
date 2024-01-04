@@ -7,7 +7,6 @@ const TaskShow = () => {
   const { tasks } = useTaskContext()
 
   const task = tasks.find((task) => task._id === taskId)
-
   return Object.keys(task || {}).length > 0 ? (
     <TaskSimpleView {...task} />
   ) : null

@@ -58,6 +58,20 @@ export default function useTaskActions() {
     })
   }
 
+  const handleDeleteManyTask = async (_id) => {
+    const endpoint = endpointsBuilder(ENDPOINTS.TASKS)
+
+    const { data: task, message } = await remove(endpoint)
+
+    if (!task) return
+
+    notifications.show({
+      title: 'Notification',
+      message: message,
+      color: 'green'
+    })
+  }
+
   const handleCreateTask = async ({ text, description }) => {
     const endpoint = endpointsBuilder(ENDPOINTS.TASKS)
 
@@ -85,6 +99,7 @@ export default function useTaskActions() {
     handleEditOrChange,
     handleCreateTask,
     handleDeleteTask,
-    handleGetTask
+    handleGetTask,
+    handleDeleteManyTask
   }
 }
