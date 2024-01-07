@@ -19,12 +19,19 @@ import {
 } from '@mantine/core'
 import { useSearchTask, useTaskActions } from '~/domains/Task/hooks'
 import { modals } from '@mantine/modals'
+import { useState } from 'react'
+
 const TaskAdvancedView = () => {
   const [opened, { open, close }] = useDisclosure(false)
   const { handleCreateTask, handleDeleteManyTask } = useTaskActions()
   const { tasksWithSearchedValue, setSearchedValue } = useSearchTask()
+  const [currentTaskIds, setCurrentTaskIds] = useState([])
 
-  const openDeleteModal = () =>
+  const onChangeSelectedTask = (taskIds) => {
+    setCurrentTaskIds(taskIds)
+  }
+
+  const openDeleteModal = () => {
     modals.openConfirmModal({
       title: 'Delete your task',
       centered: true,
@@ -34,9 +41,10 @@ const TaskAdvancedView = () => {
       labels: { confirm: 'Delete task', cancel: "No don't delete it" },
       confirmProps: { color: 'red' },
       onConfirm: () => {
-        handleDeleteManyTask([])
+        handleDeleteManyTask(currentTaskIds)
       }
     })
+  }
 
   return (
     <div>
@@ -73,7 +81,10 @@ const TaskAdvancedView = () => {
         </Grid.Col>
       </Grid>
       <Space h="lg" />
-      <TaskList computedTasks={tasksWithSearchedValue} />
+      <TaskList
+        computedTasks={tasksWithSearchedValue}
+        onChangeSelectedTask={onChangeSelectedTask}
+      />
     </div>
   )
 }

@@ -3,25 +3,25 @@ import { SimpleGrid } from '@mantine/core'
 import { useState } from 'react'
 
 const TaskList = (props) => {
-  const { computedTasks } = props
+  const { computedTasks, onChangeSelectedTask } = props
   const [selectedTasks, setSelectedTasks] = useState(new Map())
+
   const handleClick = (task) => {
     const taskId = task._id
-    setSelectedTasks((currentSelectedTasks) => {
-      const copySelectedTasks = new Map(
-        Object.entries(Object.fromEntries(currentSelectedTasks.entries()))
-      )
-      if (copySelectedTasks.has(taskId)) {
-        copySelectedTasks.delete(taskId)
-      } else {
-        copySelectedTasks.set(taskId, task)
-      }
-      return copySelectedTasks
-    })
+    const copySelectedTasks = new Map(
+      Object.entries(Object.fromEntries(selectedTasks.entries()))
+    )
+    if (copySelectedTasks.has(taskId)) {
+      copySelectedTasks.delete(taskId)
+    } else {
+      copySelectedTasks.set(taskId, task)
+    }
+
+    setSelectedTasks(copySelectedTasks)
+    const taskIds = Array.from(copySelectedTasks.keys())
+    onChangeSelectedTask(taskIds)
   }
 
-  const taskIds = Array.from(selectedTasks.keys())
-  console.log(taskIds)
   return (
     <SimpleGrid cols={4}>
       {computedTasks?.map((item) => {
@@ -31,7 +31,6 @@ const TaskList = (props) => {
             task={item}
             handleClick={handleClick}
             isSelected={selectedTasks.has(item._id)}
-            taskIds={taskIds}
           />
         )
       })}

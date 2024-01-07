@@ -3,6 +3,7 @@ import { safe } from '~/helpers'
 import { notifications } from '@mantine/notifications'
 
 const remove = async (endpoint, body = {}) => {
+  console.log(body)
   const snapshot = fetch(endpoint, {
     method: REST_METHODS.DELETE,
     body: JSON.stringify(body),

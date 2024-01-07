@@ -58,10 +58,10 @@ export default function useTaskActions() {
     })
   }
 
-  const handleDeleteManyTask = async (_id) => {
+  const handleDeleteManyTask = async (taskIds) => {
     const endpoint = endpointsBuilder(ENDPOINTS.TASKS)
-
-    const { data: task, message } = await remove(endpoint)
+    console.log(taskIds)
+    const { data: task, message } = await remove(endpoint, { taskIds })
 
     if (!task) return
 
