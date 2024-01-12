@@ -77,6 +77,20 @@ const reducer = (state, action) => {
         tasks: action.payload.tasks
       }
     }
+
+    case TASK_CONTEXT_ACTIONS.UPDATE_DELETED_TASKS: {
+      const deletedTasks = action.payload.tasks
+      console.log(!deletedTasks)
+      const tasksWithoutDeleted = state.tasks.reduce(
+        (accumulator, item) =>
+          !deletedTasks.some((deletedTask) => deletedTask._id === item._id)
+      )
+      return {
+        ...state,
+        tasks: tasksWithoutDeleted
+      }
+    }
+
     default: {
       throw new Error(`Invalid action type: ${action.type}`)
     }

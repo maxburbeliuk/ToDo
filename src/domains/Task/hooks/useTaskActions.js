@@ -60,15 +60,21 @@ export default function useTaskActions() {
 
   const handleDeleteManyTask = async (taskIds) => {
     const endpoint = endpointsBuilder(ENDPOINTS.TASKS)
-    console.log(taskIds)
-    const { data: task, message } = await remove(endpoint, { taskIds })
-
-    if (!task) return
+    const { data: tasks, message } = await remove(endpoint, { taskIds })
+    console.log(tasks)
+    if (!tasks) return
 
     notifications.show({
       title: 'Notification',
       message: message,
       color: 'green'
+    })
+
+    taskDispatch({
+      type: TASK_CONTEXT_ACTIONS.UPDATE_DELETED_TASKS,
+      payload: {
+        tasks
+      }
     })
   }
 
