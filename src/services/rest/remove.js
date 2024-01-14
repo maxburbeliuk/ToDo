@@ -22,7 +22,7 @@ const remove = async (endpoint, body = {}) => {
       title: 'Oops! Failed to create',
       message: data.error
     })
-    return { data: null, message: 'Something went wrong during create' }
+    return { data: null, message: 'Something went wrong during remove' }
   }
 
   const result = await data.json()

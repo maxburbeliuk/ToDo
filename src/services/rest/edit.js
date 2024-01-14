@@ -20,9 +20,9 @@ const edit = async (endpoint, body = {}) => {
     notifications.show({
       color: 'red',
       title: 'Oops! Failed to create',
-      message: data.error
+      message: data?.error
     })
-    return { data: null, message: 'Something went wrong during create' }
+    return { data: null, message: 'Something went wrong during update' }
   }
 
   const result = await data.json()

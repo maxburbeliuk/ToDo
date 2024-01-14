@@ -24,7 +24,7 @@ const get = async (endpoint) => {
     return {
       data: null,
       error: 'Oops! Failed to fetch',
-      message: 'Something went wrong during create',
+      message: 'Something went wrong during get',
       statueCode: 500
     }
   }

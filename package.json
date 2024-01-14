@@ -19,7 +19,8 @@
     "react-router-dom": "^6.16.0",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "prop-types": "15.8.1"
   },
   "scripts": {
     "start": "env-cmd -f .env.development craco start",
