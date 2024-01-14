@@ -10,7 +10,7 @@ import { create, edit, remove, get } from '~/services'
 export default function useTaskActions() {
   const taskDispatch = useContext(TaskDispatchContext)
 
-  const handleEdit = async (taskData) => {
+  const handleEditOrChange = async (taskData) => {
     const { _id, text, description, done } = taskData
     const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID, { taskId: _id })
 
@@ -58,6 +58,26 @@ export default function useTaskActions() {
     })
   }
 
+  const handleDeleteManyTask = async (taskIds) => {
+    const endpoint = endpointsBuilder(ENDPOINTS.TASKS)
+    const { data: tasks, message } = await remove(endpoint, { taskIds })
+    console.log(tasks)
+    if (!tasks) return
+
+    notifications.show({
+      title: 'Notification',
+      message: message,
+      color: 'green'
+    })
+
+    taskDispatch({
+      type: TASK_CONTEXT_ACTIONS.UPDATE_DELETED_TASKS,
+      payload: {
+        tasks
+      }
+    })
+  }
+
   const handleCreateTask = async ({ text, description }) => {
     const endpoint = endpointsBuilder(ENDPOINTS.TASKS)
 
@@ -82,9 +102,10 @@ export default function useTaskActions() {
   }
 
   return {
-    handleEdit,
+    handleEditOrChange,
     handleCreateTask,
     handleDeleteTask,
-    handleGetTask
+    handleGetTask,
+    handleDeleteManyTask
   }
 }

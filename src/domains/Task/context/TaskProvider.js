@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import { TaskContext, TaskDispatchContext } from './TaskContext'
 import taskReducer from './reducer'
 import { FILTER_TABS } from 'src/domains/Task/__constants__'
@@ -35,11 +35,12 @@ const TaskProvider = (props) => {
     sortByField: searchParams.get('sortByField'),
     sortByType: searchParams.get('sortByType')
   })
+
   const [tasks, loading, error] = useGetTasks()
 
   useEffect(() => {
     const isDataFetched = (tasks && !loading) || error
-
+    console.log(tasks)
     if (isDataFetched) {
       if (!error) {
         dispatch({
