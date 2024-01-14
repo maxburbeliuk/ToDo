@@ -5,7 +5,7 @@ import '@mantine/notifications/styles.css'
 import * as TASK_CONTEXT_ACTIONS from '~/domains/Task/context/__constants__/taskActions'
 import endpointsBuilder from '../../../helpers/endpointsBuilder'
 import { ENDPOINTS } from '~/__constants__'
-import { create, edit, remove, get } from '~/services'
+import { create, edit, remove } from '~/services'
 
 export default function useTaskActions() {
   const taskDispatch = useContext(TaskDispatchContext)
@@ -25,27 +25,6 @@ export default function useTaskActions() {
       type: TASK_CONTEXT_ACTIONS.EDIT_TASK,
       payload: {
         task: { text, description, _id }
-      }
-    })
-    notifications.show({
-      title: 'Notification',
-      message: message,
-      color: 'green'
-    })
-  }
-
-  const handleGetTask = async (_id) => {
-    const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID, { taskId: _id })
-
-    const { data: task, message } = await get(endpoint)
-
-    console.log(_id)
-    if (!task) return
-
-    taskDispatch({
-      type: TASK_CONTEXT_ACTIONS.DELETE_TASK,
-      payload: {
-        task
       }
     })
     notifications.show({
@@ -76,7 +55,6 @@ export default function useTaskActions() {
       text,
       description
     })
-    console.log({ data: task, message })
 
     if (!task) return
 
@@ -93,22 +71,35 @@ export default function useTaskActions() {
     })
   }
 
-  const handleDone = (taskId, currentStatus) => {
-    try {
-      taskDispatch({
-        type: TASK_CONTEXT_ACTIONS.CHANGE_DONE,
-        payload: {
-          task: { _id: taskId, done: !currentStatus }
-        }
-      })
-    } catch (error) {}
+  const handleDone = async (taskId, currentStatus) => {
+    const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID, {
+      taskId: taskId
+    })
+
+    const { data: task, message } = await edit(endpoint, {
+      done: !currentStatus
+    })
+
+    if (!task) return
+
+    taskDispatch({
+      type: TASK_CONTEXT_ACTIONS.CHANGE_DONE,
+      payload: {
+        task: { _id: taskId, done: !currentStatus }
+      }
+    })
+
+    notifications.show({
+      title: 'Notification',
+      message: message,
+      color: 'green'
+    })
   }
 
   return {
     handleDone,
     handleCreateTask,
     handleEditTask,
-    handleDeleteTask,
-    handleGetTask
+    handleDeleteTask
   }
 }

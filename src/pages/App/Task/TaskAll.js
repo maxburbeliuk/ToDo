@@ -6,6 +6,7 @@ const TaskAll = () => {
     mt: 'md',
     h: '100vh'
   }
+
   return (
     <Container {...demoProps} fluid>
       <TaskAdvancedView />
