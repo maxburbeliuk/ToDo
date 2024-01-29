@@ -11,7 +11,10 @@ import {
   PasswordInput,
   rem,
   Stack,
-  TextInput
+  Text,
+  TextInput,
+  Title,
+  Paper
 } from '@mantine/core'
 import { IconArrowLeft, IconAt } from '@tabler/icons-react'
 import PropTypes from 'prop-types'
@@ -44,57 +47,65 @@ const SignUpForm = (props) => {
   }
 
   return (
-    <Box mx="auto">
-      <form onSubmit={form.onSubmit(handleSignUp)}>
-        <Stack gap="md">
-          <TextInput
-            leftSection={<IconAt size={16} />}
-            withAsterisk
-            label="Email"
-            placeholder="your@email.com"
-            required
-            {...form.getInputProps('email')}
-          />
-          <TextInput
-            withAsterisk
-            label="First Name"
-            placeholder="Dima"
-            {...form.getInputProps('firstName')}
-          />
-          <TextInput
-            withAsterisk
-            label="Last name"
-            placeholder="okr"
-            {...form.getInputProps('lastName')}
-          />
-          <PasswordInput
-            withAsterisk
-            label="Password"
-            placeholder="******"
-            required
-            {...form.getInputProps('password')}
-          />
+    <Box w={500}>
+      <Title ta="center" order={1}>
+        Sign up
+      </Title>
+      <Text c="dimmed" size="sm" ta="center" mt={8}>
+        Create an account easily using email
+      </Text>
+      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+        <form onSubmit={form.onSubmit(handleSignUp)}>
+          <Stack gap="md">
+            <TextInput
+              leftSection={<IconAt size={16} />}
+              withAsterisk
+              label="Email"
+              placeholder="your@email.com"
+              required
+              {...form.getInputProps('email')}
+            />
+            <TextInput
+              withAsterisk
+              label="First Name"
+              placeholder="Dima"
+              {...form.getInputProps('firstName')}
+            />
+            <TextInput
+              withAsterisk
+              label="Last name"
+              placeholder="okr"
+              {...form.getInputProps('lastName')}
+            />
+            <PasswordInput
+              withAsterisk
+              label="Password"
+              placeholder="******"
+              required
+              {...form.getInputProps('password')}
+            />
 
-          <Checkbox
-            mt="lg"
-            label="Remember me"
-            {...form.getInputProps('rememberMe', { type: 'checkbox' })}
-          />
+            <Checkbox
+              mt="lg"
+              label="Remember me"
+              {...form.getInputProps('rememberMe', { type: 'checkbox' })}
+            />
 
-          <Group justify="space-between" mt="lg">
-            <Anchor c="dimmed" size="sm" onClick={goToLogin}>
-              <Center inline>
-                <IconArrowLeft
-                  style={{ width: rem(12), height: rem(12) }}
-                  stroke={1.5}
-                />
-                <Box ml={5}>Back to the login page</Box>
-              </Center>
-            </Anchor>
-            <Button type="submit">Reset password</Button>
-          </Group>
-        </Stack>
-      </form>
+            <Group justify="space-between" mt="lg">
+              <Anchor c="dimmed" size="sm" onClick={goToLogin}>
+                <Center inline>
+                  <IconArrowLeft
+                    style={{ width: rem(12), height: rem(12) }}
+                    stroke={1.5}
+                  />
+                  <Box ml={5}>Back to the login page</Box>
+                </Center>
+              </Anchor>
+              <Button type="submit">Reset password</Button>
+            </Group>
+          </Stack>
+        </form>
+      </Paper>
     </Box>
   )
 }

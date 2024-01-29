@@ -80,11 +80,16 @@ const reducer = (state, action) => {
 
     case TASK_CONTEXT_ACTIONS.UPDATE_DELETED_TASKS: {
       const deletedTasks = action.payload.tasks
-      console.log(!deletedTasks)
-      const tasksWithoutDeleted = state.tasks.reduce(
-        (accumulator, item) =>
-          !deletedTasks.some((deletedTask) => deletedTask._id === item._id)
+
+      const DELETE_TASK_MAP = deletedTasks.reduce(
+        (prev, currentValue) => ({ ...prev, [currentValue?._id]: true }),
+        {}
       )
+
+      const tasksWithoutDeleted = state.tasks.filter(
+        (item) => !DELETE_TASK_MAP?.[item?._id]
+      )
+
       return {
         ...state,
         tasks: tasksWithoutDeleted

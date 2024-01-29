@@ -6,7 +6,10 @@ import {
   Group,
   PasswordInput,
   Stack,
-  TextInput
+  Text,
+  TextInput,
+  Title,
+  Paper
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { IconAt } from '@tabler/icons-react'
@@ -39,41 +42,56 @@ const LoginForm = (props) => {
     navigate(`/auth${AUTH_PATHS.FORGOT_PASSWORD}`)
   }
 
+  const goToSignUp = () => {
+    navigate(`/auth${AUTH_PATHS.SIGN_UP}`)
+  }
+
   return (
-    <Box mx="auto">
-      <form onSubmit={form.onSubmit(handleLogin)}>
-        <Stack gap="md">
-          <TextInput
-            leftSection={<IconAt size={16} />}
-            withAsterisk
-            label="Email"
-            placeholder="your@email.com"
-            required
-            {...form.getInputProps('email')}
-          />
-          <PasswordInput
-            withAsterisk
-            label="Password"
-            placeholder="******"
-            required
-            {...form.getInputProps('password')}
-          />
-
-          <Group justify="space-between" mt="lg">
-            <Checkbox
-              label="Remember me"
-              {...form.getInputProps('rememberMe', { type: 'checkbox' })}
+    <Box w={500}>
+      <Title ta="center" order={1}>
+        Welcome back!
+      </Title>
+      <Text c="dimmed" size="sm" ta="center" mt={8}>
+        Do not have an account yet?{' '}
+        <Anchor size="sm" component="button" onClick={goToSignUp}>
+          Create account
+        </Anchor>
+      </Text>
+      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+        <form onSubmit={form.onSubmit(handleLogin)}>
+          <Stack gap="md">
+            <TextInput
+              leftSection={<IconAt size={16} />}
+              withAsterisk
+              label="Email"
+              placeholder="your@email.com"
+              required
+              {...form.getInputProps('email')}
             />
-            <Anchor size="sm" onClick={goToForgotPassword}>
-              Forgot password?
-            </Anchor>
-          </Group>
+            <PasswordInput
+              withAsterisk
+              label="Password"
+              placeholder="******"
+              required
+              {...form.getInputProps('password')}
+            />
 
-          <Group justify="flex-end" mt="md">
-            <Button type="submit">Submit</Button>
-          </Group>
-        </Stack>
-      </form>
+            <Group justify="space-between" mt="lg">
+              <Checkbox
+                label="Remember me"
+                {...form.getInputProps('rememberMe', { type: 'checkbox' })}
+              />
+              <Anchor size="sm" onClick={goToForgotPassword}>
+                Forgot password?
+              </Anchor>
+            </Group>
+
+            <Group justify="flex-end" mt="md">
+              <Button type="submit">Submit</Button>
+            </Group>
+          </Stack>
+        </form>
+      </Paper>
     </Box>
   )
 }

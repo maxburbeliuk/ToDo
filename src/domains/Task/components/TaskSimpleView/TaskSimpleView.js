@@ -92,7 +92,11 @@ const TaskSimpleView = (props) => {
               variant="filled"
               aria-label="delete"
               color={'var(--mantine-color-red-8)'}
-              onClick={openDeleteModal}
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                openDeleteModal()
+              }}
             >
               <IconTrashFilled size={18} />
             </ActionIcon>

@@ -3,7 +3,8 @@ import {
   TaskSimpleForm,
   TaskSimpleFilter,
   TaskSimpleMenu,
-  TaskSearch
+  TaskSearch,
+  TaskImageUpload
 } from '~/domains/Task'
 import { useDisclosure } from '@mantine/hooks'
 import { IconTrashFilled } from '@tabler/icons-react'
@@ -47,7 +48,7 @@ const TaskAdvancedView = () => {
   }
 
   return (
-    <div>
+    <>
       <Drawer
         withCloseButton={false}
         position="top"
@@ -65,12 +66,14 @@ const TaskAdvancedView = () => {
           <IconTrashFilled size={18} />
         </ActionIcon>
       </Drawer>
+      <TaskImageUpload />
       <TaskSimpleForm onSubmit={handleCreateTask} />
       <Space h="lg" />
       <Grid align="center">
         <Grid.Col span={'auto'}>
           <TaskSearch onChange={setSearchedValue} />
         </Grid.Col>
+
         <Grid.Col span="content">
           <Group justify="right" gap="sm">
             <TaskSimpleFilter />
@@ -85,8 +88,7 @@ const TaskAdvancedView = () => {
         computedTasks={tasksWithSearchedValue}
         onChangeSelectedTask={onChangeSelectedTask}
       />
-    </div>
+    </>
   )
 }
-
 export default TaskAdvancedView
