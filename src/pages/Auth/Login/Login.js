@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { AUTH_PATHS } from '~/__constants__'
 
 const Login = () => {
-  const { onLogin } = usePostAuthActions()
+  const { onLogin, loading } = usePostAuthActions()
 
   const navigate = useNavigate()
 
@@ -27,7 +27,7 @@ const Login = () => {
           </Text>
         </div>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <LoginForm onLogin={onLogin} />
+          <LoginForm onLogin={onLogin} loading={loading} />
         </Paper>
       </Box>
     </Center>

@@ -42,6 +42,7 @@ const TaskAdvancedView = () => {
       confirmProps: { color: 'red' },
       onConfirm: () => {
         handleDeleteManyTask(currentTaskIds)
+        close()
       }
     })
   }

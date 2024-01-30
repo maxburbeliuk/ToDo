@@ -3,7 +3,7 @@ import { usePostAuthActions } from '~/domains/Auth/hooks/post'
 import { Paper, Title, Text, Center, Box } from '@mantine/core'
 
 const SignUp = () => {
-  const { onSignUp } = usePostAuthActions()
+  const { onSignUp, loading } = usePostAuthActions()
 
   return (
     <Center bg="var(--mantine-color-gray-light)" h={'100vh'}>
@@ -17,7 +17,7 @@ const SignUp = () => {
           </Text>
         </div>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <SignUpForm onSignUp={onSignUp} />
+          <SignUpForm onSignUp={onSignUp} loading={loading} />
         </Paper>
       </Box>
     </Center>

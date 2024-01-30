@@ -8,6 +8,7 @@ import {
   Center,
   Checkbox,
   Group,
+  LoadingOverlay,
   PasswordInput,
   rem,
   Stack,
@@ -17,7 +18,7 @@ import { IconArrowLeft, IconAt } from '@tabler/icons-react'
 import PropTypes from 'prop-types'
 
 const SignUpForm = (props) => {
-  const { onSignUp } = props
+  const { onSignUp, loading } = props
   const navigate = useNavigate()
 
   const form = useForm({
@@ -44,7 +45,12 @@ const SignUpForm = (props) => {
   }
 
   return (
-    <Box mx="auto">
+    <Box mx="auto" pos="relative">
+      <LoadingOverlay
+        visible={loading}
+        zIndex={1000}
+        overlayProps={{ radius: 'sm', blur: 2 }}
+      />
       <form onSubmit={form.onSubmit(handleSignUp)}>
         <Stack gap="md">
           <TextInput
@@ -91,7 +97,7 @@ const SignUpForm = (props) => {
                 <Box ml={5}>Back to the login page</Box>
               </Center>
             </Anchor>
-            <Button type="submit">Reset password</Button>
+            <Button type="submit">Sign up</Button>
           </Group>
         </Stack>
       </form>
@@ -100,6 +106,7 @@ const SignUpForm = (props) => {
 }
 
 SignUpForm.propTypes = {
-  onSignUp: PropTypes.func.isRequired
+  onSignUp: PropTypes.func.isRequired,
+  loading: PropTypes.bool
 }
 export default SignUpForm

@@ -7,6 +7,7 @@ import { ModalsProvider } from '@mantine/modals'
 import { GDPR } from '~/components'
 import React from 'react'
 import ErrorBoundary from '~/contexts'
+import { AuthProvider } from '~/domains/Auth/context'
 
 const App = () => {
   return (
@@ -16,13 +17,15 @@ const App = () => {
           <ModalsProvider>
             <Notifications />
             <GDPR />
-            <AppShell>
-              <Routes>
-                <Route path="/*" element={<AppNavigator />} />
-                <Route path="auth/*" element={<AuthNavigator />} />
-                <Route path="services/*" element={<ServicesNavigator />} />
-              </Routes>
-            </AppShell>
+            <AuthProvider>
+              <AppShell>
+                <Routes>
+                  <Route path="/*" element={<AppNavigator />} />
+                  <Route path="auth/*" element={<AuthNavigator />} />
+                  <Route path="services/*" element={<ServicesNavigator />} />
+                </Routes>
+              </AppShell>
+            </AuthProvider>
           </ModalsProvider>
         </ErrorBoundary>
       </MantineProvider>

@@ -4,6 +4,7 @@ import {
   Button,
   Checkbox,
   Group,
+  LoadingOverlay,
   PasswordInput,
   Stack,
   TextInput
@@ -15,7 +16,7 @@ import { APP_PATHS, AUTH_PATHS } from '~/__constants__'
 import PropTypes from 'prop-types'
 
 const LoginForm = (props) => {
-  const { onLogin } = props
+  const { onLogin, loading } = props
   const navigate = useNavigate()
 
   const form = useForm({
@@ -40,7 +41,12 @@ const LoginForm = (props) => {
   }
 
   return (
-    <Box mx="auto">
+    <Box mx="auto" pos="relative">
+      <LoadingOverlay
+        visible={loading}
+        zIndex={1000}
+        overlayProps={{ radius: 'sm', blur: 2 }}
+      />
       <form onSubmit={form.onSubmit(handleLogin)}>
         <Stack gap="md">
           <TextInput
@@ -70,7 +76,7 @@ const LoginForm = (props) => {
           </Group>
 
           <Group justify="flex-end" mt="md">
-            <Button type="submit">Submit</Button>
+            <Button type="submit">Login</Button>
           </Group>
         </Stack>
       </form>
@@ -79,7 +85,8 @@ const LoginForm = (props) => {
 }
 
 LoginForm.propTypes = {
-  onLogin: PropTypes.func.isRequired
+  onLogin: PropTypes.func.isRequired,
+  loading: PropTypes.bool
 }
 
 export default LoginForm
