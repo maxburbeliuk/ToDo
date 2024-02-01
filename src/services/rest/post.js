@@ -1,17 +1,18 @@
 import REST_METHODS from './__constants__/methods'
-import { handleStatusCode, safe } from '~/helpers'
+import { safe } from '~/helpers'
 import { notifications } from '@mantine/notifications'
+import { handleStatusCode } from '~/helpers'
 
-const get = async (endpoint, successMessage) => {
-  const req = new Request(endpoint, {
-    method: REST_METHODS.GET,
+const post = async (endpoint, body = {}, successMessage) => {
+  const snapshot = fetch(endpoint, {
+    method: REST_METHODS.POST,
     headers: {
       'Content-Type': 'application/json'
     },
+    body: JSON.stringify(body)
     // mode: 'cors',
-    credentials: 'include'
+    // credentials: 'include'
   })
-  const snapshot = fetch(req)
 
   const { data, success } = await safe(
     snapshot,
@@ -21,7 +22,7 @@ const get = async (endpoint, successMessage) => {
   if (!success) {
     notifications.show({
       color: 'red',
-      title: 'Oops! Failed to get',
+      title: 'Oops! Failed to post',
       message: data?.error
     })
 
@@ -35,4 +36,4 @@ const get = async (endpoint, successMessage) => {
   return result
 }
 
-export default get
+export default post

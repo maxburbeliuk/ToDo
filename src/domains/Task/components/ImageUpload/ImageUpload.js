@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { Center, FileInput, Slider, Flex } from '@mantine/core'
+import { Center, FileInput, Slider, Flex, Box } from '@mantine/core'
 import {
   IconPhotoUp,
   IconPlus,
@@ -10,14 +10,19 @@ import {
 import { modals } from '@mantine/modals'
 import Cropper from 'react-easy-crop'
 
-const TaskImageUpload = () => {
+const ImageUpload = () => {
   const [file, setFile] = useState()
   const [croppedImage, setCroppedImage] = useState()
   const cropperRef = useRef(null)
-
+  const [crop, setCrop] = useState({ x: 0, y: 0 })
+  const [zoom, setZoom] = useState(1)
   const handleChange = (file) => {
     setFile(URL.createObjectURL(file))
     openEditModal(file)
+  }
+
+  const onCropComplete = (croppedArea, croppedAreaPixels) => {
+    console.log(croppedArea, croppedAreaPixels)
   }
 
   const openEditModal = (file) => {
@@ -25,6 +30,7 @@ const TaskImageUpload = () => {
       title: 'Edit your image',
       centered: true,
       labels: { confirm: 'Edit', cancel: 'Cancel' },
+
       onConfirm: () => {
         const cropper = cropperRef.current?.cropper
         const croppedDataUrl = cropper.getCroppedCanvas().toDataURL()
@@ -34,10 +40,14 @@ const TaskImageUpload = () => {
         <>
           <Center>
             <Cropper
-              ref={cropperRef}
-              viewMode={3}
-              initialAspectRatio={1 / 1}
-              src={URL.createObjectURL(file)}
+              image={URL.createObjectURL(file)}
+              crop={crop}
+              zoom={zoom}
+              aspect={4 / 3}
+              onCropChange={setCrop}
+              onCropComplete={onCropComplete}
+              onZoomChange={setZoom}
+              position="sticky"
             />
           </Center>
 
@@ -93,4 +103,4 @@ const TaskImageUpload = () => {
   )
 }
 
-export default TaskImageUpload
+export default ImageUpload

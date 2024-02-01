@@ -1,4 +1,5 @@
-export { default as create } from './create'
+export { default as post } from './post'
 export { default as remove } from './remove'
-export { default as edit } from './edit'
+export { default as update } from './update'
 export { default as get } from './get'
+export { default as api } from './api'

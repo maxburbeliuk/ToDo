@@ -101,7 +101,7 @@ const SignUpForm = (props) => {
                   <Box ml={5}>Back to the login page</Box>
                 </Center>
               </Anchor>
-              <Button type="submit">Reset password</Button>
+              <Button type="submit">Submit</Button>
             </Group>
           </Stack>
         </form>

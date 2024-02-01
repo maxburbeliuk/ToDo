@@ -4,7 +4,8 @@ import {
   TaskSimpleFilter,
   TaskSimpleMenu,
   TaskSearch,
-  TaskImageUpload
+  TaskImageUpload,
+  ImageUpload
 } from '~/domains/Task'
 import { useDisclosure } from '@mantine/hooks'
 import { IconTrashFilled } from '@tabler/icons-react'
@@ -43,6 +44,7 @@ const TaskAdvancedView = () => {
       confirmProps: { color: 'red' },
       onConfirm: () => {
         handleDeleteManyTask(currentTaskIds)
+        close()
       }
     })
   }
@@ -67,6 +69,7 @@ const TaskAdvancedView = () => {
         </ActionIcon>
       </Drawer>
       <TaskImageUpload />
+      <ImageUpload />
       <TaskSimpleForm onSubmit={handleCreateTask} />
       <Space h="lg" />
       <Grid align="center">

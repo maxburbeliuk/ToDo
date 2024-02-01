@@ -85,7 +85,11 @@ const TaskSimpleView = (props) => {
             label={computedCheckBoxLabel}
           />
           <Group gap="md">
-            <ActionIcon variant="filled" aria-label="edit" onClick={onEditTask}>
+            <ActionIcon
+              variant="filled"
+              aria-label="update"
+              onClick={onEditTask}
+            >
               <IconEdit size={18} />
             </ActionIcon>
             <ActionIcon
