@@ -4,7 +4,6 @@ import {
   TaskSimpleFilter,
   TaskSimpleMenu,
   TaskSearch,
-  TaskImageUpload,
   ImageUpload
 } from '~/domains/Task'
 import { useDisclosure } from '@mantine/hooks'
@@ -68,7 +67,6 @@ const TaskAdvancedView = () => {
           <IconTrashFilled size={18} />
         </ActionIcon>
       </Drawer>
-      <TaskImageUpload />
       <ImageUpload />
       <TaskSimpleForm onSubmit={handleCreateTask} />
       <Space h="lg" />

@@ -1,5 +1,14 @@
 import React, { useState, useRef } from 'react'
-import { Center, FileInput, Slider, Flex, Box } from '@mantine/core'
+import {
+  Center,
+  FileInput,
+  Slider,
+  Flex,
+  Button,
+  Modal,
+  Group,
+  Divider
+} from '@mantine/core'
 import {
   IconPhotoUp,
   IconPlus,
@@ -7,8 +16,8 @@ import {
   IconRotate,
   IconRotateClockwise
 } from '@tabler/icons-react'
-import { modals } from '@mantine/modals'
 import Cropper from 'react-easy-crop'
+import getCroppedImg from './ImageUploadLogic/EasyCrop'
 
 const ImageUpload = () => {
   const [file, setFile] = useState()
@@ -16,90 +25,130 @@ const ImageUpload = () => {
   const cropperRef = useRef(null)
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
+  const [rotation, setRotation] = useState(0)
+
   const handleChange = (file) => {
-    setFile(URL.createObjectURL(file))
-    openEditModal(file)
+    setFile(file)
   }
 
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
     console.log(croppedArea, croppedAreaPixels)
   }
 
-  const openEditModal = (file) => {
-    modals.openConfirmModal({
-      title: 'Edit your image',
-      centered: true,
-      labels: { confirm: 'Edit', cancel: 'Cancel' },
+  const handleCancel = () => {
+    setFile(null)
+  }
 
-      onConfirm: () => {
-        const cropper = cropperRef.current?.cropper
-        const croppedDataUrl = cropper.getCroppedCanvas().toDataURL()
-        setCroppedImage(croppedDataUrl)
-      },
-      children: (
-        <>
-          <Center>
-            <Cropper
-              image={URL.createObjectURL(file)}
-              crop={crop}
-              zoom={zoom}
-              aspect={4 / 3}
-              onCropChange={setCrop}
-              onCropComplete={onCropComplete}
-              onZoomChange={setZoom}
-              position="sticky"
-            />
-          </Center>
-
-          <Flex
-            gap="sm"
-            p={20}
-            justify="center"
-            align="center"
-            direction="column"
-            wrap="wrap"
-          >
-            <Flex justify="center" align="center" gap="sm">
-              <IconPlus size={18} />
-              <Slider
-                w={300}
-                marks={[{ value: 20 }, { value: 50 }, { value: 80 }]}
-              />
-              <IconMinus size={18} />
-            </Flex>
-            <Flex justify="center" align="center" gap="sm">
-              <IconRotate size={18} />
-              <Slider
-                w={300}
-                marks={[{ value: 20 }, { value: 50 }, { value: 80 }]}
-              />
-              <IconRotateClockwise size={18} />
-            </Flex>
-          </Flex>
-        </>
+  const handleSubmit = async () => {
+    try {
+      const { file, url } = await getCroppedImg(
+        window.URL.createObjectURL(file),
+        crop,
+        rotation
       )
-    })
+      setCroppedImage(url)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
-    <FileInput
-      onChange={handleChange}
-      title=""
-      placeholder={
-        <Center>
-          <IconPhotoUp color={'var(--mantine-color-blue-8)'} />
-        </Center>
-      }
-      label="Your image"
-      styles={{
-        input: {
-          width: 150,
-          height: 150,
-          background: croppedImage ? `url(${croppedImage}) center/cover` : '',
-          color: croppedImage ? 'transparent' : ''
+    <>
+      <FileInput
+        accept={'image/png,image/jpeg'}
+        onChange={handleChange}
+        title=""
+        placeholder={
+          <Center>
+            <IconPhotoUp color={'var(--mantine-color-blue-8)'} />
+          </Center>
         }
-      }}
-    />
+        label="Your image"
+        styles={{
+          input: {
+            width: 150,
+            height: 150,
+            background: croppedImage ? `url(${croppedImage}) center/cover` : '',
+            color: croppedImage ? 'transparent' : ''
+          }
+        }}
+      />
+      <Modal
+        opened={!!file}
+        onClose={() => setFile(null)}
+        title="Edit your image"
+        centered
+      >
+        <div
+          style={{
+            height: '40vh',
+            marginTop: 16,
+            marginBottom: 16,
+            position: 'relative'
+          }}
+        >
+          <Cropper
+            image={file && window.URL.createObjectURL(file)}
+            crop={crop}
+            zoom={zoom}
+            rotation={rotation}
+            aspect={1}
+            onCropChange={setCrop}
+            onCropComplete={onCropComplete}
+            onZoomChange={setZoom}
+          />
+        </div>
+        <Flex gap="sm" justify="center" direction="column">
+          <Flex justify="center" align="center" gap="sm">
+            <IconPlus size={18} />
+            <Slider
+              w={300}
+              marks={[{ value: 1 }, { value: 2 }, { value: 3 }]}
+              step={0.1}
+              min={1}
+              max={3}
+              value={zoom}
+              onChange={(value) => {
+                console.log(value)
+                setZoom(value)
+              }}
+            />
+            <IconMinus size={18} />
+          </Flex>
+          <Flex justify="center" align="center" gap="sm">
+            <IconRotate size={18} />
+            <Slider
+              w={300}
+              marks={[
+                { value: 0 },
+                { value: 90 },
+                { value: 180 },
+                { value: 270 }
+              ]}
+              step={1}
+              min={0}
+              max={270}
+              value={rotation}
+              onChange={(value) => {
+                console.log(value)
+                setRotation(value)
+              }}
+            />
+            <IconRotateClockwise size={18} />
+          </Flex>
+        </Flex>
+        <Divider my="md" />
+        <Group justify="flex-end" mt="md">
+          <Button
+            color={'var(--mantine-color-gray-light)'}
+            onClick={handleCancel}
+          >
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit}>Submit</Button>
+        </Group>
+      </Modal>
+    </>
   )
 }
 
