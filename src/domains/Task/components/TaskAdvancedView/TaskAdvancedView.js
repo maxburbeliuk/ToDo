@@ -3,8 +3,7 @@ import {
   TaskSimpleForm,
   TaskSimpleFilter,
   TaskSimpleMenu,
-  TaskSearch,
-  ImageUpload
+  TaskSearch
 } from '~/domains/Task'
 import { useDisclosure } from '@mantine/hooks'
 import { IconTrashFilled } from '@tabler/icons-react'
@@ -67,7 +66,6 @@ const TaskAdvancedView = () => {
           <IconTrashFilled size={18} />
         </ActionIcon>
       </Drawer>
-      <ImageUpload />
       <TaskSimpleForm onSubmit={handleCreateTask} />
       <Space h="lg" />
       <Grid align="center">
