@@ -22,33 +22,22 @@ import getCroppedImg from './ImageUploadLogic/EasyCrop'
 const ImageUpload = () => {
   const [file, setFile] = useState()
   const [croppedImage, setCroppedImage] = useState()
-  const cropperRef = useRef(null)
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   const [rotation, setRotation] = useState(0)
 
-  const handleChange = (file) => {
-    setFile(file)
-  }
-
-  const onCropComplete = (croppedArea, croppedAreaPixels) => {
-    console.log(croppedArea, croppedAreaPixels)
-  }
-
-  const handleCancel = () => {
-    setFile(null)
-  }
-
   const handleSubmit = async () => {
     try {
-      const { file, url } = await getCroppedImg(
-        window.URL.createObjectURL(file),
+      const { fileImage, url } = await getCroppedImg(
+        URL.createObjectURL(fileImage),
         crop,
         rotation
       )
+      console.log(fileImage, url)
       setCroppedImage(url)
+      setFile(fileImage)
     } catch (error) {
-      console.error(error)
+      console.error('Error processing cropped image:', error)
     }
   }
 
@@ -56,7 +45,7 @@ const ImageUpload = () => {
     <>
       <FileInput
         accept={'image/png,image/jpeg'}
-        onChange={handleChange}
+        onChange={(file) => setFile(file)}
         title=""
         placeholder={
           <Center>
@@ -94,8 +83,6 @@ const ImageUpload = () => {
             rotation={rotation}
             aspect={1}
             onCropChange={setCrop}
-            onCropComplete={onCropComplete}
-            onZoomChange={setZoom}
           />
         </div>
         <Flex gap="sm" justify="center" direction="column">
@@ -141,11 +128,11 @@ const ImageUpload = () => {
         <Group justify="flex-end" mt="md">
           <Button
             color={'var(--mantine-color-gray-light)'}
-            onClick={handleCancel}
+            onClick={() => setFile(null)}
           >
             Cancel
           </Button>
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button onClick={() => console.log(handleSubmit())}>Submit</Button>
         </Group>
       </Modal>
     </>
