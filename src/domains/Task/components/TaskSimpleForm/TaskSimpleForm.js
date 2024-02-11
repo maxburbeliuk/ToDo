@@ -1,5 +1,6 @@
 import { TextInput, Button, Textarea, Flex, Space } from '@mantine/core'
 import { useFormInitialValues } from '~/domains/Task/hooks'
+import { ImageUploader } from '~/components'
 const TaskSimpleForm = (props) => {
   const { onCancel, onSubmit, initialValues } = props
   const { form } = useFormInitialValues(initialValues)
@@ -11,6 +12,7 @@ const TaskSimpleForm = (props) => {
 
   return (
     <form onSubmit={form.onSubmit(handleFormSubmit)}>
+      <ImageUploader />
       <TextInput
         withAsterisk
         label="Task text"

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import {
   Center,
   FileInput,
@@ -19,33 +19,51 @@ import {
 import Cropper from 'react-easy-crop'
 import getCroppedImg from './ImageUploadLogic/EasyCrop'
 
-const ImageUpload = () => {
+const ImageUploader = () => {
   const [file, setFile] = useState()
   const [croppedImage, setCroppedImage] = useState()
+  const cropperRef = useRef(null)
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   const [rotation, setRotation] = useState(0)
+  const [open, setOpen] = useState(false)
+
+  const handleChange = (file) => {
+    setFile(file)
+    setOpen(true)
+  }
+
+  const onCropComplete = (croppedArea, croppedAreaPixels) => {
+    cropperRef.current = croppedAreaPixels
+  }
+
+  const handleCancel = () => {
+    setFile(null)
+  }
 
   const handleSubmit = async () => {
     try {
-      const { fileImage, url } = await getCroppedImg(
-        URL.createObjectURL(fileImage),
-        crop,
+      const { file: croppedFile, url } = await getCroppedImg(
+        window.URL.createObjectURL(file),
+        cropperRef.current,
         rotation
       )
-      console.log(fileImage, url)
+
+      setFile(croppedFile)
       setCroppedImage(url)
-      setFile(fileImage)
+      setOpen(false)
     } catch (error) {
-      console.error('Error processing cropped image:', error)
+      console.error(error)
     }
   }
+
+  const onCropChange = useCallback((props) => {}, [crop])
 
   return (
     <>
       <FileInput
         accept={'image/png,image/jpeg'}
-        onChange={(file) => setFile(file)}
+        onChange={handleChange}
         title=""
         placeholder={
           <Center>
@@ -63,7 +81,7 @@ const ImageUpload = () => {
         }}
       />
       <Modal
-        opened={!!file}
+        opened={open}
         onClose={() => setFile(null)}
         title="Edit your image"
         centered
@@ -81,8 +99,9 @@ const ImageUpload = () => {
             crop={crop}
             zoom={zoom}
             rotation={rotation}
-            aspect={1}
             onCropChange={setCrop}
+            onCropComplete={onCropComplete}
+            onZoomChange={setZoom}
           />
         </div>
         <Flex gap="sm" justify="center" direction="column">
@@ -96,7 +115,6 @@ const ImageUpload = () => {
               max={3}
               value={zoom}
               onChange={(value) => {
-                console.log(value)
                 setZoom(value)
               }}
             />
@@ -117,7 +135,6 @@ const ImageUpload = () => {
               max={270}
               value={rotation}
               onChange={(value) => {
-                console.log(value)
                 setRotation(value)
               }}
             />
@@ -128,15 +145,15 @@ const ImageUpload = () => {
         <Group justify="flex-end" mt="md">
           <Button
             color={'var(--mantine-color-gray-light)'}
-            onClick={() => setFile(null)}
+            onClick={handleCancel}
           >
             Cancel
           </Button>
-          <Button onClick={() => console.log(handleSubmit())}>Submit</Button>
+          <Button onClick={handleSubmit}>Submit</Button>
         </Group>
       </Modal>
     </>
   )
 }
 
-export default ImageUpload
+export default ImageUploader
