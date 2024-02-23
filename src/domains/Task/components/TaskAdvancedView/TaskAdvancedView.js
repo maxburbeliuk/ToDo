@@ -39,7 +39,7 @@ const TaskAdvancedView = () => {
         <Text size="sm">Are you sure you want to delete your task?</Text>
       ),
       labels: { confirm: 'Delete task', cancel: "No don't delete it" },
-      confirmProps: { color: 'red' },
+      confirmProps: { color: 'var(--mantine-color-orange-6)' },
       onConfirm: () => {
         handleDeleteManyTask(currentTaskIds)
         close()
@@ -49,6 +49,22 @@ const TaskAdvancedView = () => {
 
   return (
     <>
+      <Grid align="center">
+        <Grid.Col span={'auto'}>
+          <TaskSearch onChange={setSearchedValue} />
+        </Grid.Col>
+
+        <Grid.Col span="content">
+          <Group justify="right" gap="sm">
+            <TaskSimpleFilter />
+            <Divider orientation="vertical" />
+            <TaskSimpleMenu />
+            <Button onClick={open} color={'var(--mantine-color-violet-9)'}>
+              Open Drawer
+            </Button>
+          </Group>
+        </Grid.Col>
+      </Grid>
       <Drawer
         withCloseButton={false}
         position="top"
@@ -60,7 +76,7 @@ const TaskAdvancedView = () => {
         <ActionIcon
           variant="filled"
           aria-label="delete"
-          color={'var(--mantine-color-red-8)'}
+          color={'var(--mantine-color-orange-6)'}
           onClick={openDeleteModal}
         >
           <IconTrashFilled size={18} />
@@ -68,20 +84,6 @@ const TaskAdvancedView = () => {
       </Drawer>
       <TaskSimpleForm onSubmit={handleCreateTask} />
       <Space h="lg" />
-      <Grid align="center">
-        <Grid.Col span={'auto'}>
-          <TaskSearch onChange={setSearchedValue} />
-        </Grid.Col>
-
-        <Grid.Col span="content">
-          <Group justify="right" gap="sm">
-            <TaskSimpleFilter />
-            <Divider orientation="vertical" />
-            <TaskSimpleMenu />
-            <Button onClick={open}>Open Drawer</Button>
-          </Group>
-        </Grid.Col>
-      </Grid>
       <Space h="lg" />
       <TaskList
         computedTasks={tasksWithSearchedValue}

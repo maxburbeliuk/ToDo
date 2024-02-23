@@ -13,7 +13,7 @@ const TaskSimpleView = (props) => {
   const navigate = useNavigate()
   const location = useLocation()
   const computedStatus = done ? 'Done' : 'ToDo'
-  const computedCheckBoxLabel = done ? 'Mark todo' : 'Mark done'
+  const computedCheckBoxLabel = done ? 'Mark todo ' : 'Mark done'
 
   const openDeleteModal = () =>
     modals.openConfirmModal({
@@ -23,7 +23,7 @@ const TaskSimpleView = (props) => {
         <Text size="sm">Are you sure you want to delete your task?</Text>
       ),
       labels: { confirm: 'Delete task', cancel: "No don't delete it" },
-      confirmProps: { color: 'red' },
+      confirmProps: { color: 'var(--mantine-color-orange-6)' },
       onConfirm: () => {
         handleDeleteTask(_id)
 
@@ -67,7 +67,7 @@ const TaskSimpleView = (props) => {
       >
         <Group justify="space-between" mt="md" mb="xs">
           <Text fw={500}>{text}</Text>
-          <Badge color={'var(--mantine-color-pink-5)'} variant="light">
+          <Badge color="#F5F5F5" variant="light">
             {computedStatus}
           </Badge>
         </Group>
@@ -83,9 +83,12 @@ const TaskSimpleView = (props) => {
             checked={done}
             onChange={onDone}
             label={computedCheckBoxLabel}
+            color={'var(--mantine-color-lime-4)'}
+            iconColor={'var(--mantine-color-dark-8)'}
           />
           <Group gap="md">
             <ActionIcon
+              color={'var(--mantine-color-violet-9)'}
               variant="filled"
               aria-label="update"
               onClick={onEditTask}
@@ -95,7 +98,7 @@ const TaskSimpleView = (props) => {
             <ActionIcon
               variant="filled"
               aria-label="delete"
-              color={'var(--mantine-color-red-8)'}
+              color={'var(--mantine-color-orange-6)'}
               onClick={(e) => {
                 e.preventDefault()
                 e.stopPropagation()

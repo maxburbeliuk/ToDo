@@ -118,6 +118,7 @@ const EasyCrop = forwardRef((props, ref) => {
           <Flex gap="sm" justify="center">
             <IconPlus size={18} />
             <Slider
+              color={'var(--mantine-color-violet-9)'}
               w={300}
               marks={[
                 { value: 0 },
@@ -145,6 +146,7 @@ const EasyCrop = forwardRef((props, ref) => {
             <IconRotate size={18} />
 
             <Slider
+              color={'var(--mantine-color-violet-9)'}
               w={300}
               marks={[{ value: 1 }, { value: 2 }, { value: 3 }]}
               // step={1}
@@ -167,6 +169,7 @@ const EasyCrop = forwardRef((props, ref) => {
           <Flex gap="sm" justify="center">
             <IconPlus size={18} />
             <Slider
+              color={'var(--mantine-color-violet-9)'}
               w={300}
               marks={[{ value: 1 }, { value: 2 }, { value: 3 }]}
               min={ASPECT_MIN}

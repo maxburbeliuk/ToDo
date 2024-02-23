@@ -28,7 +28,7 @@ const TaskSimpleFilter = () => {
 
   return (
     <SegmentedControl
-      color="blue"
+      color={'var(--mantine-color-violet-9)'}
       value={filter}
       onChange={handleChangeFilter}
       data={Object.values(FILTER_TABS).map((param) => ({

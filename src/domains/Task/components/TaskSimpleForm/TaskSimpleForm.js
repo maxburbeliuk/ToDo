@@ -1,4 +1,4 @@
-import { TextInput, Button, Textarea, Flex, Space } from '@mantine/core'
+import { TextInput, Button, Textarea, Flex, Space, Grid } from '@mantine/core'
 import { useFormInitialValues } from '~/domains/Task/hooks'
 import { ImageCropper, ImageUploader } from '~/components'
 const TaskSimpleForm = (props) => {
@@ -12,19 +12,23 @@ const TaskSimpleForm = (props) => {
 
   return (
     <form onSubmit={form.onSubmit(handleFormSubmit)}>
-      <ImageUploader />
-      {/*<ImageCropper />*/}
-      <TextInput
-        withAsterisk
-        label="Task text"
-        placeholder="Today I want to"
-        {...form.getInputProps('text')}
-      />
-      <Textarea
-        label="Description"
-        placeholder="Task description"
-        {...form.getInputProps('description')}
-      />
+      <Grid>
+        <ImageUploader />
+        {/*<ImageCropper />*/}
+        <Flex direction="column" pl={10} w={1000} pr={10}>
+          <TextInput
+            withAsterisk
+            label="Task text"
+            placeholder="Today I want to"
+            {...form.getInputProps('text')}
+          />
+          <Textarea
+            label="Description"
+            placeholder="Task description"
+            {...form.getInputProps('description')}
+          />
+        </Flex>
+      </Grid>
       <Space h="md" />
       <Flex
         mih={50}
@@ -34,12 +38,14 @@ const TaskSimpleForm = (props) => {
         direction="row"
         wrap="wrap"
       >
-        <Button type="submit">Submit</Button>
+        <Button type="submit" color={'var(--mantine-color-violet-9)'}>
+          Submit
+        </Button>
         {!!onCancel ? (
           <Button
             onClick={onCancel}
             variant="light"
-            color={'var(--mantine-color-red-8)'}
+            color={'var(--mantine-color-orange-6)'}
           >
             Cancel
           </Button>

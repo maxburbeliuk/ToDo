@@ -1,14 +1,13 @@
 import { getBase64, validateFileSize, validateImageSize } from './helpers'
-import { memo, useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import ImgCrop from '../ImageCropper/ImageCropper'
-import PropTypes from 'prop-types'
 import styles from './ImageUploader.styles'
 import { notifications } from '@mantine/notifications'
-import { Center, FileInput, Modal } from '@mantine/core'
+import { Image, Center, FileInput } from '@mantine/core'
 import { IconPhotoUp } from '@tabler/icons-react'
-import { Image } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
+import AVAILABLE_FORMATS from './__constants__'
 
 const uploadImage = async () => {}
 
@@ -32,12 +31,13 @@ const Upload = (props) => {
     <Image alt="Image" style={styles.image} src={imageUrl} />
   ) : (
     <FileInput
+      pl={8}
       accept={AVAILABLE_FORMATS.join()}
       onChange={handleChange}
       title=""
       placeholder={
         <Center>
-          <IconPhotoUp color={'var(--mantine-color-blue-8)'} />
+          <IconPhotoUp color={'var(--mantine-color-violet-9)'} />
         </Center>
       }
       label="Your image"
@@ -52,29 +52,6 @@ const Upload = (props) => {
     />
   )
 }
-
-/**
- * It's a React component that renders an image uploader
- * @param value {string} - The image url
- * @param onChange {function} - The function to call when the image is changed
- * @param withDirectUpload {boolean} - If true, returns an url to the image
- * @param imageCropProps {Object} - check available props on https://github.com/nanxiaobei/antd-img-crop
- * @param uploadProps {Object} - check available props on https://4x.ant.design/components/upload/
- * @param withImageCrop {boolean} - Should image be cropped before upload
- * @param withImageSizeValidation {boolean} - if true image size will be validated (1024px by 1024px for example)
- * @param withFileSizeValidation {boolean} - if true image size will be validated by size (2 Mib for example)
- * @param maxWidthUploadedImage {number} - max width of upload image (work's only with withImageSizeValidation = true)
- * @param maxHeightUploadedImage {number} - max height of upload image (work's only with withImageSizeValidation = true)
- * @param maxFileSize {number} - max size of upload image (work's only with withFileSizeValidation = true)
- */
-const AVAILABLE_FORMATS = [
-  'image/jpeg',
-  'image/png',
-  'image/jpg',
-  'image/tiff',
-  'image/svg',
-  'image/webp'
-]
 
 const ImageUploader = (props) => {
   const {
@@ -219,19 +196,4 @@ const ImageUploader = (props) => {
   )
 }
 
-ImageUploader.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  withDirectUpload: PropTypes.bool,
-  imgCropProps: PropTypes.object,
-  uploadProps: PropTypes.object,
-  withImageSizeValidation: PropTypes.bool,
-  withFileSizeValidation: PropTypes.bool,
-  withImageCrop: PropTypes.bool,
-  maxWidthUploadedImage: PropTypes.number,
-  maxHeightUploadedImage: PropTypes.number,
-  maxFileSize: PropTypes.number,
-  customBeforeUpload: PropTypes.func
-}
-
-export default memo(ImageUploader)
+export default ImageUploader

@@ -1,6 +1,7 @@
 const styles = {
   image: {
-    width: '100%',
+    width: '150px',
+    height: '150px',
     minHeight: '100px',
     minWidth: '100px',
     maxHeight: '400px',
