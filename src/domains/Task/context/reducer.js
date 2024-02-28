@@ -96,6 +96,15 @@ const reducer = (state, action) => {
       }
     }
 
+    case TASK_CONTEXT_ACTIONS.CHANGE_THEME_COLOR: {
+      const { color } = action.payload.primary
+
+      return {
+        ...state,
+        primary: color
+      }
+    }
+
     default: {
       throw new Error(`Invalid action type: ${action.type}`)
     }

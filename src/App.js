@@ -8,11 +8,35 @@ import { GDPR } from '~/components'
 import React from 'react'
 import ErrorBoundary from '~/contexts'
 import { AuthProvider } from '~/domains/Auth/context'
+import { useState } from 'react'
 
 const App = () => {
+  const [primaryColor, setPrimaryColor] = useState('')
+
+  const handleChangePrimaryColor = (color) => {
+    setPrimaryColor(color)
+  }
   return (
     <BrowserRouter>
-      <MantineProvider defaultColorScheme="dark">
+      <MantineProvider
+        theme={{
+          primary: primaryColor || 'default-color',
+          colors: {
+            'pale-violet': [
+              '#F6EEFF',
+              '#E7DAF7',
+              '#CAB1EA',
+              '#AD86DD',
+              '#9562D2',
+              '#854BCB',
+              '#7D3EC9',
+              '#6B31B2',
+              '#5F2AA0',
+              '#52228D'
+            ]
+          }
+        }}
+      >
         <ErrorBoundary>
           <ModalsProvider>
             <Notifications />
@@ -20,7 +44,14 @@ const App = () => {
             <AuthProvider>
               <AppShell>
                 <Routes>
-                  <Route path="/*" element={<AppNavigator />} />
+                  <Route
+                    path="/*"
+                    element={
+                      <AppNavigator
+                        onChangePrimaryColor={handleChangePrimaryColor}
+                      />
+                    }
+                  />
                   <Route path="auth/*" element={<AuthNavigator />} />
                   <Route path="services/*" element={<ServicesNavigator />} />
                 </Routes>

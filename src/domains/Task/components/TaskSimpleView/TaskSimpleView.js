@@ -86,9 +86,9 @@ const TaskSimpleView = (props) => {
             color={'var(--mantine-color-lime-4)'}
             iconColor={'var(--mantine-color-dark-8)'}
           />
+
           <Group gap="md">
             <ActionIcon
-              color={'var(--mantine-color-violet-9)'}
               variant="filled"
               aria-label="update"
               onClick={onEditTask}

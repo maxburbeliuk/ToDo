@@ -12,23 +12,20 @@ const TaskSimpleForm = (props) => {
 
   return (
     <form onSubmit={form.onSubmit(handleFormSubmit)}>
-      <Grid>
-        <ImageUploader />
-        {/*<ImageCropper />*/}
-        <Flex direction="column" pl={10} w={1000} pr={10}>
-          <TextInput
-            withAsterisk
-            label="Task text"
-            placeholder="Today I want to"
-            {...form.getInputProps('text')}
-          />
-          <Textarea
-            label="Description"
-            placeholder="Task description"
-            {...form.getInputProps('description')}
-          />
-        </Flex>
-      </Grid>
+      <Flex direction="column" w={'1100'}>
+        <TextInput
+          withAsterisk
+          label="Task text"
+          placeholder="Today I want to"
+          {...form.getInputProps('text')}
+        />
+        <Textarea
+          label="Description"
+          placeholder="Task description"
+          {...form.getInputProps('description')}
+        />
+      </Flex>
+
       <Space h="md" />
       <Flex
         mih={50}
@@ -38,9 +35,7 @@ const TaskSimpleForm = (props) => {
         direction="row"
         wrap="wrap"
       >
-        <Button type="submit" color={'var(--mantine-color-violet-9)'}>
-          Submit
-        </Button>
+        <Button type="submit">Submit</Button>
         {!!onCancel ? (
           <Button
             onClick={onCancel}

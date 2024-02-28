@@ -38,7 +38,6 @@ const MainMenu = () => {
               if (!snapshot.isDragging) setActive(item.label)
             }}
             variant="subtle"
-            color={'var(--mantine-color-violet-9)'}
           />
         </DragItemWrapper>
       )}

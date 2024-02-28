@@ -7,6 +7,6 @@ const SelectedNavLinksIndicatorStyled = styled.div`
   height: 36px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  background: var(--mantine-color-violet-9);
+  background: #854bcb;
 `
 export default SelectedNavLinksIndicatorStyled

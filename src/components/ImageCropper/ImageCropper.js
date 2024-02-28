@@ -308,7 +308,6 @@ const ImgCrop = forwardRef((props, cropperRef) => {
           </Button>
           {showReset && (zoomSlider || rotationSlider || aspectSlider) && (
             <Button
-              color={'var(--mantine-color-violet-9)'}
               className="[bottom:20px] [position:absolute]"
               style={
                 isResetActive ? {} : { opacity: 0.3, pointerEvents: 'none' }
@@ -318,12 +317,7 @@ const ImgCrop = forwardRef((props, cropperRef) => {
               {resetBtnText}
             </Button>
           )}
-          <Button
-            onClick={() => onOk.current()}
-            color={'var(--mantine-color-violet-9)'}
-          >
-            Submit
-          </Button>
+          <Button onClick={() => onOk.current()}>Submit</Button>
         </Group>
       </Modal>
     </>

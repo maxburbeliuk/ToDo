@@ -1,10 +1,11 @@
+import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import APP_ROUTES from './appRoutes'
 import { TaskProvider } from '~/domains/Task/context'
 
-const AppNavigator = () => {
+const AppNavigator = ({ onChangePrimaryColor }) => {
   return (
-    <TaskProvider>
+    <TaskProvider onChangePrimaryColor={onChangePrimaryColor}>
       <Routes>
         {APP_ROUTES.map(({ key, path, element }) => (
           <Route key={key} path={path} element={element} />

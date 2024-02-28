@@ -19,7 +19,6 @@ const AppShellElements = ({ children }) => {
   const appShellProps =
     !isAuthPath && !isErrorPath
       ? {
-          bg: 'var(--mantine-color-gray-light)',
           header: { height: 60 },
           footer: { height: 60 },
           navbar: {
@@ -37,7 +36,7 @@ const AppShellElements = ({ children }) => {
       : null
 
   return (
-    <AppShell bg={'var(--mantine-color-gray-light)'} {...appShellProps}>
+    <AppShell {...appShellProps}>
       {!isAuthPath && !isErrorPath ? (
         <>
           {' '}

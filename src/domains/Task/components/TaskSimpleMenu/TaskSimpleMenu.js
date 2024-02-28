@@ -15,11 +15,7 @@ const TaskSimpleMenu = () => {
   return (
     <Menu width={200} shadow="md">
       <Menu.Target>
-        <ActionIcon
-          variant="filled"
-          color={'var(--mantine-color-violet-9)'}
-          aria-label="delete"
-        >
+        <ActionIcon variant="filled" aria-label="delete">
           <IconSortDescendingLetters size={18} />
         </ActionIcon>
       </Menu.Target>

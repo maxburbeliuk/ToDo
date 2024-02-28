@@ -37,7 +37,7 @@ const Upload = (props) => {
       title=""
       placeholder={
         <Center>
-          <IconPhotoUp color={'var(--mantine-color-violet-9)'} />
+          <IconPhotoUp />
         </Center>
       }
       label="Your image"

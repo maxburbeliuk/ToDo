@@ -15,11 +15,13 @@ import {
   Drawer,
   Button,
   ActionIcon,
-  Text
+  Text,
+  Flex
 } from '@mantine/core'
 import { useSearchTask, useTaskActions } from '~/domains/Task/hooks'
 import { modals } from '@mantine/modals'
 import { useState } from 'react'
+import { ImageUploader } from '~/components'
 
 const TaskAdvancedView = () => {
   const [opened, { open, close }] = useDisclosure(false)
@@ -59,30 +61,37 @@ const TaskAdvancedView = () => {
             <TaskSimpleFilter />
             <Divider orientation="vertical" />
             <TaskSimpleMenu />
-            <Button onClick={open} color={'var(--mantine-color-violet-9)'}>
-              Open Drawer
-            </Button>
+            <Button onClick={open}>Open Drawer</Button>
           </Group>
         </Grid.Col>
       </Grid>
-      <Drawer
-        withCloseButton={false}
-        position="top"
-        size="62px"
-        opened={opened}
-        onClose={close}
-        overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
+      <Flex
+        bg="rgba(0, 0, 0, .3)"
+        gap="sm"
+        justify="flex-start"
+        align="flex-start"
+        p={5}
       >
-        <ActionIcon
-          variant="filled"
-          aria-label="delete"
-          color={'var(--mantine-color-orange-6)'}
-          onClick={openDeleteModal}
+        <ImageUploader />
+        <Drawer
+          withCloseButton={false}
+          position="top"
+          size="62px"
+          opened={opened}
+          onClose={close}
+          overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
         >
-          <IconTrashFilled size={18} />
-        </ActionIcon>
-      </Drawer>
-      <TaskSimpleForm onSubmit={handleCreateTask} />
+          <ActionIcon
+            variant="filled"
+            aria-label="delete"
+            color={'var(--mantine-color-orange-6)'}
+            onClick={openDeleteModal}
+          >
+            <IconTrashFilled size={18} />
+          </ActionIcon>
+        </Drawer>
+        <TaskSimpleForm onSubmit={handleCreateTask} />
+      </Flex>
       <Space h="lg" />
       <Space h="lg" />
       <TaskList

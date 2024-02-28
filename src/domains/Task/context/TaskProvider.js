@@ -60,4 +60,5 @@ const TaskProvider = (props) => {
     </TaskDispatchContext.Provider>
   )
 }
+
 export default TaskProvider
