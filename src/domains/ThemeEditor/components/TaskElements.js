@@ -32,6 +32,10 @@ const TaskElements = ({ onChangePrimaryColor }) => {
     }
   }
 
+  const changeColor = () => {
+    onChangePrimaryColor('red')
+  }
+
   return (
     <>
       <Paper shadow="xl" radius="lg" h="84vh" w={400}>
@@ -99,7 +103,9 @@ const TaskElements = ({ onChangePrimaryColor }) => {
           }}
         />
       </Paper>
-      <Button variant="filled">Primary color</Button>
+      <Button variant="filled" onClick={changeColor}>
+        Primary color
+      </Button>
     </>
   )
 }

@@ -11,16 +11,15 @@ import { AuthProvider } from '~/domains/Auth/context'
 import { useState } from 'react'
 
 const App = () => {
-  const [primaryColor, setPrimaryColor] = useState('')
-
+  const { _, setColor } = useState()
   const handleChangePrimaryColor = (color) => {
-    setPrimaryColor(color)
+    setColor(color)
   }
   return (
     <BrowserRouter>
       <MantineProvider
         theme={{
-          primary: primaryColor || 'default-color',
+          primary: setColor || 'default-color',
           colors: {
             'pale-violet': [
               '#F6EEFF',
