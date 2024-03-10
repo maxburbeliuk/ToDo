@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-const TaskEditorContext = createContext()
-const TaskEditorDispatchContext = createContext()
+const ThemeEditorContext = createContext()
+const ThemeEditorDispatchContext = createContext()
 
-export { TaskEditorContext, TaskEditorDispatchContext }
+export { ThemeEditorContext, ThemeEditorDispatchContext }

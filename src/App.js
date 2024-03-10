@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { MantineProvider } from '@mantine/core'
+import { Button, ColorInput, MantineProvider } from '@mantine/core'
 import { AppNavigator, AuthNavigator, ServicesNavigator } from '~/navigators'
 import { AppShell } from '~/components'
 import { Notifications } from '@mantine/notifications'
@@ -9,48 +9,37 @@ import React from 'react'
 import ErrorBoundary from '~/contexts'
 import { AuthProvider } from '~/domains/Auth/context'
 import { useState } from 'react'
+import { generateColors } from './domains/ThemeEditor/hooks'
+import useThemeEditorActions from '~/domains/ThemeEditor/hooks/useThemeEditorActions'
 
 const App = () => {
-  const { _, setColor } = useState()
+  const [theme, setTheme] = useState()
+
   const handleChangePrimaryColor = (color) => {
-    setColor(color)
+    const newTheme = handleChangeTheme(generateColors(color))
+    setTheme(newTheme)
   }
+
+  const handleChangeTheme = useThemeEditorActions()
+
+  // console.log('theme', theme)
   return (
     <BrowserRouter>
-      <MantineProvider
-        theme={{
-          primary: setColor || 'default-color',
-          colors: {
-            'pale-violet': [
-              '#F6EEFF',
-              '#E7DAF7',
-              '#CAB1EA',
-              '#AD86DD',
-              '#9562D2',
-              '#854BCB',
-              '#7D3EC9',
-              '#6B31B2',
-              '#5F2AA0',
-              '#52228D'
-            ]
-          }
-        }}
-      >
+      <MantineProvider theme={theme}>
         <ErrorBoundary>
           <ModalsProvider>
             <Notifications />
             <GDPR />
             <AuthProvider>
               <AppShell>
+                <ColorInput
+                  variant="filled"
+                  placeholder="Input placeholder"
+                  w={180}
+                  onChange={handleChangePrimaryColor}
+                />
                 <Routes>
-                  <Route
-                    path="/*"
-                    element={
-                      <AppNavigator
-                        onChangePrimaryColor={handleChangePrimaryColor}
-                      />
-                    }
-                  />
+                  <Route path="/*" element={<AppNavigator />} />
                   <Route path="auth/*" element={<AuthNavigator />} />
                   <Route path="services/*" element={<ServicesNavigator />} />
                 </Routes>

@@ -17,23 +17,10 @@ import {
 import { IconMoon, IconSunHigh } from '@tabler/icons-react'
 import { useState } from 'react'
 
-const TaskElements = ({ onChangePrimaryColor }) => {
+const TaskElements = () => {
   const iconProps = {
     style: { width: rem(20), height: rem(20), display: 'block' },
     stroke: 1.5
-  }
-
-  const [primaryColor, setPrimaryColor] = useState('')
-
-  const changePrimaryColor = (color) => {
-    if (primaryColor !== color) {
-      setPrimaryColor(color)
-      onChangePrimaryColor(color)
-    }
-  }
-
-  const changeColor = () => {
-    onChangePrimaryColor('red')
   }
 
   return (
@@ -85,7 +72,6 @@ const TaskElements = ({ onChangePrimaryColor }) => {
           <Flex align="center" justify="space-between">
             <Text fw={700}>colorPrimary</Text>
             <ColorInput
-              onChange={(color) => changePrimaryColor(color)}
               variant="filled"
               placeholder="Input placeholder"
               w={180}
@@ -103,9 +89,6 @@ const TaskElements = ({ onChangePrimaryColor }) => {
           }}
         />
       </Paper>
-      <Button variant="filled" onClick={changeColor}>
-        Primary color
-      </Button>
     </>
   )
 }
