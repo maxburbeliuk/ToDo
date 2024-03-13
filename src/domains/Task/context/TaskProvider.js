@@ -40,7 +40,6 @@ const TaskProvider = (props) => {
 
   useEffect(() => {
     const isDataFetched = (tasks && !loading) || error
-    console.log(tasks)
     if (isDataFetched) {
       if (!error) {
         dispatch({
@@ -61,4 +60,5 @@ const TaskProvider = (props) => {
     </TaskDispatchContext.Provider>
   )
 }
+
 export default TaskProvider

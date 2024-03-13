@@ -1,7 +1,15 @@
-import { LoginForm } from '~/domains/components'
+import { LoginForm } from '~/domains/Auth/components'
+import { usePostAuthActions } from '~/domains/Auth/hooks/post'
+import { Center } from '@mantine/core'
 
 const Login = () => {
-  return <LoginForm />
+  const { onLogin } = usePostAuthActions()
+
+  return (
+    <Center h={'100vh'}>
+      <LoginForm onLogin={onLogin} />
+    </Center>
+  )
 }
 
 export default Login

@@ -1,11 +1,9 @@
 import { useContext } from 'react'
-import { notifications } from '@mantine/notifications'
 import { TaskDispatchContext } from '~/domains/Task/context'
-import '@mantine/notifications/styles.css'
-import * as TASK_CONTEXT_ACTIONS from '~/domains/Task/context/__constants__/taskActions'
-import endpointsBuilder from '../../../helpers/endpointsBuilder'
+import { TASK_CONTEXT_ACTIONS } from '~/domains/Task/context/__constants__'
+import endpointsBuilder from '~/helpers/endpointsBuilder'
 import { ENDPOINTS } from '~/__constants__'
-import { create, edit, remove, get } from '~/services'
+import { post, update, remove, get } from '~/services'
 
 export default function useTaskActions() {
   const taskDispatch = useContext(TaskDispatchContext)
@@ -14,19 +12,17 @@ export default function useTaskActions() {
     const { _id, text, description, done } = taskData
     const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID, { taskId: _id })
 
-    const { data: task, message } = await edit(endpoint, {
-      done: !done,
-      text,
-      description
-    })
+    const { data: task } = await update(
+      endpoint,
+      {
+        done: !done,
+        text,
+        description
+      },
+      true
+    )
 
     if (!task) return
-
-    notifications.show({
-      title: 'Notification',
-      message: message,
-      color: 'green'
-    })
 
     taskDispatch({
       type: TASK_CONTEXT_ACTIONS.EDIT_OR_CHANGE,
@@ -47,28 +43,16 @@ export default function useTaskActions() {
   const handleDeleteTask = async (_id) => {
     const endpoint = endpointsBuilder(ENDPOINTS.TASKS_BY_ID, { taskId: _id })
 
-    const { data: task, message } = await remove(endpoint)
+    const { data: task } = await remove(endpoint, {}, true)
 
     if (!task) return
-
-    notifications.show({
-      title: 'Notification',
-      message: message,
-      color: 'green'
-    })
   }
 
   const handleDeleteManyTask = async (taskIds) => {
     const endpoint = endpointsBuilder(ENDPOINTS.TASKS)
-    const { data: tasks, message } = await remove(endpoint, { taskIds })
-    console.log(tasks)
-    if (!tasks) return
+    const { data: tasks } = await remove(endpoint, { taskIds }, true)
 
-    notifications.show({
-      title: 'Notification',
-      message: message,
-      color: 'green'
-    })
+    if (!tasks) return
 
     taskDispatch({
       type: TASK_CONTEXT_ACTIONS.UPDATE_DELETED_TASKS,
@@ -81,10 +65,14 @@ export default function useTaskActions() {
   const handleCreateTask = async ({ text, description }) => {
     const endpoint = endpointsBuilder(ENDPOINTS.TASKS)
 
-    const { data: task, message } = await create(endpoint, {
-      text,
-      description
-    })
+    const { data: task } = await post(
+      endpoint,
+      {
+        text,
+        description
+      },
+      true
+    )
 
     if (!task) return
 
@@ -93,11 +81,6 @@ export default function useTaskActions() {
       payload: {
         task
       }
-    })
-    notifications.show({
-      title: 'Notification',
-      message: message,
-      color: 'green'
     })
   }
 

@@ -11,10 +11,10 @@ import { NAV_LINKS_ITEMS } from '~/components/MainMenu/__constants__'
 
 const MainMenu = () => {
   const [active, setActive] = useState(NAV_LINKS_ITEMS[0].label)
-
   const [isShown, setIsShown] = useState(false)
 
   const [state, handlers] = useListState(NAV_LINKS_ITEMS)
+
   const items = state.map((item, index) => (
     <Draggable key={item.label} index={index} draggableId={item.label}>
       {(provided, snapshot) => (
@@ -43,6 +43,7 @@ const MainMenu = () => {
       )}
     </Draggable>
   ))
+
   return (
     <DragDropContext
       onDragEnd={({ destination, source }) =>
@@ -60,4 +61,5 @@ const MainMenu = () => {
     </DragDropContext>
   )
 }
+
 export default MainMenu

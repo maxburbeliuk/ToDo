@@ -1,44 +1,36 @@
 import REST_METHODS from './__constants__/methods'
-import { safe } from '~/helpers'
+import { handleStatusCode, safe } from '~/helpers'
 import { notifications } from '@mantine/notifications'
 
-const get = async (endpoint) => {
-  const snapshot = fetch(endpoint, {
+const get = async (endpoint, successMessage) => {
+  const req = new Request(endpoint, {
     method: REST_METHODS.GET,
     headers: {
       'Content-Type': 'application/json'
-    }
+    },
+    // mode: 'cors',
+    credentials: 'include'
   })
+  const snapshot = fetch(req)
 
   const { data, success } = await safe(
     snapshot,
-    'Something went wrong during create'
+    'Something went wrong during post'
   )
 
   if (!success) {
     notifications.show({
       color: 'red',
-      title: 'Oops! Failed to create',
-      message: data.error
+      title: 'Oops! Failed to get',
+      message: data?.error
     })
-    return {
-      data: null,
-      error: 'Oops! Failed to fetch',
-      message: 'Something went wrong during create',
-      statueCode: 500
-    }
+
+    return { data: null, message: 'Something went wrong during post' }
   }
 
   const result = await data.json()
 
-  if (result.statusCode !== 200) {
-    notifications.show({
-      color: 'yellow',
-      title: 'Oops! Something went wrong',
-      message: result.message
-    })
-    return { data: result.data, message: result.message }
-  }
+  handleStatusCode(result, successMessage)
 
   return result
 }

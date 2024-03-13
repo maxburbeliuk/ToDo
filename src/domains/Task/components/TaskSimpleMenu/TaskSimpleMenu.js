@@ -19,7 +19,6 @@ const TaskSimpleMenu = () => {
           <IconSortDescendingLetters size={18} />
         </ActionIcon>
       </Menu.Target>
-
       <Menu.Dropdown>
         <Menu.Label>Sort by</Menu.Label>
         {Object.entries(MENU_OPTIONS_SORT_BY_FIELD).map(([key, value]) => (
@@ -31,6 +30,8 @@ const TaskSimpleMenu = () => {
             onClick={() => onChangeSortByField(key)}
           >
             <Checkbox
+              color={'var(--mantine-color-lime-4)'}
+              iconColor={'var(--mantine-color-dark-8)'}
               labelPosition="right"
               label={toTitleCase(value)}
               checked={menuOptionsSortByField?.[key]}
@@ -48,6 +49,8 @@ const TaskSimpleMenu = () => {
             onClick={() => onChangeSortType(key)}
           >
             <Checkbox
+              color={'var(--mantine-color-lime-4)'}
+              iconColor={'var(--mantine-color-dark-8)'}
               labelPosition="right"
               label={toTitleCase(value)}
               checked={menuOptionsSortByType?.[key]}
