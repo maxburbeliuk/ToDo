@@ -1,1 +1,1 @@
-export { default as generateColors } from './getClosestLightness'
+export { default as useThemeEditorActions } from './useThemeEditorActions'

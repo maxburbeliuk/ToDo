@@ -8,10 +8,12 @@ import {
   DragItemWrapper
 } from '~/components/MainMenu/components'
 import { NAV_LINKS_ITEMS } from '~/components/MainMenu/__constants__'
+import { useNavigate } from 'react-router-dom'
 
 const MainMenu = () => {
   const [active, setActive] = useState(NAV_LINKS_ITEMS[0].label)
   const [isShown, setIsShown] = useState(false)
+  const navigate = useNavigate()
 
   const [state, handlers] = useListState(NAV_LINKS_ITEMS)
 
@@ -35,7 +37,10 @@ const MainMenu = () => {
             label={item.label}
             leftSection={<DragIcon isShown={isShown}>{item.icon}</DragIcon>}
             onClick={() => {
-              if (!snapshot.isDragging) setActive(item.label)
+              if (!snapshot.isDragging) {
+                setActive(item.label)
+                navigate(item.path)
+              }
             }}
             variant="subtle"
           />

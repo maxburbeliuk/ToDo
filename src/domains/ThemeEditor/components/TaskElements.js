@@ -15,13 +15,15 @@ import {
   ActionIcon
 } from '@mantine/core'
 import { IconMoon, IconSunHigh } from '@tabler/icons-react'
-import { useState } from 'react'
+import { useThemeEditorActions } from '~/domains/ThemeEditor/hooks'
 
 const TaskElements = () => {
   const iconProps = {
     style: { width: rem(20), height: rem(20), display: 'block' },
     stroke: 1.5
   }
+
+  const { handleChangePrimaryColor } = useThemeEditorActions()
 
   return (
     <>
@@ -75,6 +77,7 @@ const TaskElements = () => {
               variant="filled"
               placeholder="Input placeholder"
               w={180}
+              onChangeEnd={handleChangePrimaryColor}
             />
           </Flex>
         </Box>

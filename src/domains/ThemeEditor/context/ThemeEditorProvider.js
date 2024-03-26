@@ -1,22 +1,24 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useMemo, useReducer } from 'react'
 import themeEditorReducer from './reducer'
 import {
   ThemeEditorContext,
   ThemeEditorDispatchContext
 } from './ThemeEditorContext'
-import { Loader } from '@mantine/core'
+import { createTheme, MantineProvider } from '@mantine/core'
 const ThemeEditorProvider = (props) => {
   const { children } = props
 
   const [state, dispatch] = useReducer(themeEditorReducer, {
     primary: []
   })
-  console.log(state, dispatch)
 
+  const theme = useMemo(() => createTheme(state), [state])
   return (
     <ThemeEditorDispatchContext.Provider value={dispatch}>
       <ThemeEditorContext.Provider value={state}>
-        {children}
+        <MantineProvider defaultColorScheme="dark" theme={theme}>
+          {children}
+        </MantineProvider>
       </ThemeEditorContext.Provider>
     </ThemeEditorDispatchContext.Provider>
   )

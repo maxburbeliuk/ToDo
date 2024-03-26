@@ -1,14 +1,16 @@
-import { useContext } from 'react'
-import { ThemeEditorContext } from '~/domains/ThemeEditor/context'
 import { THEME_EDITOR_CONTEXT_ACTIONS } from '~/domains/ThemeEditor/context/__constants__'
-export default function useThemeEditorActions() {
-  const themeEditorDicpatch = useContext(ThemeEditorContext)
+import { useThemeEditorDispatchContext } from '~/domains/ThemeEditor/context/useThemeEditor'
+const useThemeEditorActions = () => {
+  const themeEditorDispatch = useThemeEditorDispatchContext()
 
-  const handleChangeTheme = (primary) => {
-    themeEditorDicpatch({
-      type: THEME_EDITOR_CONTEXT_ACTIONS.CHANGE_THEME_COLOR,
+  const handleChangePrimaryColor = (primary) => {
+    themeEditorDispatch({
+      type: THEME_EDITOR_CONTEXT_ACTIONS.CHANGE_PRIMARY_COLOR,
       payload: { primary }
     })
   }
-  return handleChangeTheme
+
+  return { handleChangePrimaryColor }
 }
+
+export default useThemeEditorActions

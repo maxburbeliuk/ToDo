@@ -1,6 +1,6 @@
 import { TaskElements } from '~/domains/ThemeEditor/components'
-const TaskEditor = () => {
+const ThemeEditor = () => {
   return <TaskElements />
 }
 
-export default TaskEditor
+export default ThemeEditor

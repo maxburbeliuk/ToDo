@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Button, ColorInput, MantineProvider } from '@mantine/core'
+import { MantineProvider } from '@mantine/core'
 import { AppNavigator, AuthNavigator, ServicesNavigator } from '~/navigators'
 import { AppShell } from '~/components'
 import { Notifications } from '@mantine/notifications'
@@ -8,36 +8,18 @@ import { GDPR } from '~/components'
 import React from 'react'
 import ErrorBoundary from '~/contexts'
 import { AuthProvider } from '~/domains/Auth/context'
-import { useState } from 'react'
-import { generateColors } from './domains/ThemeEditor/hooks'
-import useThemeEditorActions from '~/domains/ThemeEditor/hooks/useThemeEditorActions'
+import { ThemeEditorProvider } from '~/domains/ThemeEditor/context'
 
 const App = () => {
-  const [theme, setTheme] = useState()
-
-  const handleChangePrimaryColor = (color) => {
-    const newTheme = handleChangeTheme(generateColors(color))
-    setTheme(newTheme)
-  }
-
-  const handleChangeTheme = useThemeEditorActions()
-
-  // console.log('theme', theme)
   return (
     <BrowserRouter>
-      <MantineProvider theme={theme}>
+      <ThemeEditorProvider>
         <ErrorBoundary>
           <ModalsProvider>
             <Notifications />
             <GDPR />
             <AuthProvider>
               <AppShell>
-                <ColorInput
-                  variant="filled"
-                  placeholder="Input placeholder"
-                  w={180}
-                  onChange={handleChangePrimaryColor}
-                />
                 <Routes>
                   <Route path="/*" element={<AppNavigator />} />
                   <Route path="auth/*" element={<AuthNavigator />} />
@@ -47,7 +29,7 @@ const App = () => {
             </AuthProvider>
           </ModalsProvider>
         </ErrorBoundary>
-      </MantineProvider>
+      </ThemeEditorProvider>
     </BrowserRouter>
   )
 }

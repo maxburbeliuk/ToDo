@@ -39,7 +39,6 @@ const AppShellElements = ({ children }) => {
     <AppShell {...appShellProps}>
       {!isAuthPath && !isErrorPath ? (
         <>
-          {' '}
           <AppShell.Header>
             <Group h="100%" px="md">
               <Burger
