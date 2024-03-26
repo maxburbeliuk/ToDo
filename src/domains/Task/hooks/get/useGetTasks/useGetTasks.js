@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 import { notifications } from '@mantine/notifications'
+import { get } from '~/services'
+import { ENDPOINTS } from '~/__constants__'
+import { endpointsBuilder } from '~/helpers'
 
 const useGetTasks = () => {
   const [tasks, setTasks] = useState(null)
@@ -10,20 +13,9 @@ const useGetTasks = () => {
     try {
       setLoading(true)
 
-      const snapshot = await fetch('http://localhost:8000/v1/tasks', {
-        method: 'GET'
-      })
+      const endpoint = endpointsBuilder(ENDPOINTS.TASKS)
 
-      const response = await snapshot.json()
-
-      if (response.statusCode !== 200) {
-        notifications.show({
-          color: 'red',
-          title: response.message,
-          message: response.error
-        })
-        return
-      }
+      const response = await get(endpoint)
 
       setTasks(response.data)
     } catch (err) {

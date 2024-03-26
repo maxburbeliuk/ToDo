@@ -80,7 +80,7 @@ const reducer = (state, action) => {
 
     case TASK_CONTEXT_ACTIONS.UPDATE_DELETED_TASKS: {
       const deletedTasks = action.payload.tasks
-      console.log(!deletedTasks)
+
       const tasksWithoutDeleted = state.tasks.reduce(
         (accumulator, item) =>
           !deletedTasks.some((deletedTask) => deletedTask._id === item._id)
